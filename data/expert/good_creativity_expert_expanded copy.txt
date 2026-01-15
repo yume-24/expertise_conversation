@@ -1,0 +1,17 @@
+Creativity is one of those constructs that sounds intuitive until you try to study it. In my research, we focus on 
+divergent thinking and associative network models—specifically how idea generation can be facilitated or constrained 
+by prior semantic structures in the brain. We use fMRI and EEG to explore which regions are active during tasks like 
+conceptual expansion or metaphor production.
+
+What's really fascinating is how creativity isn’t just one thing—it’s contextual. Musical creativity is neurologically 
+distinct from mathematical insight or visual art. But across domains, there seems to be this balance between focused 
+attention and spontaneous cognition. We often refer to it as controlled chaos.
+
+We also look at how mood and environment shape creative output. There’s this persistent myth that sadness leads to 
+greater creativity, but our findings suggest that moderate positive affect is actually more conducive to sustained 
+creative work—especially when tasks require iterative revision.
+
+And from a cognitive modeling standpoint, we’ve been simulating idea pathways using probabilistic generative models. 
+We're still far from replicating what the brain does, but the models help us test theories about semantic priming, 
+inhibition, and novelty thresholds. Creativity isn’t just about making something new—it’s about making something that 
+is both novel *and* useful, and that’s surprisingly hard to quantify. We’ve also started exploring creativity in collaborative settings—how group dynamics either inhibit or amplify creative flow. Turns out, interpersonal trust and psychological safety are significant predictors of whether creative teams actually generate novel output or just conform to shared assumptions. In terms of education, I'm really interested in how traditional assessment structures stifle divergent thinking. The more students are rewarded for getting the 'right' answer, the less comfortable they are with ambiguity—which is kind of the lifeblood of creativity. And you see cultural differences too. Western contexts often celebrate originality and individual expression, whereas other cultures might value refinement or blending with tradition. That makes measuring creativity across populations even more complex.

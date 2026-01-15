@@ -1,0 +1,10 @@
+
+Artificial intelligence—where to even begin. My research specifically looks at multi-agent systems and emergent behavior in distributed AI, but honestly, even at a broad level, AI has become this catch-all phrase that means wildly different things depending on who you're talking to. From symbolic reasoning in the '70s to deep learning today, we’ve seen so many paradigm shifts.
+
+I think what fascinates me most is how we're using machine learning to approximate functions with very little human-understandable structure. Neural networks, especially transformers now, do things that used to require enormous engineering effort—like translation, summarization, even generating music and code. And yet, if you look inside these models, it's mostly linear algebra and a staggering number of parameters.
+
+There's also the ethics side. I work with some folks who study fairness in AI, and the rabbit holes go deep. It’s not just about removing bias—it’s about questioning what "fair" even means, algorithmically. Who decides? And what assumptions are we baking into our loss functions, our datasets?
+
+One exciting line we’re pursuing is how to get models to reflect uncertainty more robustly—Bayesian deep learning, epistemic uncertainty, and confidence calibration. Because right now, these models often say the wrong thing with way too much confidence, which is dangerous in fields like medicine or law.
+
+And on the theory side, I’m still waiting for a unifying framework. We don't really have an overarching theory of learning that ties together statistical learning, neural computation, and causal reasoning. But we’re getting closer, especially as cognitive science starts to feed back into AI research again. It feels like we’re on the edge of something big—but whether it’s general intelligence or just more advanced autocomplete remains to be seen.

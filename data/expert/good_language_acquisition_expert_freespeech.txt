@@ -1,0 +1,30 @@
+Language acquisition... okay, so this is something I’ve been thinking about for years
+now—especially how early exposure, multimodal input, and interaction shape the trajectory
+of a child’s linguistic development. In my lab, we study both monolingual and bilingual
+children, and what’s fascinating is how flexible yet rule-governed their acquisition
+pathways are.  A lot of people ask, "Is it all innate?" Well, yes and no. The brain
+clearly comes prepared to deal with language, but the input matters immensely. We’ve done
+longitudinal studies where children in high-quantity input environments—lots of adult
+speech, child-directed speech, joint attention—reach syntactic milestones months earlier
+than kids in lower input settings. It's not just quantity though; quality matters. Diverse
+vocabulary, varied syntactic frames, pragmatic scaffolding—those things accelerate
+acquisition.  And critical periods are real, but maybe not as sharp-edged as we thought.
+Phonological learning does seem to peak early—say, before age 2—but morphosyntactic
+learning shows plasticity into adolescence. Still, we see a marked drop-off in ultimate
+attainment, especially in accent and function word mastery, past certain windows.  There’s
+also this ongoing debate between generativist and usage-based models. I find myself
+somewhere in between. I think kids extract rules, yes, but I think those rules are
+probabilistic and driven by input frequency. Like, they’re mini Bayesian learners—tracking
+co-occurrence patterns, adjusting hypotheses, revising over time.  We’ve been
+incorporating eye-tracking and EEG into our work now. With EEG, we can detect ERP
+components like the N400 and P600 during sentence processing, even in toddlers. That gives
+us real-time insight into whether they're treating certain constructions as grammatical or
+anomalous. Honestly, the data has really pushed us to rethink what counts as
+“understanding.”  And lately, we’ve been working with L2 learners too—especially heritage
+speakers. That’s a whole different set of variables: identity, literacy, code-switching
+norms, and community support. But it's all language learning, and it’s all telling us
+something about how flexible and constrained the system is.  It’s a rich field. You’ve got
+behavioral experiments, corpus studies, computational modeling—it’s a multi-method
+ecosystem. No single approach will explain everything. But what I love most is that
+language acquisition research is always, at its heart, about people learning to connect
+with one another.

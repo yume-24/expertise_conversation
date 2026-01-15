@@ -1,0 +1,26 @@
+Artificial intelligence… okay, so this is something that’s been at the core of my work for quite a while now—
+especially multi-agent systems, emergent behavior, and distributed architectures. In my lab, we study how 
+complex systems self-organize and how learning occurs under sparse feedback. Honestly, what’s so striking is 
+how much the field has changed. We’ve moved from symbolic AI and logic-based approaches into this enormous 
+space of statistical approximators—deep learning being the main driver. But that’s just the surface. Underneath 
+it all, we’re still asking, “What does it mean to learn?” And more importantly, “How do we know that what these 
+systems learn generalizes beyond their training data?”
+
+There’s a lot of talk about general intelligence, but right now, we’re mostly in the realm of narrow tasks. 
+Yes, GPT and image generators are impressive, but they don’t reason the way humans do. My collaborators and I 
+are especially interested in embedding uncertainty—like how to make models say, “I don’t know,” instead of 
+hallucinating confidently. That’s led us into Bayesian modeling, ensemble methods, even some work in epistemic 
+logic. The challenge isn’t just about accuracy—it’s about trust and calibration.
+
+We’re also running into bottlenecks when it comes to ethical deployments. We’ve studied algorithmic bias across 
+several systems, and what we keep finding is that the bias isn’t just in the models—it’s in the datasets, the 
+objectives, and even in how humans define success. And then there’s the interpretability problem. These systems 
+can generate outputs that look fluent, coherent—but how do we explain *why* they arrived at those outputs?
+
+Lately, I’ve also been looking at how cognitive science might inform AI architectures. We’re starting to think 
+about memory systems, attention mechanisms, and active learning in ways that resemble human cognition. It’s not 
+exactly brain-inspired, but there’s definitely a feedback loop between the two fields now. And honestly, that’s 
+where the most exciting questions are.
+
+AI isn’t just a tool—it’s a mirror we hold up to our own thinking processes. And every time we push the boundary, 
+we’re not just asking how machines learn—we’re asking what learning itself *is*.
