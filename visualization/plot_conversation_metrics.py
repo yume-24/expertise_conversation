@@ -35,6 +35,24 @@ EXPERTISE_ORDER = ["Child", "Teen", "College Student", "Graduate Student", "Expe
 
 # ---------- helpers ----------
 
+def is_host_speaker(s: str) -> bool:
+    """
+    Return True if the speaker label looks like the recurring host/expert.
+    Customize this with the host name(s) that appear in your CSVs.
+    """
+    if not isinstance(s, str):
+        return False
+    low = s.lower()
+
+    # TODO: put your host name(s) here:
+    HOST_KEYWORDS = [
+        "speaker 1",          # common in your exports
+        "chelsea finn",       # example from your table
+        "host",               # if you ever label it
+    ]
+    return any(k in low for k in HOST_KEYWORDS)
+
+
 def infer_expertise_from_speaker_label(s: str) -> str:
     """
     Infer expertise label from a speaker string.
@@ -202,6 +220,12 @@ def main():
 
     df = pd.read_csv(csv_path)
 
+    # flag whether B is the host
+    if "speaker_B" in df.columns:
+        df["is_host_B"] = df["speaker_B"].apply(is_host_speaker)
+    else:
+        df["is_host_B"] = False
+
     # infer expertise_B if not present
     if "expertise_B" not in df.columns:
         if "speaker_B" not in df.columns:
@@ -209,6 +233,9 @@ def main():
         df["expertise_B"] = df["speaker_B"].apply(infer_expertise_from_speaker_label)
 
     df["expertise_B"] = pd.Categorical(df["expertise_B"], categories=EXPERTISE_ORDER, ordered=True)
+    # If expertise_B is Expert, keep only rows where B is NOT the host
+    # (so "Expert" reflects the second-speaker experts, not the default host)
+    df = df[~((df["expertise_B"] == "Expert") & (df["is_host_B"]))].copy()
 
     # ---- choose core metrics (edit freely) ----
     anchor_metrics = [

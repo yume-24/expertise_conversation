@@ -46,7 +46,7 @@ from sklearn.metrics import normalized_mutual_info_score
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 
-# Optional SciPy acceleration (hull, Hausdorff, fast NN)
+#scipy optimization(optional)
 try:
     from scipy.spatial import ConvexHull, Delaunay, cKDTree
     SCIPY_OK = True
@@ -63,6 +63,7 @@ def safe_float(x, default=np.nan):
         return float(x)
     except Exception:
         return default
+
 
 def entropy_from_counts(counts: np.ndarray) -> float:
     counts = counts.astype(float)
@@ -495,11 +496,35 @@ def compute_conversation_metrics(
 # ---------------------------
 
 def iter_csv_files(input_path: Path) -> List[Path]:
-    if input_path.is_file() and input_path.suffix.lower() == ".csv":
-        return [input_path]
+    """
+    Recursively collect all CSV files under input_path.
+
+    - If input_path is a CSV file: return [that file]
+    - If input_path is a directory: return all *.csv under it (including subdirs)
+    - Skips common temp/hidden files.
+    """
+    if input_path.is_file():
+        return [input_path] if input_path.suffix.lower() == ".csv" else []
+
     if input_path.is_dir():
-        return sorted(input_path.glob("*.csv"))
+        files = sorted(input_path.rglob("*.csv"))
+
+        # skip hidden/temp files
+        cleaned = []
+        for f in files:
+            name = f.name
+            if name.startswith("."):           # .DS_Store style
+                continue
+            if name.startswith("~$"):          # Excel temp
+                continue
+            if name.endswith(".tmp.csv"):      # random temp convention
+                continue
+            cleaned.append(f)
+
+        return cleaned
+
     raise ValueError(f"Input must be a CSV file or a directory of CSVs: {input_path}")
+
 
 def main():
     ap = argparse.ArgumentParser()

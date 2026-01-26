@@ -1,36 +1,21 @@
 Sequence,Speaker,Utterance,Notes
-64,Speaker 1 (Dr. Bobby Kasthuri),other so I think today we're going to,
-65,Speaker 1 (Dr. Bobby Kasthuri),talk about a connectome,
-66,Speaker 1 (Dr. Bobby Kasthuri),do you have you ever heard of that,
-67,Speaker 1 (Dr. Bobby Kasthuri),a connectome,
-68,Speaker 4 (Elena Dowling),yeah no,
-69,Speaker 4 (Elena Dowling),I I don't think so,
-70,Speaker 1 (Dr. Bobby Kasthuri),it's a map of all the connections between every neuron in your brain,
-71,Speaker 1 (Dr. Bobby Kasthuri),uh um literally in a human brain,[lit Al = literally]
-72,Speaker 1 (Dr. Bobby Kasthuri),something like the map of the one quadrillion connections,
-73,Speaker 1 (Dr. Bobby Kasthuri),that 100 billion neurons make with each other,
-74,Speaker 4 (Elena Dowling),is this like a a a map where that's like an actual visual representation,
-75,Speaker 4 (Elena Dowling),like using microscopy or just data,
-76,Speaker 4 (Elena Dowling),wow wow I'm understanding more so that it's these these,
-77,Speaker 4 (Elena Dowling),the a mapping of the neuro the the circuitry,
-78,Speaker 4 (Elena Dowling),the pathways between neurons that can lead to evidence of patterns in your brain,
-79,Speaker 4 (Elena Dowling),that are common between different people,
-80,Speaker 1 (Dr. Bobby Kasthuri),we have to use electron microscopes,
-81,Speaker 1 (Dr. Bobby Kasthuri),and then we've been developing are ways to slice the brain into really thin slices,
-82,Speaker 1 (Dr. Bobby Kasthuri),use an electron microscope to take a picture of each slice,
-83,Speaker 1 (Dr. Bobby Kasthuri),and then use computers to put it all back,
-84,Speaker 1 (Dr. Bobby Kasthuri),imagine that we could get the map of every connection right,
-85,Speaker 1 (Dr. Bobby Kasthuri),and we knew how neurons fired,
-86,Speaker 1 (Dr. Bobby Kasthuri),do you think we could put that in a computer,
-87,Speaker 1 (Dr. Bobby Kasthuri),that map,
-88,Speaker 1 (Dr. Bobby Kasthuri),and then therefore that computer should be able to think,
-89,Speaker 1 (Dr. Bobby Kasthuri),just like like the brain that we extracted it from,
-90,Speaker 4 (Elena Dowling),well the computer only communicates with itself in binary,
-91,Speaker 4 (Elena Dowling),so it only has two options,
-92,Speaker 4 (Elena Dowling),it can only ask itself yes or no questions,
-93,Speaker 4 (Elena Dowling),but a human brain has an Infinity of directions that it can go,
-94,Speaker 1 (Dr. Bobby Kasthuri),neurons are also um uh digital,
-95,Speaker 1 (Dr. Bobby Kasthuri),uh meaning a neuron either fires or it doesn't fire,
-96,Speaker 1 (Dr. Bobby Kasthuri),so that's either one or a zero,
-97,Speaker 1 (Dr. Bobby Kasthuri),uh and it's the combination of those ones or zeros,
-98,Speaker 1 (Dr. Bobby Kasthuri),"that actually produce the 10,000 different answers that you say",
+1,"Speaker 1 (Dr. Bobby Kasthuri)","So I think today we're going to talk about a connectome.",""
+2,"Speaker 1 (Dr. Bobby Kasthuri)","Do you have you ever heard of that?",""
+3,"Speaker 4 (Elena Dowling)","A connectome?",""
+4,"Speaker 1 (Dr. Bobby Kasthuri)","Yeah.",""
+5,"Speaker 4 (Elena Dowling)","No I I don't think so.",""
+6,"Speaker 1 (Dr. Bobby Kasthuri)","Awesome.",""
+7,"Speaker 1 (Dr. Bobby Kasthuri)","Good.",""
+8,"Speaker 1 (Dr. Bobby Kasthuri)","It's a map of all the connections between every neuron in your brain.",""
+9,"Speaker 1 (Dr. Bobby Kasthuri)","Uh um literally in a human brain something like the map of the one quadrillion connections that 100 billion neurons make with each other.",""
+10,"Speaker 4 (Elena Dowling)","Is this like a a a map where that's like an actual visual representation like using microscopy or just data?",""
+11,"Speaker 4 (Elena Dowling)","Wow wow.",""
+12,"Speaker 4 (Elena Dowling)","I'm understanding more so that it's these these the a mapping of the neuro the the circuitry the pathways between neurons that can lead to evidence of patterns in your brain that are common between different people.",""
+13,"Speaker 1 (Dr. Bobby Kasthuri)","We have to use electron microscopes and then we've been developing ways to slice the brain into really thin slices.",""
+14,"Speaker 1 (Dr. Bobby Kasthuri)","Use an electron microscope to take a picture of each slice and then use computers to put it all back.",""
+15,"Speaker 1 (Dr. Bobby Kasthuri)","Imagine that we could get the map of every connection right and we knew how neurons fired.",""
+16,"Speaker 1 (Dr. Bobby Kasthuri)","Do you think we could put that in a computer that map and then therefore that computer should be able to think just like like the brain that we extracted it from?",""
+17,"Speaker 4 (Elena Dowling)","Well the computer only communicates with itself in binary so it only has two options.",""
+18,"Speaker 4 (Elena Dowling)","It can only ask itself yes or no questions but a human brain has an infinity of directions that it can go.",""
+19,"Speaker 1 (Dr. Bobby Kasthuri)","Neurons are also um uh digital uh meaning a neuron either fires or it doesn't fire so that's either one or a zero.",""
+20,"Speaker 1 (Dr. Bobby Kasthuri)","And it's the combination of those ones or zeros that actually produce the 10,000 different answers that you said.",""
