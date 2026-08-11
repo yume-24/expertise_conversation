@@ -1,0 +1,722 @@
+\documentclass{article}  
+\usepackage{amssymb,amsthm,amsopn,amsmath,amscd,graphicx}
+\usepackage[authoryear,round]{natbib}
+\usepackage[mathscr]{euscript}
+
+\newtheorem{thm}{Theorem}[section]    % Standard theorem environment
+\newtheorem{lem}[thm]{Lemma}          % Lemma environment with numbering 
+                                      % consecutive to theorems
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{coro}[thm]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[thm]{Definition} % Definition environment with 
+                                         % numbering consecutive to theorems
+\numberwithin{table}{section}
+
+\def\real{{\bf R}}
+\def\S{{\bf S}}
+\def\T{{\bf T}}
+\def\integer{{\bf Z}}
+\def\N{\mathbf{N}}
+
+\setlength{\textwidth=6.5in}
+\setlength{\textheight=9.0in}
+\hoffset=-0.80in
+\voffset=-1.00in
+
+\begin{document}
+
+\title{Semantic Alignment and Navigation Across Expertise Gaps in Conversation}
+\author{Yume Ishida \& Jeff Yoshimi}
+\date{\today}
+\maketitle                                      % Activate to display a given date or no date
+
+\begin{abstract}
+Expertise, in conversation, is often studied through static linguistic features or task performance, leaving open the question of how meaning can be dynamically negotiated in the context of interaction. In this paper, we examine how conversational semantic structure varies across levels of expertise gaps by modeling dialogue as a time-evolving process in embedding space. Using a corpus of expert–novice conversations spanning children, teenagers, college students, graduate students, and domain experts, we represent the interlocuters' utterances as semantic vectors and derive interactional metrics capturing alignment, convergence, asymmetry of influence, and responsiveness over time. Across multiple conversations and speakers, we find systematic differences in interactional dynamics across expertise levels: conversations involving less experienced participants exhibit close but relatively static semantic overlap, whereas more advanced participants show faster alignment, greater mutual influence, and more dynamic convergence toward expert-introduced concepts. These results suggest that conversational expertise is reflected not only in what is said, but in how semantic space is jointly navigated in interaction.
+
+
+\textbf{Keywords:}
+common ground; dialogue; psycholinguistics; language production; expertise 
+\end{abstract}
+
+\section{Introduction}
+
+Human verbal communication is not merely the transmission of information, but a dynamic process in which meaning is jointly constructed over time. In conversation, interlocutors continuously adapt to one another, aligning their linguistic choices, conceptual representations, and expectations with the aim of achieving mutual understanding. Prior work in psycholinguistics has shown that such alignment plays a central role in conversational coordination \citep{pickering_toward_2004}, enabling efficient communication even under conditions of ambiguity or limited shared context.
+
+At the same time, a large body of research in cognitive science has demonstrated that expertise fundamentally shapes how individuals perceive, organize, and reason about information within a domain. Experts differ from novices not only in the amount of knowledge they possess, but in how that knowledge is structured and accessed. These differences have been extensively documented in studies of task performance, problem solving, and memory, yet they have most often been examined in isolation rather than in interactive settings.
+
+Relatively little is known about how differences in expertise manifest in the context of conversation, looking at a pair of interlocutors, and how a pair navigates information, rather than individuals. In particular, it remains unclear how interlocutors with differing levels of expertise jointly navigate meaning and coordinate semantically over time, and whether interactions across different expertise levels exhibit fundamentally different structural conversational dynamics.
+
+In this paper, we address this gap by modeling conversation as a trajectory through semantic embedding space. Using a range of geometric, informational, and dynamical measures, we analyze how conversational structure varies across differences in expertise and familiarity within a specified shared domain. Rather than focusing on static linguistic features, we examine how meaning is stabilized, explored, and redistributed temporally across turns. Our results reveal distinct regimes of semantic coordination associated with different levels of expertise gaps, suggesting that expertise shapes not only what is communicated, but how interlocutors jointly organize information and meaning in interaction.
+
+\section{Background}
+
+There have been many studies involving conversational semantics and interactive alignment \citep{pickering_toward_2004,garrod_joint_2009}, and many studies examining expertise via task performance and problem solving \citep{groot_thought_1965,robinson_mathematical_1978}. This study bridges these two traditions by examining conversational interaction across different levels of gaps in expertise and familiarity within a domain.
+
+Through many task performance studies, we know that experts are able to swiftly recognize patterns in deep structural relations within their domain of expertise \citep{egan_chunking_1979}, to a point where what they are doing becomes less abstraction, and more immediate perception \citep{groot_thought_1965}. While novices are often forced to perform some sort of abstraction over surface-level features, experts can immediately grasp deep conceptual structures, which help them swiftly solve problems and coordinate actions efficiently \citep{chi1981expertise}. These studies demonstrate differences in the macroprocesses of expert–novice processing and cognition, and suggest that expertise is associated with fundamentally different representational organizations.
+
+Miller (1956) highlights another key distinction between experts and novices, which is effective working memory utilization. Experts tend to be much more apt at accessing and chunking knowledge, resulting in reduced cognitive load and therefore much more fluent task execution.
+
+Taking into account these major differences in expert–novice cognition, it follows that interactions between interlocutors of different levels of expertise would lead to systematic differences in conversational dynamics. We aim to characterize how these cognitive differences are reflected in the structure and evolution of semantic space during conversation.
+
+\section{Data and Methods}
+
+A set of 14 videos were selected from the “5 levels” playlist published by WIRED, a series that has an expert explain a concept in their *** field of expertise at 5 levels: to a child, a teenager, an undergraduate college student, a graduate student, and a fellow expert. 
+
+% Probably no need to report the abandoned method
+The auto-generated transcripts on the Youtube platform were processed by Gemini*** along with the video data to assign speaker labels to each utterance, or to chatGPT to assign speaker labels contextually (this method ended produced mixed results, and was therefore abandoned after a few videos). All speaker pair corpora were refromatted in csv format with columns for sequence, speaker, utterance, and notes. The csv files for each video were broken up into five separate files, one for each speaker pair. Within each speaker-pair csv, utterances were assigned embeddings using SentenceTransformers, which were used to calculate a variety of statistics for each conversation/speaker pair. SentenceTransformers we deemed an effective embedding model, as sentence embeddings would most accurately capture the conceptual/semantic characteristics of each utterance, and therefore be *** representative of each single semantic act. Sentences (and utterances in our case) represent the smallest linguistically stable unit of propositional meaning, allowing each embedding to correspond to a single semantic contribution while preserving sufficient contextual richness for distributional analysis. We also analyzed trigram embeddings (since utterance lengths are relatively uneven), which were put through the same pipeline as the sentence embeddings. *
+
+Let the two speakers in a conversation be denoted by $A$ and $B$ and conversational turn by $t$.  Utterances were defined as short, semantically coherent segments derived from the transcript, rather than strictly as full speaker turns or grammatical sentences. In practice, segmentation was performed manually by identifying units that expressed a single idea or communicative function. Boundaries were introduced at natural breakpoints such as pauses, interruptions, or shifts in semantic content, such that a single speaker turn $t$ could contain multiple utterances.
+
+This approach was adopted to better align the unit of analysis with the embedding-based metrics used in this study. Because sentence embeddings operate over semantically meaningful units, segmenting transcripts into smaller, coherent utterances allows for more fine-grained representation of local conversational dynamics than would be possible using full turns alone. We embedded the utterances in turn $t$ in a 384-dimensional real vector space using the model \texttt{all-MiniLM-L6-v2} and denote this embedding $e_t^A$ for speaker $A$ and $e_t^B$ for speaker $B$. This makes it possible to show conversations as unfolding sequences of points in a space, as illustrated in figure \ref{fig:embedding}. Speaker identity is coded by color.
+
+We encode expertise using ordinal variables $E_A, E_B \in \{0,1,2,3,4\}$, corresponding to child, teen, college student, graduate student, and expert, respectively. We define the absolute expertise gap between $A$ and $B$ as
+\begin{equation}
+|\Delta E| = |E_B - E_A| .
+\end{equation}
+and signed expertise gap as
+\begin{equation}
+\Delta E = E_B - E_A ,
+\end{equation}
+The absolute gap ranges from 0 to 4 where 0 corresponds to matched expertise and 4 is the maximum possible expertise gap. The signed gap ranges from -4 to 4 with negative values indicating $A$ has more expertise and positive values indicating $B$ has more expertise.
+
+\subsection{Centroid-related}
+
+At time $t$, each speaker has a set of utterances and corresponding embeddings they have produced up to and including time $t$. Each utterance is assigned an embedding using SentenceTransformers, and that embedding is ****. 
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.9\linewidth]{figures/embedding.png}
+  \caption{Illustration of speaker-specific embeddings over time. Each utterance is assigned an embedding in a shared speaker space.}
+  \label{fig:embedding}
+\end{figure}
+The centroid is calculated as the arithmetic mean of their embeddings, and so $muA[t]$ is the centroid of speaker A's embeddings up to and incuding time $t$, and is calculated as: 
+\[
+\mu_A(t) = \frac{1}{|S_A(t)|} \sum_{i \in S_A(t)} e_i
+\]
+speaker B's centroid's would ** be calculated as: 
+
+\[
+\mu_B(t) = \frac{1}{|S_B(t)|} \sum_{i \in S_B(t)} e_i
+\]
+At each time $t$, we computed the distance between the centroids of the two speakers, yielding a Euclidean centroid-distance value for that time point. 
+\[
+d_{\text{euc}}(t)
+=
+\left\| \mu_A(t) - \mu_B(t) \right\|
+\]
+
+This procedure results in a time series capturing the evolving semantic separation between speakers over the course of the interaction. From this time series, we derived summary statistics including the mean centroid distance, the standard deviation of centroid distances, and the linear slope of centroid distance over time, which respectively quantify overall separation, variability, and directional change in semantic alignment. As illustrated in Figure\ref{fig:centroid_distance}, speaker-specific centroids are computed cumulatively over time and their Euclidean separation defines the centroid-distance metric.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.9\linewidth]{figures/centroid.png}
+  \caption{Illustration of speaker-specific centroid computation and centroid distance over time. Sentence embeddings are accumulated by speaker, centroids are computed at each time step, and Euclidean distance between centroids yields a time-varying centroid-distance trajectory.}
+  \label{fig:centroid_distance}
+\end{figure}
+
+
+\subsection{Cross-speaker nearest neighbor and Hausdorff}
+
+In addition to centroid-based metrics, we computed asymmetric nearest-neighbor distances between speaker embedding sets. These metrics quantify how closely the semantic content produced by one speaker aligns with that of the other, capturing directional proximity and asymmetries in semantic coverage. In calculating cross-speaker nearest neighbor values for A -> B, for every utterance point for speaker A, we took the closest utterance by speaker B, and then averaged the minimum distances. This metric can be interpreted as how well speaker B's utterances semantically approximate those of speaker A. 
+\[
+\mathrm{NN}(A \rightarrow B)
+=
+\frac{1}{n_A}
+\sum_{i=1}^{n_A}
+\min_{j}
+d(a_i, b_j)
+\]
+The values for B -> A simply calculate the opposite. 
+\[
+\mathrm{NN}(B \rightarrow A)
+=
+\frac{1}{n_B}
+\sum_{j=1}^{n_B}
+\min_{i}
+d(b_j, a_i)
+\]
+Our Hausdorff value is a softened, average-based variant, which captures the maximum of the two directional nearest-neighbor distances, reflecting the largest average semantic gap/semantic mismatch between the speakers.
+\[
+d_{\text{Haus}}^{\text{soft}}(A, B)
+=
+\max\bigl(
+\mathrm{NN}(A \rightarrow B),
+\mathrm{NN}(B \rightarrow A)
+\bigr)
+\]
+These three metrics best represent embedding distribution asymmetry between two speakers. 
+
+\subsection{Influence asymmetry}
+
+Influence asymmetry addresses a key limitation in the centroid distance slope metric, that we can't tell who's semantic trajectory is moving towards who's. It addresses how alignment between the two interlocutor's is achieved, showing who had to adapt to reach ****. 
+Let $\mathbf{e}_t \in \mathbb{R}^d$ denote the embedding of the utterance at turn $t$, and let $s_t \in \{A,B\}$ denote the speaker at turn $t$. To summarize each speaker’s evolving semantic position over time, we compute cumulative centroid vectors using all of that speaker’s utterances observed up to turn $t$.
+\begin{equation}
+\boldsymbol{\mu}_A(t) \;=\; 
+\frac{1}{\left|\{ i \le t : s_i = A \}\right|}
+\sum_{\substack{i \le t \\ s_i = A}} \mathbf{e}_i
+\end{equation}
+\begin{equation}
+\boldsymbol{\mu}_B(t) \;=\; 
+\frac{1}{\left|\{ i \le t : s_i = B \}\right|}
+\sum_{\substack{i \le t \\ s_i = B}} \mathbf{e}_i
+\end{equation}
+In figure \ref{fig:speaker_influence}, we can see the orange points representing cumulative centroid points for speaker A, and the purple points representing speaker B at $t$=2 and $t$=3. If we were to calculate the influence of speaker B on speaker A, we would track speaker A’s semantic movement following exposure to speaker B’s most recent utterance. The movement of centroids between consecutive turns for A is given as: 
+\begin{equation}
+\Delta \boldsymbol{\mu}_A \;=\; \boldsymbol{\mu}_A(t_{k+1}) - \boldsymbol{\mu}_A(t_k)
+\end{equation}
+We also take the difference of A's previous centroid to B's most recent centroid. 
+\begin{equation}
+\mathbf{v}_{A \leftarrow B} \;=\; \boldsymbol{\mu}_B(t_k) - \boldsymbol{\mu}_A(t_k)
+\end{equation}
+We then calculate the cosine similarity of these two vectors with negative values indicating the other speaker(speaker A in this case) moved away from the speaker of focus (speaker B in this case) whereas positive values would indicate the other speaker (speaker A in this case) was influenced by the speaker of focus (speaker B in this case) and moved towards. Cosine similarity is used to isolate directional alignment independent of the magnitude of centroid movement.This acts as one unit measuring directional influence. 
+\begin{equation}
+\mathrm{Influence}_{B \rightarrow A}(k)
+\;=\;
+\frac{
+\Delta \boldsymbol{\mu}_A \cdot \mathbf{v}_{A \leftarrow B}
+}{
+\left\|\Delta \boldsymbol{\mu}_A\right\|
+\left\|\mathbf{v}_{A \leftarrow B}\right\|
+}
+\end{equation}
+
+In the case of Figure \ref{fig:speaker_influence}, since vector \begin{math}\Delta \boldsymbol{\mu}_A \end{math}, and \begin{math}\mathbf{v}_{A \leftarrow B}\end{math} are pointing in opposite directions, the value (which calculates alignment) would be negative. 
+
+Overall influence simply takes the mean of all directional influence units over all consecutive turns of the "other speaker"(speaker A in this case). 
+
+\begin{equation}
+\mathrm{Influence}_{B \rightarrow A}
+\;=\;
+\frac{1}{K}
+\sum_{k=1}^{K}
+\mathrm{Influence}_{B \rightarrow A}(k)
+\end{equation}
+Influence asymmetry shows if influence is stronger in one direction by simply taking the difference of indluence values. 
+\begin{equation}
+\mathrm{InfluenceAsymmetry}
+\;=\;
+\mathrm{Influence}_{A \rightarrow B}
+-
+\mathrm{Influence}_{B \rightarrow A}
+\end{equation}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.9\linewidth]{figures/influence.png}
+  \caption{Illustration of speaker-specific influence.}
+  \label{fig:speaker_influence}
+\end{figure}
+
+\subsection{Turn jump metrics}
+
+Let $\mathbf{e}_t \in \mathbb{R}^d$ denote the embedding of the utterance at turn $t$, and let $s_t \in \{A,B\}$ denote the speaker at turn $t$. A turn transition occurs at time $t$ if $s_t$ \begin{math}\neq\end{math}$s_{t-1}$. The set of turn transitions can be denoted as \begin{math}\mathcal{T} = \{\, t \mid s_t \neq s_{t-1} \,\}\end{math}.
+ For each turn transition, we calculate the euclidean distance between $e_t$ and $e_{t-1}$, capturing the magnitude of the jump between the embeddings. 
+The mean turn-jump distance, we can interpret as the average semantic displacement at turn boundaries:
+
+\begin{equation}
+\text{TurnJump}_{\text{mean}} =
+\frac{1}{|\mathcal{T}|}
+\sum_{t \in \mathcal{T}}
+\left\| e_t - e_{t-1} \right\|_2
+\end{equation}
+The standard deviation, we can interpret as the stability of conversational semantic dynamics:
+
+\begin{equation}
+    \text{TurnJump}_{\text{std}} =
+\sqrt{
+\frac{1}{|\mathcal{T}|}
+\sum_{t \in \mathcal{T}}
+\left(
+d_{\text{jump}}(t)
+-
+\text{TurnJump}_{\text{mean}}
+\right)^2
+}
+\end{equation}
+We also observe directional turn jump sets: \\\begin{math}\mathcal{T}_{A \rightarrow B} =
+\{\, t \mid s_{t-1} = A,\; s_t = B \,\}\end{math}
+\begin{math}
+    \mathcal{T}_{B \rightarrow A} =
+\{\, t \mid s_{t-1} = B,\; s_t = A \,\}
+\end{math}
+
+and mean turn jumps: 
+\begin{equation}
+    \text{TurnJump}_{A \rightarrow B} =
+\frac{1}{|\mathcal{T}_{A \rightarrow B}|}
+\sum_{t \in \mathcal{T}_{A \rightarrow B}}
+\left\| e_t - e_{t-1} \right\|_2
+\end{equation}
+\begin{equation}
+    \text{TurnJump}_{B \rightarrow A} =
+\frac{1}{|\mathcal{T}_{B \rightarrow A}|}
+\sum_{t \in \mathcal{T}_{B \rightarrow A}}
+\left\| e_t - e_{t-1} \right\|_2
+\end{equation}
+Directional turn jump means, we can interpret as how much on average a speaker jumps on average in their responses to the other speaker. 
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.9\linewidth]{figures/turn_jump.png}
+  \caption{Illustration of turn jump distance.}
+  \label{fig:turn_jump}
+\end{figure}
+
+\subsection{3.5 Entropy metrics}
+We used entropy-related metrics to examine semantic distributions across speakers and conversations, with large entropy values signifying broad semantic exploration, and smaller values are reflective of very confined semantic use.  We calculated a total of ten entropy-related metrics: k\_clusters, entropy\_total, entropy\_A, entropy\_B, mi\_speaker\_cluster	nmi\_speaker\_cluster, mi\_turn\_clusters, nmi\_turn\_clusters, entropy\_slope\_A, entropy\_slope\_B. (We use Shannon entropies for our metrics).
+
+\subsubsection{3.5.1 Total entropy}
+Total semantic entropy quantifies the overall diversity of semantic regions visited during a conversation, independent of speaker identity. K-means clustering was used where k was calculated as (\begin{math}k \approx \min\left(12,\max\left(4,\sqrt{N}\right)\right)
+\end{math}). The embeddings for all speakers were grouped into k clusters, and the number of embeddings in each cluster were used to calculate the entropy. 
+Distributions are calculated as: 
+\begin{equation}
+    p_c = \frac{1}{N} \sum_{i=1}^{N} \mathbb{I}[C(\mathbf{e}_i) = c]
+\end{equation}
+Shannon entropies are calculated as: 
+\begin{equation}
+    H_{\text{total}}=-\sum_{c=1}^{k} p_c \log_2 p_c
+\end{equation}
+
+\subsubsection{Per-speaker entropy}
+
+Per-speaker entropy measures the semantic variability for each speaker, and uses the same calculation as total entropy, but applies it per-speaker: 
+K-means-clustering is performed on each speaker's embeddings, where embeddings are grouped into k-clusters(\begin{math}k \approx \min\left(12,\max\left(4,\sqrt{N}\right)\right)
+\end{math}) and the embedding count in each cluster is used to calculate entropy. 
+Distributions are calculated as:
+\begin{equation}
+p_{A,c}
+=
+\frac{1}{N_A}
+\sum_{i \in S_A}
+\mathbb{I}[C(\mathbf{e}_i) = c]
+\end{equation}
+\begin{equation}
+p_{B,c}
+=
+\frac{1}{N_B}
+\sum_{i \in S_B}
+\mathbb{I}[C(\mathbf{e}_i) = c]
+\end{equation}
+and so the Shannon entropies are calculated using the following formulas: 
+\begin{equation}
+    H_A=-\sum_{c=1}^{k} p_{A,c} \log_2 p_{A,c}
+\end{equation}
+\begin{equation}
+    H_B=-\sum_{c=1}^{k} p_{B,c} \log_2 p_{B,c}
+\end{equation}
+
+\subsubsection{Mutual information of per-speaker entropies}
+To measure how strongly semantic clusters are associated with speaker identity, we computed mutual information between cluster assignments and speaker labels. The calculation is as follows: 
+\begin{equation}
+    I(S;C)=\sum_{s \in \{A,B\}}\sum_{c=1}^{k}p(s,c)\log_2\frac{p(s,c)}{p(s)p(c)}
+\end{equation}
+The mutual information score reflects the dependency between these two variables, and so higher values would suggest that speakers inhabit distinct semantic spaces, whereas lower values would suggest more shared usage and overlap of semantic regions. 
+
+\subsubsection{Mutual information of turn clusters}
+
+We can use **** to observe response patterns of speakers ****. 
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.9\linewidth]{figures/mi_turn_cluster.png}
+  \caption{Illustration of the process of calculating mutual information of turn clusters.}
+  \label{fig:mi_turn_cluster}
+\end{figure}
+ Let $\mathbf{e}_t \in \mathbb{R}^d$ denote the embedding of the utterance at turn $t$, and let $s_t \in \{A,B\}$ denote the speaker at turn $t$. A turn transition occurs at time $t$ if $s_t$ \begin{math}\neq\end{math}$s_{t-1}$. The set of turn transitions can be denoted as \begin{math}\mathcal{T} = \{\, t \mid s_t \neq s_{t-1} \,\}\end{math}. For every turn transition, the cluster that the previous speaker's utterance belonged to, and the cluster that the current speaker's utterance belongs to is listed in format (****,****). We gather the **** for every turn transition $t$, which gets passed into the sklearn function\begin{verbatim}
+mutual_info_score(prev_clusters, next_clusters)
+\end{verbatim}. The cluster pairs are turned into joint probabilities, which sklearn uses to calculate the mutual information score. **********. 
+
+\subsubsection{Entropy slope} 
+
+For our entropy slope metrics, we examine one speaker at a time, looking at the progression of entropy in their utterance embeddings. Taking speaker A, for example, we can calculate cumulative entropy after $j$ utterances as \begin{equation}
+    H_A(j)=-\sum_{c=1}^{k}\frac{n_{A,c}^{(j)}}{j}\log_2\frac{n_{A,c}^{(j)}}{j}
+\end{equation}
+We then perform Ordinary Least Squares(OLS) regression: 
+\begin{equation}
+    \text{EntropySlope}_A=\frac{\sum_j (j-\bar{j})(H_A(j)-\overline{H_A})}{\sum_j (j-\bar{j})^2}
+\end{equation}
+Positive values indicate an increase in entropy, which suggests more diverse semantic use, whereas negative values indicate a decrease. This **** can perhaps indicate exploration vs. stabilization in speakers' utterances. 
+
+\subsection{Alignment lag metrics}
+
+Alignment lag is a temporal measure of how long it takes for one speaker to enter the same semantic region as an utterance by the other speaker. Lower values indicate faster semantic alignment, while higher values indicate delayed or absent alignment.
+Let each utterance at time $t$ be embedded as a vector $\mathbf{e}_t \in \mathbb{R}^d$, $I_a$ and $I_b$ denote the index sets of utterance embeddings produced by speakers A and B respectively. 
+To operationalize semantic proximity, we define a distance threshold  $\varepsilon$ (distances are Euclidean) that determines when two utterances are considered to occupy the same semantic neighborhood.  $\varepsilon$, in our case is set at the 25th percentile of all cross-speaker embedding distances. 
+\begin{equation}
+    \varepsilon
+=
+\operatorname{percentile}_{25}
+\left(
+\left\{
+\lVert \mathbf{e}_i - \mathbf{e}_j \rVert_2
+\;\middle|\;
+i \in I_A,\; j \in I_B
+\right\}
+\right)
+\end{equation} For each utterance $i$ produced by speaker A, we check how long it takes for speaker B to form an utterance that falls within distance $\varepsilon$ of A's utterance. Formally, the lag, the earliest future utterance by speaker B that falls within distance $\varepsilon$ of utterance $i$ by speaker A is defined as: \begin{equation}
+\ell_{A \rightarrow B}(i)
+=
+\min_{j \in I_B,\; j > i}
+\left\{
+j - i
+\;\middle|\;
+\lVert \mathbf{e}_j - \mathbf{e}_i \rVert_2 < \varepsilon
+\right\}
+\end{equation}
+The mean alignment lag $\text{AlignLag}_{A\rightarrow B}$ is obtained by averaging $\ell_{A \rightarrow B}(i)$ across all speaker A's utterances for which a valid alignment occurs. This metric captures how long it takes on average for speaker B to form an utterance that falls within the same semantic neighborhood as utterances introduced by speaker A. 
+We can also calculate alignment asymmetry by subtracting B->A alignment lag from A->B alignment lag.\begin{equation}
+    \mathrm{AlignLag}_{\Delta}
+=
+\mathrm{AlignLag}_{A \rightarrow B}
+-
+\mathrm{AlignLag}_{B \rightarrow A}
+\end{equation} 
+Positive values indicate speaker B aligning more quickly to speaker A which negative values indicate the opposite. 
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.9\linewidth]{figures/alignment_lag.png}
+  \caption{Alignment lag for a single utterance, in this example $e_A^1$}
+  \label{fig:alignment_lag}
+\end{figure}
+
+\subsection{Hull area overlap}
+
+Hull overlap metric capture the degree to which speakers share semantic regions and reflect the full extent/diversity of each speaker's semantic space via ****. These metrics quantify the nature of the diversity, overlap, and containment of semantic territory explored throughout a ****. 
+We define speaker specific hulls as 
+\begin{equation}
+    \mathcal{H}_A = \operatorname{ConvHull}\{\mathbf{z}_i \mid i \in I_A\}
+\end{equation}
+\begin{equation}
+    \mathcal{H}_B = \operatorname{ConvHull}\{\mathbf{z}_i \mid i \in I_B\}
+\end{equation}
+with their areas being calculated ** the following. 
+*** sample \begin{math}
+    \mathbf{x}_1, \dots, \mathbf{x}_N \sim \operatorname{Uniform}(\mathcal{B})
+\end{math} from the bounding box of both hulls $\mathcal{B}$ and use a Monte Carlo estimation to calculate overlap, using the following calculation:
+\begin{equation}
+\widehat{\text{Area}}_{\text{overlap}}
+=
+\frac{1}{N}
+\sum_{i=1}^{N}
+\mathbb{I}\!\left[
+\mathbf{x}_i \in \mathcal{H}_A \cap \mathcal{H}_B
+\right]
+\cdot
+\operatorname{Area}(\mathcal{B})
+\end{equation}
+We then normalize: 
+\begin{equation}
+    \text{OverlapRatio}_{\min}
+=
+\frac{
+\widehat{\text{Area}}_{\text{overlap}}
+}{
+\min(\text{Area}_A, \text{Area}_B)
+}
+\end{equation}
+This captures the fraction of the smaller speaker's semantic space that overlaps with the other's. Containment of one speaker's hull in the other's is calculated as: 
+\begin{equation}
+    \text{Containment}_{B \subset A}
+=
+\frac{1}{|I_B|}
+\sum_{i \in I_B}
+\mathbb{I}\!\left[
+\mathbf{z}_i \in \mathcal{H}_A
+\right]
+\end{equation}
+\begin{equation}
+    \text{Containment}_{A \subset B}
+=
+\frac{1}{|I_A|}
+\sum_{i \in I_A}
+\mathbb{I}\!\left[
+\mathbf{z}_i \in \mathcal{H}_B
+\right]
+\end{equation}
+and can be interpreted as the proportion of one speaker's utternaces that fall within the same semantic region defined by the other speaker's utterances. If one speaker's hull is *** the subset of the other's, ****they may be imitating vocablulary, not venturing out and exploring, etc. *****. We know that Novices tend to operate within surface-level subsets whereas expert's tend to work within richer ***Hulls****. 
+
+\subsection{Partial correlations}
+
+Partial correlations were calculated using a residualization approach to assess association between semantic interaction metrics and expertise related variables. Interaction metrics $X$ and expertise variables $Y$ were first both regressed on a common set of control variables which were selected to account for differences in conversaton length, speaker participation, and alignment scale(n\_utterances, n\_A, n\_B, and align\_eps). We used Pearson correlations between the resulting residuals, and these values were used as the partial correlation coefficients. 
+Let $\mathbf{Z}$ denote the matrix of control variables. The partial correlation between $X$ and $Y$ given $\mathbf{Z}$ is computed as
+\[
+r_{X,Y \mid \mathbf{Z}} = \mathrm{corr}\!\left(
+X - \hat{X}_{\mathbf{Z}},
+Y - \hat{Y}_{\mathbf{Z}}
+\right),
+\]
+where $\hat{X}_{\mathbf{Z}}$ and $\hat{Y}_{\mathbf{Z}}$ are the fitted values obtained by linear regression of $X$ and $Y$ on $\mathbf{Z}$, respectively. 
+
+In correcting for multiple comparisons, we used the Benjamini–Hochberg false discovery rate (FDR) procedure to adjust p-values. 
+In correcting for multiple comparisons, we used the Benjamini–Hochberg false discovery rate (FDR) procedure to adjust p-values. 
+
+\section{Results}
+
+\subsection{Semantic separation increases with expertise gap}
+One *** trend observed across metrics was semantic separation increasing as expertise gap increased, in various forms. Centroid distance is perhaps the simplest measure indicating semantic separation. We can see in figures \ref{fig:line_centroid_mean} and \ref{fig:centroid_mean_distance} a clear downward monotonic trend of centroid distance as the expertise gap **lessens***? Alongside centroid distance, we can also look at speaker-specific cross-speaker nearest neighbor metrics. The mean nearest-neighbor distance from Speaker A to Speaker B (A→B) (figure \ref{fig:line_cross_nn_A_to_B}) decreases monotonically with increasing expertise level, while the reverse direction (B→A) (figure \ref{fig:line_cross_nn_B_to_A}) shows a complementary increase. This indicates a systematic directional asymmetry in local semantic proximity across expertise levels. Hausdorff values, which capture the largest average semantic gap between speakers, also shows a decrease as expertise gap decreases. 
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.9\linewidth]{figures/centroid_mean_distance.png}
+  \caption{Bar graph showing centroid mean distance across different levels of expertise-gap conversations.}
+  \label{fig:centroid_mean_distance}
+\end{figure}
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.9\linewidth]{figures/line_centroid_mean.png}
+  \caption{Line graph showing global centroid distance means across different levels of expertise-gap conversations.}
+  \label{fig:line_centroid_mean}
+\end{figure}
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.9\linewidth]{figures/line_cross_nn_A_to_B.png}
+  \caption{Line graph showing cross-speaker nearest neighbor values for speaker A->B}
+  \label{fig:line_cross_nn_A_to_B}
+\end{figure}
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.9\linewidth]{figures/line_cross_nn_B_to_A.png}
+  \caption{Line graph showing cross-speaker nearest neighbor values for speaker B->A.}
+  \label{fig:line_cross_nn_B_to_A}
+\end{figure}
+
+\subsection{Semantic scope and variability}
+
+For measures of scope and variability, we can look at entropy and hull area-related metrics. Regarding entropy values,  entropies of the second speaker tended stay relatively stable, with the exception of the experts, who had significantly high entropy values. Overall entropy values (including both speakers) tended to fluctuate across speaker level gaps as seen in figure \ref{fig:line_entropy_total}. Yet we can see a clean pattern emerge when looking at $s_A$ versus $s_B$ entropy slopes, as with a decrease in \begin{math}\left\|\Delta \boldsymbol{\mu}_A\right\|\end{math}, the entropy slopes of the speakers near the same value. 
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/line_entropy_B.png}
+    \caption{Line graph of second-speaker entropies.}
+    \label{fig:line_entropy_B}
+\end{figure}
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/line_entropy_total.png}
+    \caption{Line graph of conversation entropies.}
+    \label{fig:line_entropy_total}
+\end{figure}
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/bar_entropy_slope_A_vs_B.png}
+    \caption{Bar graph of entropy slopes for both speakers.}
+    \label{fig:bar_entropy_slope_A_vs_B}
+\end{figure}
+
+\subsection{Asymmetric Semantic structure}
+
+We can look to containment metrics and influence asymmetry as measures of asymmetric semantic structure. Regarding containment, A in B containment showed a steady increase as \begin{math}\left\|\Delta \boldsymbol{\mu}_A\right\|\end{math} decreased as seen in figure \ref{fig:line_containment_A_in_B}, whereas B in A containment varied greatly as seen in figure \ref{fig:line_containment_B_in_A}. For influence metrics, $s_A$'s influence towards $s_b$ tended increase as \begin{math}\left\|\Delta \boldsymbol{\mu}_A\right\|\end{math} decreased, and $s_B$'s influence tended to slightly decrease as \begin{math}\left\|\Delta \boldsymbol{\mu}_A\right\|\end{math} decreased. 
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/line_containment_A_in_B.png}
+    \caption{Line graph showing containment of speaker A in speaker B's embeddings in relation to expertise gap}
+    \label{fig:line_containment_A_in_B}
+\end{figure}
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/line_containment_B_in_A.png}
+    \caption{Line graph showing containment of speaker B in speaker A's embeddings in relation to expertise gap}
+    \label{fig:line_containment_B_in_A}
+\end{figure}
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/line_influence_A_toward_B.png}
+    \caption{Line graph showing speaker A's influence towards speaker B. }
+    \label{fig:line_influence_A_toward_B}
+\end{figure}
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/line_influence_B_toward_A.png}
+    \caption{Line graph showing speaker B's influence towards speaker A.}
+    \label{fig:line_influence_B_toward_A}
+\end{figure}
+
+\subsection{Alignment dynamics}
+While ******** (further discussed in the limitations section), *****. In figures \ref{fig:line_align_lag_A_to_B}, \ref{fig:line_align_lag_B_to_A}, and \ref{fig:line_align_lag_asymmetry_AminusB}, we can see expert-expert conversations being a clear ***, with ******. 
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/line_align_lag_A_to_B.png}
+    \caption{Line graph showing alignment lag from speaker A to B.}
+    \label{fig:line_align_lag_A_to_B}
+\end{figure}
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/line_align_lag_B_to_A.png}
+    \caption{Line graph showing alignment lag from speaker B to A.}
+    \label{fig:line_align_lag_B_to_A}
+\end{figure}
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/line_align_lag_asymmetry_AminusB.png}
+    \caption{Line graph showing difference of A->B minus B->A alignment lags.}
+    \label{fig:line_align_lag_asymmetry_AminusB}
+\end{figure}
+
+\subsection{Partial correlations}
+The partial correlations and FDR-corrected q-values between semantic interaction metrics and expertise gap-related variables are shown in the heatmaps of figure \ref{fig:correlations}.
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/myplot.png}
+    \caption{Heatmap of partial correlations and FDR-corrected q-values between semantic interaction metrics and expertise gap-related variables }
+    \label{fig:correlations}
+\end{figure}
+Partial correlation analysis revealed that only a limited subset of semantic metrics exhibited statistically reliable associations with expertise-related variables after FDR correction. Looking just at the metrics with $q$<0.05, we see that centroid distance measures showed the strongest/most reliable correlations with expertise gap with entropy also having some correlation though not as strong. 
+
+
+\section{Analysis and Discussion}
+
+Across conversations of different \begin{math}\left\|\Delta \boldsymbol{\mu}_A\right\|\end{math}, centroid distance mean shows a close-to-linear, systematic pattern. Centroid distance means decrease monotonically as \begin{math}\left\|\Delta \boldsymbol{\mu}_A\right\|\end{math} decreases. While child-expert conversations exhibit a mean centroid distance of $\approx$ 0.60, expert\-expert conversations fall to a mean of around 0.47. While slope is not necessarily that intense, it is consistent, reflecting ******. 
+
+We can look at the actual conversations across different \begin{math}\left\|\Delta \boldsymbol{\mu}_A\right\|\end{math}, starting with child-expert conversations. Child-expert conversations are by far the most simple, characterized by many short utterances, *** language use, and repetition of words and phrases. Excerpt \ref{ex:child_expert_qc} demonstrates all of these qualities. All utterances are visibally very short, and while expert utterances do get a bit longer later on, these short utterances remain a core characteristic throughout child-expert interactions. The word choice and sentence structure are very elementary, with most turns being single clauses or fragments. We can see the expert speaker avoiding multi-propositional phrases to adapt to the child speaker, and this is what likely leads to the low semantic dispersion in child-expert interactions. We can also see throughout this interaction a repetition of phrases as a form of mirroring and scaffolding. In line (3), the child speaker *** "fancy chandelier," which the expert mirrors in line (4) (these utterances correspond to point B\_2 and A\_3 in figure \ref{fig:wired_talia_12_metric}, respectively). We can also see the same *** in exceprt \ref{ex:child_expert_sleep}, where in the expert repeats the child's phrase "really tired" on line (12), directly after on line (13). This use of repetition as a scaffolding device is consistent with interactive alignment accounts, which argue that alignment at lower levels (e.g., lexical choice) facilitates alignment at higher levels of representation, including syntactic structure and situation models \citep{menenti_toward_2012}. As a result of this constant repetition of phrases, every expert utterance has a very close neighbor in the child's utterance set. This explains the extremely high cross nearest neighbor values for expert $\rightarrow$ child. The reverse direction, however shows a *** low nearest neighbor value, which is a result of the child speakers' minimal responses that lack propositional content in response to the experts, leading to child utterances often lacking close counterparts in the experts' largely explanatory utterances. 
+In cases like child-expert interaction, where there is a significant alignment mismatch, this scaffolding becomes crucial in **** successful conversation. As another form of this scaffolding, the expert speaker repeatedly restates key terms when introducing definitions and new ideas, prioritizing stability and recognizability over semantic expansion. Repetition of words and phrases leads to *** nearby points, and when this repetition becomes sustained, that leads to the formation of tight clusters and very low entropy. 
+In child-expert interactions, there is very high local repetition alongside limited global semantic development, a configuration that corresponds to the tight embedding distributions throughout child-expert interactions. 
+Another key observation (previousy briefly mentioned) is that experts tend to do the bulk of the speaking in general, while the child speaker's utterances tend to consist largely of acknowledgement tokens or fragmentary utterances. This leads to highly asymmetric distribution of semantic labor, with expert embeddings displaced from those of the child speaker, leading to high mean centroid distance. We can see this very clearly in figure \ref{fig:wired_talia_12_metric}, where the child utterances are clustered in the bottom right of the embedding space, with one exception (this is where the child asks, "can computers help you with um your homework your really hard homework"), while the expert embeddings occupy the rest of the space. 
+
+As the level of speaker B goes up, we can see slightly more complex use of language, notably the introduction of the use of actual technical terms. At the teen level, experts tend to explain actual terms used in the field instead of purely relying on simple, accessible examples. 
+
+
+At the college student level, speaker B(the college student) tends to have baseline knowledge of the topic at hand, reducing the need for term-defining and leading to a more immediate use of **** terminology. At points in the conversation, college level speakers tend to check their understanding with the expert speaker, often rephrasing concepts explained by the expert, but often using simpler, less technical terminology. We can see this in exceprpt \ref{ex:expert_college_fusion}, where following the expert's explanation in lines (4) through (7), the college student checks their understanding briefly through a short utterance in line (8) ("So you get this kind of self-sustaining cycle"). Excerpt \ref{ex:expert_college_quantum_sensing} shows rephrasing on line (3) as a confirmaton for understanding. There is , ***, some variance in the level of comfortability of the college student speakers, with some of them demonstrating topic familiarity almost immediately, as with excerpt \ref{ex:expert_college_time}, where lines (6) to (7) make evident the speaker's base level familiarity with the concept at hand. The expert takes this as a cue to *** less scaffolding, which is evident through the consistent notably rapid introduction of new ideas throughout the interaction following lines (6)-(7).  
+
+
+\begin{excerpt}[Expert--college student interaction on nuclear fusion]\footnotemark
+\label{ex:expert_college_fusion}
+(1)  & A: We often call it an alpha particle. \\
+(2)  & A: And that is a charged particle, right. \\
+(3)  & B: Yeah \\
+(4)  & A: So it's actually going to stay in the plasma. \\
+(5)  & A: It's an energetic particle compared to the fuel. \\
+(6)  & A: So it actually is going to give its kinetic energy back to the fuel via Coulomb collisions. \\
+(7) & A: So now they're good, now we like them. \\
+(8) & B: So you get this kind of self-sustaining cycle. \\
+(9) & A: Yes, you you said exactly the right word, self-sustaining. \\
+\end{excerpt}
+\footnotetext{Excerpt taken from WIRED video on nuclear fusion and plasma physics.}
+
+\begin{excerpt}[Expert--college student interaction in quantum sensing]\footnotemark
+\label{ex:expert_college_quantum_sensing}
+(1) & A: And the fact that it's actually going to lose its quantum properties as it interacts with the world also makes it a great sensor. \\
+(2) & A: Because now you're actually, you're using that fact that it's interacting with the world to say, wait, it's sensing something. \\
+(3) & B: Okay, so it's like using like, the quantum computer would be kind of like the base level and then like you take it out into the world and see how like it differs? \\
+\end{excerpt}
+\footnotetext{Excerpt taken from the WIRED video on quantum sensing.}
+
+
+\begin{excerpt}[Expert--college student discussion on time symmetry]\footnotemark
+\label{ex:expert_college_time}
+(1)  & A: What are you studying right now? \\
+(2)  & B: I'm doing physics and computer science. \\
+(3)  & A: So, have you spent any time thinking about this weird quality of the laws of physics that there's no mathematical distinction in the laws between forward in time and backward in time? \\
+(4)  & A: Is that something you're familiar with? \\
+(5)  & B: Yeah. \\
+(6)  & B: And the one thing that really confuses me there, I'm thinking about uh, one of the most basic things we learn I guess from Interstellar is that the universe is expanding, or space is expanding. \\
+(7)  & B: And so I'm thinking, how does that square with gravity and electromagnetism, which is like kind of predicated on the density of charges or masses? \\
+(8)  & A: The fact that space expands is perfectly compatible with our understanding of all the forces of nature. \\
+(9)  & A: Because all of them continue to operate in a somewhat more subtle way. \\
+\end{excerpt}
+\footnotetext{Excerpt taken from WIRED video discussion on time and physics.}
+
+
+At the graduate student level, experts tend to become relentless in their word choice, using extremely domain-specific language, which ******. Experts utterances also tend to get much longer, as in contrast with child/teen speakers, where experts had to check for/confirm understanding, higher level speakers already have sufficient knowledge to "keep up" with more *** information. While the host expert remains the leader of the conversation, the interaction starts to resemble a more aligned **** of understanding, as *****.  
+
+
+
+\begin{excerpt}[Child--expert interaction: introducing ``quantum computer'']\footnotemark
+\label{ex:child_expert_qc}
+(1)  & B: what's this \\
+(2)  & A: yeah what do you think that is \\
+(3)  & B: fancy chandelier \\
+(4)  & A: i think so too we jokingly call it the chandelier \\
+(5)  & A: that's real gold you know \\
+(6)  & A: this is a quantum computer \\
+(7)  & B: it's a clunt \\
+(8)  & A: it's a really special kind of computer \\
+(9)  & B: what does it do \\
+(10) & A: it calculates things but in a totally different way to how your computer calculates things \\
+(11) & A: what do you think this is \\
+(12) & B: an A \\
+\end{excerpt}
+\footnotetext{Excerpt taken from WIRED video \citep{wired_quantum_2018}.}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/wired_Talia_12__metric_panels.png}
+    \caption{Visualization of metric calculations for expert-child interaction for conversation on quantum computers. }
+    \label{fig:wired_talia_12_metric}
+\end{figure}
+
+\begin{excerpt}[Child--expert interaction: discussing animal sleep and recovery]\footnotemark
+\label{ex:child_expert_sleep}
+(1)  & B: a giraffe \\
+(2)  & A: have you ever seen a giraffe in person? \\
+.\\
+.\\
+.\\
+(8)  & B: and how does it like recharge, like humans? \\
+(9)  & A: so we think it works the same way, but maybe just like more efficiently. and so we're still really learning about how this works. sleep science itself is kind of a new field \\
+(10) & B: i had a sleepover on saturday, and i didn't sleep at all \\
+(11) & A: and how did you feel? \\
+(12) & B: really tired \\
+(13) & A: really tired. do you think you were a little crankier than usual? \\
+\end{excerpt}
+\footnotetext{Excerpt adapted from WIRED video on sleep.}
+
+In expert-expert conversations, we can consistently see the lack of a need for alignment. There are no questions regarding definitions, as both speakers have access to the same level of vocabulary, leading to overall very similar semantic use and also ****. Both speakers use domain specific vocabulary, and are clearly comfortable verbalizing their direct(?) stream of consciousness as regard for the other person's ability to understand is minimal. Utterances are long, multi-propositional, and complex conceptually.  In the excerpt \ref{ex:expert_expert_quantum}, we have both speakers introducing new ideas and new concepts with there being no clear dominant leader. Speaker A is ultimately the host leading to phrases such as in line (9) that propel the conversation forward, but both ****. Another phenomena seen across expert-expert conversations is collaborative completion, with both expert's completing each other's sentences as seen in excerpt \ref{ex:expert_expert_time}. In this specific excerpt, the experts build on a definition of time using "and" and "which" propositions(?) leading to, literally, co-construction of meaning. 
+
+\begin{excerpt}[Expert-expert alignment in quantum computing discussion]\footnotemark
+\label{ex:expert_expert_quantum}
+(1)  & B: The great power of a quantum computer is also its Achilles heel. \\
+(2)  & B: It's very sensitive to perturbations, noise, and environmental effects. \\
+(3)  & B: You're just multiplying your problems if all you're doing is adding qubits. \\
+(4)  & A: Exactly. Something that frustrates a lot of people about quantum computing is the concept of decoherence. \\
+(5)  & A: You can only keep your information quantum for so long. \\
+(6)  & A: That limits how many operations you can do in a row before you lose your information. \\
+(7)  & B: That's the challenge, I would say. \\
+(8)  & B: As much progress as we've made, it's frustrating to still be facing it. \\
+(9)  & A: Let's talk about what needs to happen between now and fully fault-tolerant quantum computers. \\
+(10) & A: There are so many things that need to happen. \\
+(11) & A: One thing is building layers of abstraction that make it easier for programmers to enter at the ground level. \\
+(12) & B: Exactly. There's going to be a co-evolution of hardware, software, middleware, and the whole stack. \\
+\end{excerpt}
+\footnotetext{Excerpt taken from WIRED video \citep{wired_quantum_2018}.}
+
+\begin{excerpt}[Expert--expert discussion of time and causality]\footnotemark
+\label{ex:expert_expert_time}
+(1)  & B: So how to explain what time is? \\
+(2)  & B: Well, it's a parameter that is measured by clocks. \\
+(3)  & B: I mean, at the end, this is what we know. \\
+(4)  & A: And allows us to talk about change. \\
+(5)  & B: And also that we know how to describe in terms of some set of equations \\
+(6)  & A: which gives a clear sense of causality. \\
+\end{excerpt}
+\footnotetext{Excerpt taken from WIRED video on time.}
+
+
+
+
+
+\subsection{Limitations}
+
+The most significant limitation in conducting this ****, is the nature of the editing of the WIRED videos that we used for our corpora. As the YouTube videos are made for entertainment purposes, it is only natural that there be cuts for the sake of ****. 
+However, these cuts do unfortunately alter the authenticity of the interactions, as there were likely many parts cut from the original conversations. What did remain in the videos is still sequential, and there is still significance in the general choices in language and **** throughout the conversations. However, there are many metrics that should be interpreted with a grain of salt, especially turn-based metrics such as turn jump and turn alignment metrics. 
+In the case where the cuts made to the original video were regular, and removed small parts throughout, *******; but if there were large chunks of conversation removed asymmetrically, there would likely need to be further **** to confirm the results found in this paper. 
+
+As an extension to the previous note, we used 14 videos for our data, and while there is a notable amount of information in these 14 videos, it is a very limited dataset, and as there may be variations in editing, ******. 
+
+The format of these videos also included a very brief self-introduction for speaker B in almost all videos, which may have altered the embedding space in a ***** way. While this was consistent across most videos, it still *****. 
+
+\section{Conclusion}
+
+This paper examined conversational alignment in interactions through different level gaps in field expertise across a variety of topics using embedding-based metrics, with the goal of understanding how semantic structure varies across the different interlocutor pairs. By combining a variety of both metric and direct conversational analyses, the study provides a multi-scale view of alignment that captures both global semantic organization and local interactional dynamics.
+
+The results show that large expertise gap interactions are characterized by pronounced asymmetries: experts perform the majority of semantic labor, resulting in large centroid separation, asymmetric influence and alignment lag values, and *****. These patterns demonstrate that semantic proximity does not imply mutual convergence, but can instead arise from constrained repetition and instructional adaptation/scaffolding. Interactions between interlocutors on similar/the same level of understanding tended to be symmetric, with both interlocutors contributing equally both conceptually and ****, and were also characterized by high entropy embedding distributions. 
+
+Methodologically, this work illustrates how embedding-based metrics can be used to operationalize theoretical accounts of interactive alignment, while also revealing distinctions—such as local redundancy versus global semantic expansion—that are not captured by any single measure alone. Integrating qualitative conversational analysis with quantitative geometry allows these metrics to be interpreted in interactionally meaningful terms.
+
+Future work will extend this analysis to network analysis and perhaps some *********. While the present study is exploratory, it points toward a framework for studying asymmetric dialogue that treats alignment as a directional, multi-scale phenomenon rather than a unitary outcome.
+
+\section{Acknowledgments}
+
+All code availible at \url{https://github.com/yume-24/expertise_conversation}
+
+\bibliographystyle{plainnat} 
+\bibliography{horizons}
+
+
+\end{document}
