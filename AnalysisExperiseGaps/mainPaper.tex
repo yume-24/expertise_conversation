@@ -2,6 +2,7 @@
 \usepackage{amssymb,amsthm,amsopn,amsmath,amscd,graphicx}
 \usepackage[authoryear,round]{natbib}
 \usepackage[mathscr]{euscript}
+\usepackage{url}
 
 \newtheorem{thm}{Theorem}[section]    % Standard theorem environment
 \newtheorem{lem}[thm]{Lemma}          % Lemma environment with numbering 
@@ -11,6 +12,11 @@
 \theoremstyle{definition}
 \newtheorem{definition}[thm]{Definition} % Definition environment with 
                                          % numbering consecutive to theorems
+\newcounter{excerpt}
+\newenvironment{excerpt}[1][]
+  {\refstepcounter{excerpt}\par\medskip\noindent\textit{#1}\par\smallskip
+   \begin{tabular}{@{}r@{\quad}p{0.82\linewidth}@{}}}
+  {\end{tabular}\par\medskip}
 \numberwithin{table}{section}
 
 \def\real{{\bf R}}
