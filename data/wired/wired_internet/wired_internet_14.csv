@@ -29,7 +29,7 @@ Sequence,Speaker,Utterance,Notes
 164,"Speaker 1 (Jim Kurose)","And a socket simply says, I can communicate if I know your internet address, you know, 128.119.40.186, that number is the IP address of my server, the University of Massachusetts.",""
 165,"Speaker 1 (Jim Kurose)","If you know that, you can write a program anywhere in the world and send a message, and it'll pop out at my end.",""
 166,"Speaker 4 (College Student)","I will be remembering that.",""
-167,""Speaker 4 (College Student)","I've heard that there are like seven keys to the internet, something like that.",""
+167,"Speaker 4 (College Student)","I've heard that there are like seven keys to the internet, something like that.",""
 168,"Speaker 1 (Jim Kurose)","Okay, well I don't know about the number seven, but there's something in the internet that's sort of similar to that.",""
 169,"Speaker 1 (Jim Kurose)","It's called the Domain Name System.",""
 170,"Speaker 1 (Jim Kurose)","The DNS's role is to translate names like [gaia.cs.umass.edu](http://gaia.cs.umass.edu/), or [ibm.com](http://ibm.com/), or [facebook.com](http://facebook.com/) to an IP address so that your application can actually send a message to that name, to that named service.",""
