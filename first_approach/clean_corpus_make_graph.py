@@ -126,7 +126,7 @@ def draw_top_interactive(graph, top_n):
   for edge in clustered_g.edges(data=True):
     weight = edge[2]['weight']
     net.add_edge(edge[0], edge[1], title=f'weight: {weight}' )
-  html_path = 'interactive_graph.html'
+  html_path = '../outputs/interactive_graph.html'
   net.show(html_path)
 
   display(HTML(html_path))

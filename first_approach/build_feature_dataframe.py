@@ -14,10 +14,10 @@ from main import DATA_DIR, EXPERT_DIR, NOVICE_DIR
 
 # config stuff
 
-DATA_DIR = Path('data')
+DATA_DIR = Path('../data')
 EXPERT_DIR = DATA_DIR / 'expert'
 NOVICE_DIR = DATA_DIR / 'novice'
-OUTPUT_DIR = Path('outputs')
+OUTPUT_DIR = Path('../outputs')
 OUTPUT_DIR.mkdir(exist_ok = True)
 
 EMB_MODEL = SentenceTransformer('all-MiniLM-L6-v2')

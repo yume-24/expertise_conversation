@@ -21,7 +21,7 @@ from sklearn.inspection import permutation_importance
 ################################
 #config stuff and loading data #
 ################################
-DATA_PATH = Path("outputs/features_for_classification.csv")
+DATA_PATH = Path("../outputs/features_for_classification.csv")
 RANDOM_STATE = 42
 N_SPLITS = 5
 

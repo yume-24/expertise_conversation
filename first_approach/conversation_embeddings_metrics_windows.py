@@ -13,16 +13,15 @@ Usage:
 
 import argparse
 import re
-import sys
 from pathlib import Path
-from typing import List, Optional
+from typing import List
 
 import numpy as np
 import pandas as pd
 
 # Reuse your existing metric implementation
 # Make sure conversation_embedding_metrics.py is in the same folder or on PYTHONPATH
-from conversation_embedding_metrics import compute_conversation_metrics, iter_csv_files
+from first_approach.conversation_embedding_metrics import compute_conversation_metrics, iter_csv_files
 
 
 # ---------------------------
