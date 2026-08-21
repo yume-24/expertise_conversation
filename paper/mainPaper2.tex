@@ -1,0 +1,86 @@
+\documentclass{article}
+\usepackage{amssymb,amsthm,amsopn,amsmath,amscd,graphicx}
+\usepackage[authoryear,round]{natbib}
+\usepackage[mathscr]{euscript}
+\usepackage{url}
+
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{9.0in}
+\hoffset=-0.80in
+\voffset=-1.00in
+
+\begin{document}
+
+\title{Conversation as skilled behavior: How conversational trajectories change with expertise}
+\author{Yume Ishida \& Jeff Yoshimi}
+\date{\today}
+\maketitle
+
+\begin{abstract}
+TODO
+
+\textbf{Keywords:} expertise; conversation; semantic space; skilled behavior
+\end{abstract}
+
+\section{Introduction}
+
+Skilled behavior involves a process of contraction and ramification in a behavioral space. On the one hand, particular actions become increasingly refined as a person gains expertise. This is often described as a reduction in behavioral variability or degrees of freedom, and can be visualized in terms of measured bodily states occupying less of a behavioral space over time. For example, after learning to perform a basic kick, trajectories in the space of joint positions for a kick will occupy much less of that space.On the other hand, as a person develops expertise, they can do more things in more situations and thus be more effective. They can kick a ball in more ways and in response to unusual situations. Thus, variability is reduced action by action, but it is also ramified. As a recent review puts the point, ``Skilled performance is characterized by a dual capacity: reducing variability in performance-critical parameters to ensure consistency, while simultaneously leveraging functional variability to adapt to dynamic demands.''
+% Citations
+
+It is natural to suppose that the changes in behavioral space associated with skill acquisition should be mirrored in semantic spaces as people learn to speak about specific topics. They learn the correct ways to say specific things---technical terms and common phrases---but also learn how to talk about more things in more ways. Compare someone talking about Russian history who has just learned the basics with someone who has studied and taught the topic for 30 years: the latter will speak more naturally and fluently and will be able to field a wide variety of questions with ease. This suggests a parallel to behavioral skill spaces: expert conversation should occupy less of a semantic space but also be more ramified.
+
+There is a literature on cognitive skills that has established many parallels between domains of cognition and physical skill: fluency and speed increase, while error rates decrease, in mathematics, problem solving, reading, and related activities as people learn to perform them \citep{groot_thought_1965,robinson_mathematical_1978,egan_chunking_1979,chi1981expertise}. There has, however, been relatively little analysis of conversation from this perspective. This is regrettable, especially given the widespread availability of tools and techniques for studying semantic spaces.
+
+In this exploratory study, we examine this question using a publicly available WIRED dataset in which experts explain scientific topics to listeners at five levels of expertise. The conversations concern a variety of scientific topics, and each expert-listener exchange lasts only a few minutes. Using a large sentence-embedding model and standard latent-semantic-analysis (LSA)-style techniques, we explore the comparative structure of conversational spaces across these dyads. We find support for the idea that variability is both reduced and ramified in experts' semantic spaces.
+
+%Draft note: once this framing is settled, material on semantic alignment can be worked back into the paper, especially where it helps distinguish contraction from successful expert--listener coordination.
+
+\section{Methods}
+
+This is an exploratory analysis. We considered a number of candidate measures and feature-selection strategies before focusing on the measures reported below. 
+% Describe in particular our earlier null results with network/graph techniques
+
+\subsection{Data and embeddings}
+
+\section{Data and Methods}
+
+A set of 14 videos were selected from the “5 levels” playlist published by WIRED, a series that has an expert explain a concept in their *** field of expertise at 5 levels: to a child, a teenager, an undergraduate college student, a graduate student, and a fellow expert. 
+
+% Probably no need to report the abandoned method
+The auto-generated transcripts on the Youtube platform were processed by Gemini*** along with the video data to assign speaker labels to each utterance, or to chatGPT to assign speaker labels contextually (this method ended produced mixed results, and was therefore abandoned after a few videos). All speaker pair corpora were refromatted in csv format with columns for sequence, speaker, utterance, and notes. The csv files for each video were broken up into five separate files, one for each speaker pair. Within each speaker-pair csv, utterances were assigned embeddings using SentenceTransformers, which were used to calculate a variety of statistics for each conversation/speaker pair. SentenceTransformers we deemed an effective embedding model, as sentence embeddings would most accurately capture the conceptual/semantic characteristics of each utterance, and therefore be *** representative of each single semantic act. Sentences (and utterances in our case) represent the smallest linguistically stable unit of propositional meaning, allowing each embedding to correspond to a single semantic contribution while preserving sufficient contextual richness for distributional analysis. We also analyzed trigram embeddings (since utterance lengths are relatively uneven), which were put through the same pipeline as the sentence embeddings. *
+
+Let the two speakers in a conversation be denoted by $A$ and $B$ and conversational turn by $t$.  Utterances were defined as short, semantically coherent segments derived from the transcript, rather than strictly as full speaker turns or grammatical sentences. In practice, segmentation was performed manually by identifying units that expressed a single idea or communicative function. Boundaries were introduced at natural breakpoints such as pauses, interruptions, or shifts in semantic content, such that a single speaker turn $t$ could contain multiple utterances.
+
+This approach was adopted to better align the unit of analysis with the embedding-based metrics used in this study. Because sentence embeddings operate over semantically meaningful units, segmenting transcripts into smaller, coherent utterances allows for more fine-grained representation of local conversational dynamics than would be possible using full turns alone. We embedded the utterances in turn $t$ in a 384-dimensional real vector space using the model \texttt{all-MiniLM-L6-v2} and denote this embedding $e_t^A$ for speaker $A$ and $e_t^B$ for speaker $B$. This makes it possible to show conversations as unfolding sequences of points in a space, as illustrated in figure \ref{fig:embedding}. Speaker identity is coded by color.
+
+We encode expertise using ordinal variables $E_A, E_B \in \{0,1,2,3,4\}$, corresponding to child, teen, college student, graduate student, and expert, respectively. We define the absolute expertise gap between $A$ and $B$ as
+\begin{equation}
+|\Delta E| = |E_B - E_A| .
+\end{equation}
+and signed expertise gap as
+\begin{equation}
+\Delta E = E_B - E_A ,
+\end{equation}
+The absolute gap ranges from 0 to 4 where 0 corresponds to matched expertise and 4 is the maximum possible expertise gap. The signed gap ranges from -4 to 4 with negative values indicating $A$ has more expertise and positive values indicating $B$ has more expertise.
+
+
+%We should focus on about 3-5 main measues. These two for sure
+%
+%- Experts occupy less of the space. Centroid distance / disperions.
+%
+%- Expert space is effecively higher dimensional, or more ramified. That is what the principle component / spectral entropy / scree plot captures.
+%
+%- Long range semantic continuity?(shows the lack of need for initial alignment) (maybe combine with metrics showing alignment/alignment success for expert-novice pairs. this would be more related to skill acquisition stuff.)
+
+\section{Results}
+
+The analyses provide preliminary confirmation of the contraction-and-ramification hypothesis.
+
+\section{Discussion}
+
+TODO
+
+\bibliographystyle{plainnat}
+\bibliography{horizons}
+
+\end{document}
