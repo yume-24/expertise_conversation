@@ -28,7 +28,7 @@ Sequence,Speaker,Utterance,Notes
 27,Speaker 4 (college student),"Yeah.",
 28,Speaker 1 (Samy Kamkar),"But what's really cool about that is, when you're going into memory, you're starting to cross over that boundary of that hundred byte allocation, and now you're starting to write over additional memory.",
 29,Speaker 1 (Samy Kamkar),"That other memory is really important stuff.",
-30,Speaker 1 (Samy Kamkar),"So you have your name, the hundred bytes there, and then right next to your name is the return address, and that's the address that the code is gonna execute and it's going to return to after that function is done, and it's going to jump to that address, but after you type your hundred bytes, the next few bites that you type, you're actually going to overwrite that return address.",
+30,Speaker 1 (Samy Kamkar),"So you have your name, the hundred bytes there, and then right next to your name is the return address, and that's the address that the code is gonna execute and it's going to return to after that function is done, and it's going to jump to that address, but after you type your hundred bytes, the next few bytes that you type, you're actually going to overwrite that return address.",
 31,Speaker 1 (Samy Kamkar),"So that return address could essentially be another address in memory.",
 32,Speaker 1 (Samy Kamkar),"So what you end up doing is you type a name and it's not really a name, it's really just code.",
 33,Speaker 1 (Samy Kamkar),"And that code, you keep typing until you get to the return address, and you start typing an address, which is really the beginning of your name and your computer or your processor is actually going to read that address and it will jump back to the beginning and then execute that payload.",

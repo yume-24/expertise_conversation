@@ -1,0 +1,11 @@
+{
+  "n_turns": 2078,
+  "embedding_rows": 2078,
+  "embedding_dimensions": 384,
+  "distance": "euclidean_chord_on_unit_embeddings",
+  "turn_unit": "collapsed consecutive same-speaker utterances",
+  "roles": [
+    "expert",
+    "partner"
+  ]
+}

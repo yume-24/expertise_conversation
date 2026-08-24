@@ -26,7 +26,7 @@ Sequence,Speaker,Utterance,Notes
 25,Speaker 1 (Sean Carroll PhD),"What's an example of something that's one dimensional?",
 26,Speaker 2 (child),"Hmm, I think one dimensional might be a circle, I guess, or maybe a line.",
 27,Speaker 1 (Sean Carroll PhD),"A line is the perfect example",
-28,Speaker 2 (child),"Yeah, a line.",
+28,Speaker 2 (child),"Yeah, a line.","repetition"
 29,Speaker 1 (Sean Carroll PhD),"Because it's one thing that's straight, right?",
 30,Speaker 2 (child),"Yeah.",
 31,Speaker 1 (Sean Carroll PhD),"So here's some toys.",
@@ -73,7 +73,7 @@ Sequence,Speaker,Utterance,Notes
 72,Speaker 2 (child),"Yeah.",
 73,Speaker 1 (Sean Carroll PhD),"This is why physicists think about things we don't know about.",
 74,Speaker 1 (Sean Carroll PhD),"We're wondering whether there could be extra dimensions you've never seen.",
-75,Speaker 1 (Sean Carroll PhD),"Yeah.",
+75,Speaker 2 (child),"Yeah.",
 76,Speaker 1 (Sean Carroll PhD),"That are tinier than atoms.",
 77,Speaker 1 (Sean Carroll PhD),"So, okay.",
 78,Speaker 1 (Sean Carroll PhD),"So what have you learned?",

@@ -1,5 +1,4 @@
 Sequence,Speaker,Utterance,Notes
-257,"Speaker 1 (Emily Riehl)","So implicitly in a lot of my research, I have to add an additional assumption that there exists maybe countably many inaccessible cardinals.",""
 258,"Speaker 1 (Emily Riehl)","Examples of infinite sets abound in mathematics.",""
 259,"Speaker 1 (Emily Riehl)","You know, we see them every day.",""
 260,"Speaker 1 (Emily Riehl)","So do those infinities exist?",""
@@ -7,7 +6,7 @@ Sequence,Speaker,Utterance,Notes
 262,"Speaker 6 (Expert)","It is a construct.",""
 263,"Speaker 6 (Expert)","So it exists in the same way that things like poetry exists when you talk about even cardinality and it's just like, well here's an infinite hotel.",""
 264,"Speaker 6 (Expert)","I had one student who was like, no, no, it does not exist.",""
-265,"Speaker 6 (Expert)","When I describe, well imagine you do this infinitely many times, they're done with me because they're like ""I can't, no one can do this infinitely many times"".",""
+265,"Speaker 6 (Expert)","When I describe, well imagine you do this infinitely many times, they're done with me because they're like I can't, no one can do this infinitely many times.",""
 266,"Speaker 6 (Expert)","These interesting paradoxes that come from like the ape typing on a typewriter and eventually getting to Hamlet is an example of well if you give something forever and any random event is going to happen.",""
 267,"Speaker 1 (Emily Riehl)","It can be generative for sure.",""
 268,"Speaker 6 (Expert)","It's definitely a really interesting thing to try to talk to students about.",""
@@ -27,7 +26,7 @@ Sequence,Speaker,Utterance,Notes
 282,"Speaker 1 (Emily Riehl)","What's very surprising is the continuum hypothesis has been completely resolved in the sense that we now know for absolute certain that we will never know whether it's true or false.",""
 283,"Speaker 1 (Emily Riehl)","So this is a little bit confusing.",""
 284,"Speaker 1 (Emily Riehl)","The standard foundational axioms of mathematics that we take for granted are completely insufficient to prove the continuum hypothesis one way or the other.",""
-285,"Speaker 1 (Emily Riehl)","Mathematicians among other things have been very clear about exactly what they're taking as an assumption and exactly what they're concluding from it.",""
+285,"Speaker 1 (Emily Riehl)","You know mathematicians among other things have been very clear about exactly what they're taking as an assumption and exactly what they're concluding from it.",""
 286,"Speaker 1 (Emily Riehl)","So mathematical practice is to be exact transparent about the hypotheses you need to prove your theorem.",""
 287,"Speaker 1 (Emily Riehl)","So now I think of a proof of a theorem more like constructing a function where the domain of that function is all of the hypotheses that I'm assuming and then the target of that function is maybe a particular element in some universe that is the modularized space of the statement that I'm trying to prove or something like this.",""
 288,"Speaker 1 (Emily Riehl)","If the foundations were to change, if set theory were replaced by something else, maybe dependent type theory, do you think the theorem you've proven would still be true?",""
