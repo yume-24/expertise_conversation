@@ -35,7 +35,7 @@ data/wired/**/*.csv
 
 Historical `analysis_exports/`, `outputs/statistical_significance/` and manuscript figures in `paper/figures/` are retained. They are not regenerated or silently overwritten by this workflow. Use the new paper output directory for newly generated results; manuscript figures still need to be reconciled with the final metric choices.
 
-### Current metric definitions — verify before final reporting
+### Current metric definitions 
 
 | Outcome | Utterances used | Definition |
 |---|---|---|
