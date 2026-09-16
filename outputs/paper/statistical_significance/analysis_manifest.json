@@ -1,0 +1,26 @@
+{
+  "source": "outputs/paper/conversation_metrics.csv",
+  "source_sha256": "bc4a7833771eb38f666740a5dece3bf59df6205c3b87c79e49c4809dab6efb75",
+  "metrics": {
+    "speaker_centroid_cosine_distance": "Speaker-centroid distance",
+    "radial_distance_median": "Median radial distance",
+    "radial_distance_q90": "Q90 radial distance",
+    "participation_ratio": "Participation ratio (ordinary)"
+  },
+  "pr_variant": "ordinary centered-covariance PR, not bias-corrected",
+  "centroid_selection": "n_words >= 5; count covariate is total nonempty utterances",
+  "radial_variant": "full pooled centroid, not leave-one-out",
+  "n_conversations": 105,
+  "n_videos": 21,
+  "seed": 20260913,
+  "bootstrap_replicates_per_test": 999,
+  "estimation": "REML coefficients and pointwise Wald CIs; ML parametric-bootstrap LRT p-values",
+  "multiplicity_family": "all eight expertise tests; BH and Holm",
+  "packages": {
+    "numpy": "2.3.4",
+    "pandas": "2.3.3",
+    "scipy": "1.16.3",
+    "statsmodels": "0.14.5",
+    "matplotlib": "3.10.7"
+  }
+}

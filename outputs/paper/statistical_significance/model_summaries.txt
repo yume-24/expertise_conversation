@@ -1,0 +1,146 @@
+speaker_centroid_cosine_distance | Unadjusted
+         Mixed Linear Model Regression Results
+=======================================================
+Model:            MixedLM Dependent Variable: outcome_z
+No. Observations: 105     Method:             REML     
+No. Groups:       21      Scale:              0.5582   
+Min. group size:  5       Log-Likelihood:     -130.9404
+Max. group size:  5       Converged:          Yes      
+Mean group size:  5.0                                  
+-------------------------------------------------------
+             Coef.  Std.Err.   z    P>|z| [0.025 0.975]
+-------------------------------------------------------
+Intercept    -0.000    0.119 -0.000 1.000 -0.233  0.233
+expertise_c  -0.364    0.052 -7.067 0.000 -0.465 -0.263
+Group Var     0.186    0.140                           
+=======================================================
+
+
+speaker_centroid_cosine_distance | Count-adjusted
+         Mixed Linear Model Regression Results
+=======================================================
+Model:            MixedLM Dependent Variable: outcome_z
+No. Observations: 105     Method:             REML     
+No. Groups:       21      Scale:              0.5400   
+Min. group size:  5       Log-Likelihood:     -121.1031
+Max. group size:  5       Converged:          Yes      
+Mean group size:  5.0                                  
+-------------------------------------------------------
+             Coef.  Std.Err.   z    P>|z| [0.025 0.975]
+-------------------------------------------------------
+Intercept    -0.000    0.076 -0.000 1.000 -0.150  0.150
+expertise_c  -0.313    0.052 -6.058 0.000 -0.414 -0.211
+log_n_c      -0.886    0.162 -5.454 0.000 -1.204 -0.568
+Group Var     0.014    0.062                           
+=======================================================
+
+
+radial_distance_median | Unadjusted
+         Mixed Linear Model Regression Results
+=======================================================
+Model:            MixedLM Dependent Variable: outcome_z
+No. Observations: 105     Method:             REML     
+No. Groups:       21      Scale:              0.7996   
+Min. group size:  5       Log-Likelihood:     -147.9855
+Max. group size:  5       Converged:          Yes      
+Mean group size:  5.0                                  
+-------------------------------------------------------
+             Coef.  Std.Err.   z    P>|z| [0.025 0.975]
+-------------------------------------------------------
+Intercept    -0.000    0.132 -0.000 1.000 -0.260  0.260
+expertise_c  -0.061    0.062 -0.983 0.326 -0.182  0.060
+Group Var     0.209    0.145                           
+=======================================================
+
+
+radial_distance_median | Count-adjusted
+         Mixed Linear Model Regression Results
+=======================================================
+Model:            MixedLM Dependent Variable: outcome_z
+No. Observations: 105     Method:             REML     
+No. Groups:       21      Scale:              0.5934   
+Min. group size:  5       Log-Likelihood:     -130.2562
+Max. group size:  5       Converged:          Yes      
+Mean group size:  5.0                                  
+-------------------------------------------------------
+             Coef.  Std.Err.   z    P>|z| [0.025 0.975]
+-------------------------------------------------------
+Intercept    -0.000    0.100 -0.000 1.000 -0.196  0.196
+expertise_c  -0.133    0.054 -2.451 0.014 -0.239 -0.027
+log_n_c       1.237    0.188  6.588 0.000  0.869  1.605
+Group Var     0.091    0.098                           
+=======================================================
+
+
+radial_distance_q90 | Unadjusted
+         Mixed Linear Model Regression Results
+=======================================================
+Model:            MixedLM Dependent Variable: outcome_z
+No. Observations: 105     Method:             REML     
+No. Groups:       21      Scale:              0.6289   
+Min. group size:  5       Log-Likelihood:     -140.5821
+Max. group size:  5       Converged:          Yes      
+Mean group size:  5.0                                  
+-------------------------------------------------------
+               Coef. Std.Err.   z   P>|z| [0.025 0.975]
+-------------------------------------------------------
+Intercept      0.000    0.151 0.000 1.000 -0.295  0.295
+expertise_c    0.141    0.055 2.577 0.010  0.034  0.248
+Group Var      0.350    0.212                          
+=======================================================
+
+
+radial_distance_q90 | Count-adjusted
+         Mixed Linear Model Regression Results
+=======================================================
+Model:            MixedLM Dependent Variable: outcome_z
+No. Observations: 105     Method:             REML     
+No. Groups:       21      Scale:              0.6100   
+Min. group size:  5       Log-Likelihood:     -137.4097
+Max. group size:  5       Converged:          Yes      
+Mean group size:  5.0                                  
+-------------------------------------------------------
+               Coef. Std.Err.   z   P>|z| [0.025 0.975]
+-------------------------------------------------------
+Intercept      0.000    0.136 0.000 1.000 -0.267  0.267
+expertise_c    0.106    0.055 1.910 0.056 -0.003  0.214
+log_n_c        0.604    0.214 2.823 0.005  0.185  1.023
+Group Var      0.267    0.177                          
+=======================================================
+
+
+participation_ratio | Unadjusted
+         Mixed Linear Model Regression Results
+=======================================================
+Model:            MixedLM Dependent Variable: outcome_z
+No. Observations: 105     Method:             REML     
+No. Groups:       21      Scale:              0.4972   
+Min. group size:  5       Log-Likelihood:     -130.6691
+Max. group size:  5       Converged:          Yes      
+Mean group size:  5.0                                  
+-------------------------------------------------------
+             Coef.  Std.Err.   z    P>|z| [0.025 0.975]
+-------------------------------------------------------
+Intercept    -0.000    0.149 -0.000 1.000 -0.293  0.293
+expertise_c   0.275    0.049  5.646 0.000  0.179  0.370
+Group Var     0.369    0.234                           
+=======================================================
+
+
+participation_ratio | Count-adjusted
+         Mixed Linear Model Regression Results
+=======================================================
+Model:            MixedLM Dependent Variable: outcome_z
+No. Observations: 105     Method:             REML     
+No. Groups:       21      Scale:              0.1675   
+Min. group size:  5       Log-Likelihood:     -75.4060 
+Max. group size:  5       Converged:          Yes      
+Mean group size:  5.0                                  
+-------------------------------------------------------
+             Coef.  Std.Err.   z    P>|z| [0.025 0.975]
+-------------------------------------------------------
+Intercept    -0.000    0.087 -0.000 1.000 -0.171  0.171
+expertise_c   0.176    0.029  6.040 0.000  0.119  0.233
+log_n_c       1.689    0.121 13.964 0.000  1.452  1.927
+Group Var     0.125    0.140                           
+=======================================================
