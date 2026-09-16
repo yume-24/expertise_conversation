@@ -4,6 +4,13 @@ The paper examines how conversational geometry varies with partner expertise wit
 
 ## Main paper workflow
 
+Only the notebooks in `notebooks/paper/` form the analysis workflow
+used for this paper. 
+
+The notebooks in `notebooks/exploratory/` and the free-energy notebook
+are retained as supplementary development work and are not required
+to reproduce the paper’s reported analyses.
+
 Run in this order, using a fresh kernel for each notebook:
 
 1. [Prepare the four metrics](notebooks/paper/01_static_geometric_metrics.ipynb): load transcripts, embed utterances, calculate geometry, validate the sample, and export the metrics and descriptive plots.
