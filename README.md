@@ -65,9 +65,13 @@ See [the exploratory notebook guide](notebooks/exploratory/README.md). These not
 
 ## Reorganization validation (2026-09-15)
 
-Both paper notebooks completed in fresh kernels from their new directory: 105 conversations across 21 videos, eight converged mixed models, and 999 bootstrap replicates per expertise test. The rebuilt transcript-based output differs from the historical export in 12 total utterance counts; the historical export cannot be reproduced exactly from the current input/preparation combination. The cause is not attributed to a specific earlier edit. Metric definitions were retained, and historical outputs were not overwritten.
+Both paper notebooks completed in fresh kernels from their new directory: 105 conversations across 21 videos, eight converged mixed models, and 999 bootstrap replicates per expertise test. Metric definitions were retained, and historical outputs were not overwritten.
+
+The transcripts were revised before the notebook reorganization, including changes to utterance boundaries. All 105 historical conversation counts match the transcript version in commit `38b08b9` (2026-08-14). The revised transcripts in commit `dd914b9` (2026-08-23) account for the different utterance counts in 12 conversations. These differences reflect transcript revisions, not utterances lost during notebook reorganization. Historical exports represent the earlier transcript version; the rebuilt paper outputs use the revised transcripts.
 
 The comparison is saved in `outputs/paper/reorganization_comparison.csv`. The BH-significance pattern is unchanged: centroid distance and PR pass in both specifications, median radial distance only with count adjustment, and q90 only without adjustment. Numerical estimates and some p-values differ. Use the new manifests to identify precisely which inputs underlie future results.
+
+Outstanding transcript check: `data/wired/wired_crispr/wired_crispr_16.csv` has a mismatched closing quote on physical line 6 that causes the CSV parser to absorb the next speaker row into the same utterance. Physical lines 13–14 also contain repeated wording that should be checked against the source video. These issues have not yet been corrected; resolve them and rerun both paper notebooks before final reporting. The validation results above describe the inputs before those corrections.
 
 ## Plot styling
 
