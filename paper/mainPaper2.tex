@@ -4,7 +4,7 @@
 \usepackage[mathscr]{euscript}
 \usepackage{url}
 \usepackage{float}
-
+\usepackage{booktabs}
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{9.0in}
 \hoffset=-0.80in
@@ -87,7 +87,7 @@ Dimensional analysis was performed to capture the organization of variance acros
 The analyses provide preliminary confirmation of the contraction-and-ramification hypothesis.
 
 \subsection{Centroid Distances}
-Figure~\ref{fig:centroid-distances} shows the distances between speaker centroids. Centroid distances tended to decrease as expertise decreased, with expert-expert conversations having the lowest centroid distances. This indicates that as partner expertise increases, the overall semantic usage of the two interlocutors becomes progressively more similar. This would make sense, as expert-expert pairs(for example) are operating very much “in the same space,”  with access to the same concepts and by extension, vocabulary, as opposed to expert-novice pairs where novices have limited ***** in the conceptual space. Expert-novice conversations tend to require extensive scaffolding, as children often have barely any knowledge of the concepts being discussed. The concepts of discussion have to be explained with different, more digestible language.  The expert in this case is required to scaffold, with the aim of getting the novice “on the same page/in the same kind of space(information organization).” The novice may say things that are a bit “off” since they have not acquired the proper vocabulary for the topic, making the average embedding(centroid) of the speakers further. Experts do not have to undergo this scaffolding process(more semantic precision).
+Figure~\ref{fig:centroid-distances} shows the distances between speaker centroids by partner expertise level. Centroid distances decreased as expertise gap decreased by$\beta = -0.313$ per expertise level, 95\% CI $[-0.414, -0.211]$(adjusted, from the fitted REML model) with expert-expert conversations having the smallest centroid distances. Running a parametric bootsrak likelihood-ratio test, we found that the differences by expertise were statistically significant and unlikely under the null LR = 11.4, \textit{p} = .001. Even after applying Benjamini-Hochberg correction, the *** survived $p_{\mathrm{FDR}} = .002$.This indicates that as partner expertise increases, the overall semantic usage of the two interlocutors becomes significantly more similar. This would make sense, as expert-expert pairs(for example) are operating very much “in the same space,”  with access to the same concepts and by extension, vocabulary, as opposed to expert-novice pairs where unlike their expert partners, novice speakers have limited vocabulary and access to concepts. Expert-novice conversations also tend to require extensive scaffolding, as novices often have very limited knowledge of the concepts being discussed. The concepts of discussion have to be explained with simpler, more digestible language without overloading the conversation with technical jargon. The expert is required to scaffold, with the aim of getting the novice “on the same page/in the same kind of space(information organization).” The novice utterances tend to simply answer expert questions, and will use words outside of the topic's technical vocabulary, whereas experts may use some technical words when introducing ideas making the average embedding(centroid) of the speakers further. Experts do not have to undergo this scaffolding process(more semantic precision).
 
 \begin{figure}[H]
     \centering
@@ -98,7 +98,8 @@ Figure~\ref{fig:centroid-distances} shows the distances between speaker centroid
 
 \subsection{Radial Distances}
 
-Figures~\ref{fig:radial-distance-median} and~\ref{fig:radial-distance-q90} show the median and 90th-percentile radial distances, respectively. Median radial distances tended to decrease, and q90 radial distances tended to increase as partner gap decreased. This indicates expert distributions tended to have slightly more concentration near the centroid (which could indicate high specificity, but could be confounded with redundancy), but also explored enough relative to the conversational center(or it could be something else) to have further points in the periphery. Novices, on the other hand, had slightly less concentration near the centroid and closer peripheral embeddings, but the differences between expert-expert and expert-novice dispersions were not too significant.
+Figures~\ref{fig:radial-distance-median} and~\ref{fig:radial-distance-q90} show the median and 90th-percentile radial distances, respectively. Embedding distributions tended to shift with expertise, with median radial distances decreasing by $\beta= -0.133$ per level increase, 95\%CI$[-0.239,-0.027]$, and q90 distances increasing by $\beta= 0.106$ per level increase, 95\%CI$[-0.003,-0.214]$, though not statistically significant,$p_{\mathrm{FDR}} .025$ and $p_{\mathrm{FDR}} = .083$, respectively . Expert distributions tended to have slightly more concentration near the centroid (which could indicate high specificity, but could be confounded with redundancy), but also explored enough relative to the conversational center(or it could be something else) to have further points in the periphery. Novices, on the other hand, had slightly less concentration near the centroid and closer peripheral embeddings.
+% probably put this somewhere later: We can see through these changes in distribution how conversations tend to "pull together" (with closer centroids and smaller median radial distances) and expand or "reach out" (with larger PR and greater q90 radial distances) as partner expertise increased
 
 \begin{figure}[H]
     \centering
@@ -116,7 +117,7 @@ Figures~\ref{fig:radial-distance-median} and~\ref{fig:radial-distance-q90} show 
 
 \subsection{Participation Ratio}
 
-Figure~\ref{fig:participation-ratio} shows participation ratio across partner expertise levels. Participation ratio tended to increase as expertise gap decreased, indicating higher conversation dimensionality at higher levels of conversation (the result was statistically significant when accounting for topic dependencies and number of utterances). Even with little difference in overall dispersion/variation, the experts had significantly higher PR values, indicating that even with similar overall dispersions, the variation was structured significantly differently than in expert-novice conversations. Expert-expert pairs were able to more confidently and precisely expand the conversation in controlled ways(they can say more things in more controlled ways). In expert-novice conversations, even though the expert could take the conversation in more directions, their semantic trajectories are limited as they have to scaffold for the novice speaker. This leads to the PR values for expert-novice being significantly lower, even with experts leading the conversations.
+  Participation ratio tended to increase as expertise gap decreased as can be seen in figure~\ref{fig:participation-ratio}, indicating higher conversation dimensionality at higher levels of conversation (the result was statistically significant when accounting for topic dependencies and number of utterances). Even with little difference in overall dispersion/variation, the experts had significantly higher PR values, indicating that even with similar overall dispersions, the variation was structured significantly differently than in expertgit -novice conversations. Expert-expert pairs were able to more confidently and precisely expand the conversation in controlled ways(they can say more things in more controlled ways). In expert-novice conversations, even though the expert could take the conversation in more directions, their semantic trajectories are limited as they have to scaffold for the novice speaker. This leads to the PR values for expert-novice being significantly lower, even with experts leading the conversations.
 
 
 \begin{figure}[H]
@@ -125,6 +126,44 @@ Figure~\ref{fig:participation-ratio} shows participation ratio across partner ex
     \caption{Participation ratio of conversation embeddings by conversation partner expertise.}
     \label{fig:participation-ratio}
 \end{figure}
+
+\subsection{Statistical Significance}
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Associations between partner expertise and conversational geometry.}
+\label{tab:expertise-effects}
+\begin{tabular}{llrrrr}
+\toprule
+Metric & Model & $b_{\mathrm{SD}}$ & 95\% CI
+& $p_{\mathrm{boot}}$ & $p_{\mathrm{BH}}$ \\
+\midrule
+Centroid distance
+& Unadjusted     & $-0.364$ & [$-0.465$, $-0.263$] & .001 & .002 \\
+& Count-adjusted & $-0.313$ & [$-0.414$, $-0.211$] & .001 & .002 \\
+\addlinespace
+Median radial distance
+& Unadjusted     & $-0.061$ & [$-0.182$, $0.060$]  & .335 & .335 \\
+& Count-adjusted & $-0.133$ & [$-0.239$, $-0.027$] & .019 & .025 \\
+\addlinespace
+Q90 radial distance
+& Unadjusted     & $0.141$  & [$0.034$, $0.248$]   & .009 & .014 \\
+& Count-adjusted & $0.106$  & [$-0.003$, $0.214$]  & .073 & .083 \\
+\addlinespace
+Participation ratio
+& Unadjusted     & $0.275$  & [$0.179$, $0.370$]   & .001 & .002 \\
+& Count-adjusted & $0.176$  & [$0.119$, $0.233$]   & .001 & .002 \\
+\bottomrule
+\end{tabular}
+
+\medskip
+\begin{minipage}{\linewidth}
+\footnotesize
+\textit{Note.}
+For each measure, $b_{\mathrm{SD}}$ represents the change in metric value per one increase in standard deviation.
+\end{minipage}
+\end{table}
 
 \section{Discussion}
 
