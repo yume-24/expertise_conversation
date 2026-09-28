@@ -46,7 +46,7 @@ Historical `analysis_exports/`, `outputs/statistical_significance/` and manuscri
 
 | Outcome | Utterances used | Definition |
 |---|---|---|
-| Speaker-centroid distance | At least five words | Cosine distance between expert and partner mean embeddings |
+| Speaker-centroid distance | All nonempty utterances | Cosine distance between expert and partner mean embeddings |
 | Median radial distance | All nonempty utterances | Median cosine distance to normalized pooled centroid |
 | Q90 radial distance | All nonempty utterances | 90th percentile of the same distances |
 | Participation ratio | All nonempty utterances | Ordinary centered-covariance PR |
