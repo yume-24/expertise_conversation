@@ -75,8 +75,7 @@ Outstanding transcript check: `data/wired/wired_crispr/wired_crispr_16.csv` has 
 
 ## Plot styling
 
-[plot_style.py](plot_style.py) is the shared source for fonts, grid/spine defaults, metric labels, expertise colors and paper export settings. Both paper notebooks use the same trajectory plotting function. Unadjusted models use teal circles; count-adjusted models use orange squares. Expertise colors are keyed to the level, so reversing or filtering the levels does not reassign their colors.
+Unadjusted models use teal circles; count-adjusted models use orange squares. Expertise colors are keyed to the level, so reversing or filtering the levels does not reassign their colors.
 
 Paper figures are saved as 300-dpi PNG and vector PDF. Their uncertainty labels retain the actual statistical meaning: descriptive trajectories have no confidence band, while model-effect plots show pointwise 95% Wald intervals. Styling does not change estimates, data, axis transformations or uncertainty calculations.
 
-Exploratory notebooks import the same defaults and use the shared expertise palettes where applicable. Old embedded static pictures were cleared; rerun their plot cells after the required preparation to regenerate them. Specialized correlation heatmaps, animations and interactive plots retain their task-specific encodings. Existing manuscript images and the free-energy notebook remain unchanged.
