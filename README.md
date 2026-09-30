@@ -1,10 +1,10 @@
 # Expertise and conversational geometry
 
-The paper examines how conversational geometry varies with partner expertise within matched WIRED videos. The main workflow now has two notebooks; exploratory analyses are separate.
+The paper examines how conversational geometry varies with speaker expertise gap within matched WIRED videos. The main workflow has two notebooks (exploratory analyses are separate).
 
 ## Main paper workflow
 
-Only the notebooks in `notebooks/paper/` form the analysis workflow
+Only the notebooks in `notebooks/paper/` form the analysis workflow are
 used for this paper. 
 
 The notebooks in `notebooks/exploratory/` and the free-energy notebook
@@ -51,7 +51,7 @@ Historical `analysis_exports/`, `outputs/statistical_significance/` and manuscri
 | Q90 radial distance | All nonempty utterances | 90th percentile of the same distances |
 | Participation ratio | All nonempty utterances | Ordinary centered-covariance PR |
 
-The count adjustment uses **total nonempty utterances**, including for the centroid model. These existing choices were preserved during reorganization. They do not constitute a harmonized utterance-selection policy. Corrected PR and leave-one-out radial distances remain alternatives, not interchangeable versions of these outcomes.
+The count adjustment uses **total nonempty utterances**, including for the centroid model. They do not constitute a harmonized utterance-selection policy. Corrected PR and leave-one-out radial distances remain alternatives, not interchangeable versions of these outcomes.
 
 The statistical bootstrap tests **expertise**, not the improvement from adding count. CIs are approximate REML Wald intervals; p-values use ML parametric-bootstrap likelihood-ratio tests. BH and Holm adjustments cover eight expertise tests. Residual assumptions and the common linear slope still require assessment. These are exploratory analyses, not newly preregistered tests.
 
