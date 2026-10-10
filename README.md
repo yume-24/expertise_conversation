@@ -1,11 +1,11 @@
 # Expertise and conversational geometry
 
-The paper examines how conversational geometry varies with speaker expertise gap within matched WIRED videos. The main workflow has two notebooks (exploratory analyses are separate).
+The paper examines how conversational geometry varies with speaker expertise gap within matched WIRED videos from the 5 levels playlist. The main workflow has two notebooks (exploratory analyses are separate).
 
 ## Main paper workflow
 
 Only the notebooks in `notebooks/paper/` form the analysis workflow are
-used for this paper. 
+used for the metrics mentioned in this paper. 
 
 The notebooks in `notebooks/exploratory/` and the free-energy notebook
 are retained as supplementary development work and are not required
@@ -59,19 +59,6 @@ The statistical bootstrap tests **expertise**, not the improvement from adding c
 
 See [the exploratory notebook guide](notebooks/exploratory/README.md). These notebooks retain existing analysis cells and historical outputs. They are not part of the paper run order and have not all been validated as clean-kernel pipelines.
 
-## Free-energy work
-
-[big_analysis_fep_implementation.ipynb](big_analysis_fep_implementation.ipynb) remains **unchanged at the repository root**, including all its supporting analyses. It is separate from the paper workflow and may write legacy files under `analysis_exports/`. Moving or pruning it was deliberately excluded from this reorganization.
-
-## Reorganization validation (2026-09-15)
-
-Both paper notebooks completed in fresh kernels from their new directory: 105 conversations across 21 videos, eight converged mixed models, and 999 bootstrap replicates per expertise test. Metric definitions were retained, and historical outputs were not overwritten.
-
-The transcripts were revised before the notebook reorganization, including changes to utterance boundaries. All 105 historical conversation counts match the transcript version in commit `38b08b9` (2026-08-14). The revised transcripts in commit `dd914b9` (2026-08-23) account for the different utterance counts in 12 conversations. These differences reflect transcript revisions, not utterances lost during notebook reorganization. Historical exports represent the earlier transcript version; the rebuilt paper outputs use the revised transcripts.
-
-The comparison is saved in `outputs/paper/reorganization_comparison.csv`. The BH-significance pattern is unchanged: centroid distance and PR pass in both specifications, median radial distance only with count adjustment, and q90 only without adjustment. Numerical estimates and some p-values differ. Use the new manifests to identify precisely which inputs underlie future results.
-
-Outstanding transcript check: `data/wired/wired_crispr/wired_crispr_16.csv` has a mismatched closing quote on physical line 6 that causes the CSV parser to absorb the next speaker row into the same utterance. Physical lines 13–14 also contain repeated wording that should be checked against the source video. These issues have not yet been corrected; resolve them and rerun both paper notebooks before final reporting. The validation results above describe the inputs before those corrections.
 
 ## Plot styling
 
