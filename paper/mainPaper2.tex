@@ -65,6 +65,13 @@ This segmentation approach was adopted to better align the unit of analysis with
 
 To capture the general distribution of embeddings across conversations, we looked at centroid distances and a number of dispersion metrics. To calculate centroid distances, we first calculate the centroids for each speaker at the final state of the conversation sequence, using all utterances (formulas for centroids) and calculated cosine distances between the centroid pairs (formula for distance). The metric captures the distance between the average embedding points of the two interlocutors, reflective of the difference of their  “average” semantic use. Smaller distances would be indicative of generally similar semantic use versus larger distances which would indicate dissimilar semantic use.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{figures/speaker_centroid_visualization.png}
+    \caption{PCA projection of utterance embeddings from one conversation, colored by speaker. Crosses mark the speaker centroids. The dashed line connects their projected positions for illustration; cosine distance is calculated in the original embedding space.}
+    \label{fig:speaker-centroid-visualization}
+\end{figure}
+
 Radial distances (q10, median, q90) from the conversation centroids were also calculated to examine the dispersion of embeddings relative to the conversation’s centroid. The centroid of each conversation was calculated as (formula), and distances from the centroid were calculated as (formula). The quartiles were **** as ****.
 
 Dimensional analysis was performed to capture the organization of variance across different principle directions. Participation ratio (formula) is essentially a “count” of how many eigenvalues(principal components) share the embeddings’ variance. The embeddings are centered around the conversation centroid and are put into a covariance matrix. In essence, we are simply examining the dimensional structure of the embeddings, disregarding location. (The covariance matrix is decomposed using SVD, with each eigenvector representing a principal component, and its corresponding eigenvalue represents the amount of variation is ****. The eigenvalues are then normalized, so that each normalized eigenvalue represents the percentage of the total semantic variation that is accounted for by that direction. Participation ratio is the ratio of square of total variance over the sum of squared variances along the individual directions).  A participation ratio of 1 would indicate the variance lies in one direction. Higher participation ratios would indicate the variance being shared by more dominating directions. In interpretation, this could be indicative of organized movement across a greater number of semantic directions.
@@ -136,9 +143,9 @@ Figures~\ref{fig:radial-distance-median} and~\ref{fig:radial-distance-q90} show 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{figures/particioation_ratio_plot.png}
-    \caption{Participation ratio of conversation embeddings by conversation partner expertise.}
-    \label{fig:participation-ratio}
+    \includegraphics[width=0.85\linewidth]{figures/speaker_centroid_visualization.png}
+    \caption{PCA projection of utterance embeddings from one conversation, colored by speaker. Crosses mark the speaker centroids. The dashed line connects their projected positions for illustration; cosine distance is calculated in the original embedding space.}
+    \label{fig:speaker_centroid_visualization}
 \end{figure}
 
 \subsection{Statistical Significance}
