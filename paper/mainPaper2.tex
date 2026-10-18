@@ -62,7 +62,13 @@ This segmentation approach was adopted to better align the unit of analysis with
 \subsection{Metrics}
 
 % For each of these, Jeff can add simple plain-english up front. Some pictures would also be nice. Once we have settled on the technique for generating them we can decide which ones to add.
-
+% go over plotting each embedding/how each embedding is added in embedding space
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{figures/01_time_series_t0_t2.png}
+    \caption{PCA projection of utterance embeddings from one conversation, colored by speaker. Crosses mark the speaker centroids. The dashed line connects their projected positions for illustration; cosine distance is calculated in the original embedding space.}
+    \label{fig:01_time_series_t0_t2}
+\end{figure}
 To capture the general distribution of embeddings across conversations, we looked at centroid distances and a number of dispersion metrics. To calculate centroid distances, we first calculate the centroids for each speaker at the final state of the conversation sequence, using all utterances (formulas for centroids) and calculated cosine distances between the centroid pairs (formula for distance). The metric captures the distance between the average embedding points of the two interlocutors, reflective of the difference of their  “average” semantic use. Smaller distances would be indicative of generally similar semantic use versus larger distances which would indicate dissimilar semantic use.
 
 \begin{figure}[H]
