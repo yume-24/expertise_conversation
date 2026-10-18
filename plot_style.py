@@ -61,9 +61,16 @@ def save_figure(fig, path):
 
 
 def plot_metric_trajectories(frame):
-    """Same descriptive figure in both paper notebooks; no uncertainty bands."""
-    fig, axes = plt.subplots(2, 2, figsize=(12, 8), constrained_layout=True)
-    for ax, (metric, label) in zip(axes.flat, METRIC_LABELS.items()):
+    """Return {metric: (figure, axis)} with one descriptive figure per metric.
+
+    Both paper notebooks save these separately. Lines and means use the same
+    data as the former four-panel figure; no uncertainty bands are added.
+    """
+    from matplotlib.lines import Line2D
+
+    figures = {}
+    for metric, label in METRIC_LABELS.items():
+        fig, ax = plt.subplots(figsize=(6, 4.5), constrained_layout=True)
         for _, group in frame.groupby(['dataset', 'video_id'], observed=True):
             group = group.sort_values('level')
             ax.plot(group['level'], group[metric], color=NEUTRAL, alpha=0.35, linewidth=0.8)
@@ -73,7 +80,7 @@ def plot_metric_trajectories(frame):
                xticks=range(5), xticklabels=LEVEL_LABELS)
         ax.tick_params(axis='x', rotation=20)
         ax.grid(axis='x', visible=False)
-    from matplotlib.lines import Line2D
-    axes[0, 0].legend(handles=[Line2D([], [], color=NEUTRAL, linewidth=1, label='Within-video trajectory'),
-                              Line2D([], [], color=PRIMARY, marker='o', label='Across-video mean')])
-    return fig, axes
+        ax.legend(handles=[Line2D([], [], color=NEUTRAL, linewidth=1, label='Within-video trajectory'),
+                           Line2D([], [], color=PRIMARY, marker='o', label='Across-video mean')])
+        figures[metric] = (fig, ax)
+    return figures

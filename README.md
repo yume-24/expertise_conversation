@@ -62,6 +62,13 @@ See [the exploratory notebook guide](notebooks/exploratory/README.md). These not
 
 ## Plot styling
 
+Both paper notebooks generate one standalone trajectory figure per metric.
+`plot_metric_trajectories` returns a dictionary of metric names to `(figure, axis)`
+pairs; each notebook displays and saves each figure separately as PNG and PDF.
+Notebook 01 writes `outputs/paper/main_metric_trajectories_<metric>.*`; notebook 02
+writes `outputs/paper/statistical_significance/within_video_trajectories_<metric>.*`.
+Previously saved four-panel figures are historical outputs and are not regenerated.
+
 Unadjusted models use teal circles; count-adjusted models use orange squares. Expertise colors are keyed to the level, so reversing or filtering the levels does not reassign their colors.
 
 Paper figures are saved as 300-dpi PNG and vector PDF. Their uncertainty labels retain the actual statistical meaning: descriptive trajectories have no confidence band, while model-effect plots show pointwise 95% Wald intervals. Styling does not change estimates, data, axis transformations or uncertainty calculations.
