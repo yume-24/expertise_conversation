@@ -1,0 +1,53 @@
+{
+  "source_sha256": "bc4a7833771eb38f666740a5dece3bf59df6205c3b87c79e49c4809dab6efb75",
+  "config": {
+    "name": "paper",
+    "input_dir": "data/wired",
+    "output_dir": "/Users/yume/PycharmProjects/horizons_2/outputs/validation/paper/python",
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "revision": "c9745ed1d9f207416be6d2e6f8de32d1f16199bf",
+    "local_files_only": true,
+    "batch_size": 32,
+    "seed": 20260913,
+    "centroid_min_words": 5,
+    "bootstrap_replicates": 999,
+    "alpha": 0.05
+  },
+  "packages": {
+    "numpy": "2.3.4",
+    "pandas": "2.3.3",
+    "scipy": "1.16.3",
+    "statsmodels": "0.14.5",
+    "matplotlib": "3.10.7",
+    "sentence-transformers": "5.1.2",
+    "torch": "2.9.1"
+  },
+  "centroid_selection": "n_words >= 5",
+  "n_conversations": 105,
+  "n_videos": 21,
+  "seed": 20260913,
+  "bootstrap_replicates_per_test": 999,
+  "estimation": "REML coefficients and pointwise Wald CIs; ML parametric-bootstrap LRT p-values",
+  "multiplicity_family": "all eight expertise tests; BH and Holm",
+  "code_sha256": {
+    "__init__.py": "f8ce6b870b67b766212d6c7d99c9afc32ad7464619f79bdccdd50788fb96a1c9",
+    "config.py": "a151c66618d71e055b8a73bb92dd6beec935dee81650b6d26b62ae77d59b997c",
+    "embeddings.py": "0cfea66c168dae296d7ed70385c888a737f8249998b203c85eff802076820acc",
+    "metrics.py": "79ec81fd82083d98bf9ddf4f7ac987a15737c2766d70c22c9b4811e8be22bf1f",
+    "plots.py": "5b887d644279011e272a7af959bcdc52f2ed4f50c41bba5b8e691ae364a1c263",
+    "provenance.py": "66f5d58a46ef9175c382f8b84e91198fb3af6443ddee56295e5aa0fd30d7ca6a",
+    "run.py": "d16615ca2f2014b41f007a4907ad1ede908cd10427354860779aea8907e7c941",
+    "statistics.py": "3cc7fb5799b609923ca7a70922d2c1dced6e911dd33808fbbfe987da4c0b51e0",
+    "transcripts.py": "a16d192eccd26e62c979c85f403e72dfd59054338e1a472adde294f6935fbaf0",
+    "verify.py": "8ce88bf5aebc40f9e7507b0fe33ad10cd12da196936e4414fcd2be39514a2a8d"
+  },
+  "outputs_sha256": {
+    "analysis_data.csv": "17df4b190e0cc17a4eea152f8dc275deec0ac552ef6fd1d68b0f1d4da528e5ea",
+    "excluded_conversations.csv": "b8c1ab9dd1e319fc7b0aeff72317dd5a5bd7dbcd8ac490d624d4e0759b218b00",
+    "diagnostics.csv": "f5d0b3e600663ed0e7def5eb4b28675e24484ab3d18d92b8f1772fa59e872e21",
+    "bootstrap_null_statistics.csv": "9ee1d5082a6b49db6476efe7223601d43d1506e983912a2f7a4e4b0cc741c8e1",
+    "paper_results_table.csv": "365c8a39ed1b30ff98dca11b5b6999e2d708c67179fd1b78adfb7a1fea098a7e",
+    "mixed_model_results.csv": "695b9bdb252c419210b07266e52dd5c84a0a982fa948c1c26170d898021f9ea1",
+    "video_level_coverage.csv": "23962ba38e1664b85d5a0ac12d8ffe4c64bf3f86ea79390f46b49afc809dcd73"
+  }
+}

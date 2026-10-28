@@ -1,0 +1,13 @@
+{
+  "name": "paper",
+  "input_dir": "data/wired",
+  "output_dir": "/Users/yume/PycharmProjects/horizons_2/outputs/validation/paper/python",
+  "model": "sentence-transformers/all-MiniLM-L6-v2",
+  "revision": "c9745ed1d9f207416be6d2e6f8de32d1f16199bf",
+  "local_files_only": true,
+  "batch_size": 32,
+  "seed": 20260913,
+  "centroid_min_words": 5,
+  "bootstrap_replicates": 999,
+  "alpha": 0.05
+}

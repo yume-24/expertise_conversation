@@ -1,0 +1,12 @@
+# Deliberate alternate specification; never overwrites the notebook-equivalent run.
+name = "all_utterances"
+input_dir = "data/wired"
+output_dir = "outputs/all_utterances"
+model = "sentence-transformers/all-MiniLM-L6-v2"
+revision = "c9745ed1d9f207416be6d2e6f8de32d1f16199bf"
+local_files_only = true
+batch_size = 32
+seed = 20260913
+centroid_min_words = 0
+bootstrap_replicates = 999
+alpha = 0.05

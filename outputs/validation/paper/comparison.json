@@ -1,0 +1,76 @@
+{
+  "status": "passed",
+  "comparison": "Exact arrays and parsed CSV values (no tolerance)",
+  "config": {
+    "name": "paper",
+    "input_dir": "data/wired",
+    "output_dir": "outputs/paper",
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "revision": "c9745ed1d9f207416be6d2e6f8de32d1f16199bf",
+    "local_files_only": true,
+    "batch_size": 32,
+    "seed": 20260913,
+    "centroid_min_words": 5,
+    "bootstrap_replicates": 999,
+    "alpha": 0.05
+  },
+  "artifacts": [
+    {
+      "artifact": "utterance_embeddings.npy",
+      "exact": true,
+      "shape": [
+        6381,
+        384
+      ]
+    },
+    {
+      "artifact": "embeddings/utterances_with_embedding_index.csv",
+      "exact": true,
+      "rows": 6381,
+      "columns": 23
+    },
+    {
+      "artifact": "tables/conversation_metrics.csv",
+      "exact": true,
+      "rows": 105,
+      "columns": 13
+    },
+    {
+      "artifact": "tables/statistics/analysis_data.csv",
+      "exact": true,
+      "rows": 105,
+      "columns": 13
+    },
+    {
+      "artifact": "tables/statistics/excluded_conversations.csv",
+      "exact": true,
+      "rows": 0,
+      "columns": 10
+    },
+    {
+      "artifact": "tables/statistics/video_level_coverage.csv",
+      "exact": true,
+      "rows": 21,
+      "columns": 6
+    },
+    {
+      "artifact": "tables/statistics/mixed_model_results.csv",
+      "exact": true,
+      "rows": 8,
+      "columns": 32
+    },
+    {
+      "artifact": "tables/statistics/paper_results_table.csv",
+      "exact": true,
+      "rows": 8,
+      "columns": 12
+    },
+    {
+      "artifact": "tables/statistics/bootstrap_null_statistics.csv",
+      "exact": true,
+      "rows": 7992,
+      "columns": 4
+    }
+  ],
+  "notes": "PDF metadata and model-summary timestamps are not compared. Numerical tables include all bootstrap draws."
+}
