@@ -21,7 +21,7 @@ import pandas as pd
 
 # Reuse your existing metric implementation
 # Make sure conversation_embedding_metrics.py is in the same folder or on PYTHONPATH
-from first_approach.conversation_embedding_metrics import compute_conversation_metrics, iter_csv_files
+from analysis.legacy.first_approach.conversation_embedding_metrics import compute_conversation_metrics, iter_csv_files
 
 
 # ---------------------------

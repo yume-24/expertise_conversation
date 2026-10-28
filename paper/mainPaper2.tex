@@ -65,7 +65,7 @@ This segmentation approach was adopted to better align the unit of analysis with
 % go over plotting each embedding/how each embedding is added in embedding space
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{figures/01_time_series_t0_t2.png}
+    \includegraphics[width=0.85\linewidth]{../outputs/figures/retained/01_time_series_t0_t2.png}
     \caption{Shows embeddings added at each time step (reduced to two dimensions) for expert-undergraduate conversation on gravity from time t = 0 to t = 2.}
     \label{fig:01_time_series_t0_t2}
 \end{figure}
@@ -73,7 +73,7 @@ To capture the general distribution of embeddings across conversations, we looke
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{figures/speaker_centroid_visualization.png}
+    \includegraphics[width=0.85\linewidth]{../outputs/figures/retained/speaker_centroid_visualization.png}
     \caption{PCA projection of utterance embeddings from one conversation, colored by speaker. Crosses mark the speaker centroids. The dashed line connects their projected positions for illustration; cosine distance is calculated in the original embedding space.}
     \label{fig:speaker-centroid-visualization}
 \end{figure}
@@ -91,14 +91,14 @@ Centroid distances tended to decrease as partner $|\Delta E|$ decreased (Figure~
 %maybe move some of this to discussion? also a bit repetitive rn.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{figures/main_metric_trajectories_speaker_centroid_cosine_distance.png}
+    \includegraphics[width=0.85\linewidth]{../outputs/paper/figures/main_metric_trajectories_speaker_centroid_cosine_distance.png}
     \caption{Cosine distance between expert and partner semantic centroids by partner expertise.}
     \label{fig:centroid-distance_trajectory}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{figures/centroid_distances_plot.png}
+    \includegraphics[width=0.85\linewidth]{../outputs/figures/retained/centroid_distances_plot.png}
     \caption{Cosine distance between expert and partner semantic centroids by conversation partner expertise.}
     \label{fig:centroid-distances}
 \end{figure}
@@ -109,21 +109,21 @@ Figures~\ref{fig:radial-distance-median} and~\ref{fig:radial-distance-q90} show 
 % probably put this somewhere later: We can see through these changes in distribution how conversations tend to "pull together" (with closer centroids and smaller median radial distances) and expand or "reach out" (with larger PR and greater q90 radial distances) as partner expertise increased
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{figures/main_metric_trajectories_radial_distance_median.png}
+    \includegraphics[width=0.85\linewidth]{../outputs/paper/figures/main_metric_trajectories_radial_distance_median.png}
     \caption{Median radial distance from the pooled conversation centroid by partner expertise.}
     \label{fig:main_metric_trajectories_radial_distance_median}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{figures/radial_distance_median.png}
+    \includegraphics[width=0.85\linewidth]{../outputs/figures/retained/radial_distance_median.png}
     \caption{Median radial distance from the conversation centroid by conversation partner expertise.}
     \label{fig:radial-distance-median}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{figures/main_metric_trajectories_radial_distance_q90.png}
+    \includegraphics[width=0.85\linewidth]{../outputs/paper/figures/main_metric_trajectories_radial_distance_q90.png}
     \caption{90th-percentile radial distance from the pooled conversation centroid by partner expertise.}
     \label{fig:main_metric_trajectories_radial_distance_q90}
 \end{figure}
@@ -131,7 +131,7 @@ Figures~\ref{fig:radial-distance-median} and~\ref{fig:radial-distance-q90} show 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{figures/radial_distance_q90.png}
+    \includegraphics[width=0.85\linewidth]{../outputs/figures/retained/radial_distance_q90.png}
     \caption{90th-percentile radial distance from the conversation centroid by conversation partner expertise.}
     \label{fig:radial-distance-q90}
 \end{figure}
@@ -144,14 +144,14 @@ Expert-expert pairs were able to more precisely expand the conversation in contr
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{figures/main_metric_trajectories_participation_ratio.png}
+    \includegraphics[width=0.85\linewidth]{../outputs/paper/figures/main_metric_trajectories_participation_ratio.png}
     \caption{Participation ratio of conversation embeddings by partner expertise.}
     \label{fig:main_metric_trajectories_participation_ratio}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{figures/participation_ratio_plot.png}
+    \includegraphics[width=0.85\linewidth]{../outputs/figures/retained/participation_ratio_plot.png}
     \caption{Participation ratio of conversation embeddings by partner expertise..}
     \label{fig:participation_ratio_plot}
 \end{figure}

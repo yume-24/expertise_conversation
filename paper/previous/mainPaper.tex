@@ -91,7 +91,7 @@ The absolute gap ranges from 0 to 4 where 0 corresponds to matched expertise and
 At time $t$, each speaker has a set of utterances and corresponding embeddings they have produced up to and including time $t$. Each utterance is assigned an embedding using SentenceTransformers, and that embedding is ****. 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=0.9\linewidth]{figures/embedding.png}
+  \includegraphics[width=0.9\linewidth]{../../outputs/figures/retained/embedding.png}
   \caption{Illustration of speaker-specific embeddings over time. Each utterance is assigned an embedding in a shared speaker space.}
   \label{fig:embedding}
 \end{figure}
@@ -115,7 +115,7 @@ This procedure results in a time series capturing the evolving semantic separati
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=0.9\linewidth]{figures/centroid.png}
+  \includegraphics[width=0.9\linewidth]{../../outputs/figures/retained/centroid.png}
   \caption{Illustration of speaker-specific centroid computation and centroid distance over time. Sentence embeddings are accumulated by speaker, centroids are computed at each time step, and Euclidean distance between centroids yields a time-varying centroid-distance trajectory.}
   \label{fig:centroid_distance}
 \end{figure}
@@ -208,7 +208,7 @@ Influence asymmetry shows if influence is stronger in one direction by simply ta
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=0.9\linewidth]{figures/influence.png}
+  \includegraphics[width=0.9\linewidth]{../../outputs/figures/retained/influence.png}
   \caption{Illustration of speaker-specific influence.}
   \label{fig:speaker_influence}
 \end{figure}
@@ -262,7 +262,7 @@ and mean turn jumps:
 Directional turn jump means, we can interpret as how much on average a speaker jumps on average in their responses to the other speaker. 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=0.9\linewidth]{figures/turn_jump.png}
+  \includegraphics[width=0.9\linewidth]{../../outputs/figures/retained/turn_jump.png}
   \caption{Illustration of turn jump distance.}
   \label{fig:turn_jump}
 \end{figure}
@@ -322,7 +322,7 @@ The mutual information score reflects the dependency between these two variables
 We can use **** to observe response patterns of speakers ****. 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=0.9\linewidth]{figures/mi_turn_cluster.png}
+  \includegraphics[width=0.9\linewidth]{../../outputs/figures/retained/mi_turn_cluster.png}
   \caption{Illustration of the process of calculating mutual information of turn clusters.}
   \label{fig:mi_turn_cluster}
 \end{figure}
@@ -378,7 +378,7 @@ We can also calculate alignment asymmetry by subtracting B->A alignment lag from
 Positive values indicate speaker B aligning more quickly to speaker A which negative values indicate the opposite. 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=0.9\linewidth]{figures/alignment_lag.png}
+  \includegraphics[width=0.9\linewidth]{../../outputs/figures/retained/alignment_lag.png}
   \caption{Alignment lag for a single utterance, in this example $e_A^1$}
   \label{fig:alignment_lag}
 \end{figure}
@@ -460,25 +460,25 @@ In correcting for multiple comparisons, we used the Benjamini–Hochberg false d
 One *** trend observed across metrics was semantic separation increasing as expertise gap increased, in various forms. Centroid distance is perhaps the simplest measure indicating semantic separation. We can see in figures \ref{fig:line_centroid_mean} and \ref{fig:centroid_mean_distance} a clear downward monotonic trend of centroid distance as the expertise gap **lessens***? Alongside centroid distance, we can also look at speaker-specific cross-speaker nearest neighbor metrics. The mean nearest-neighbor distance from Speaker A to Speaker B (A→B) (figure \ref{fig:line_cross_nn_A_to_B}) decreases monotonically with increasing expertise level, while the reverse direction (B→A) (figure \ref{fig:line_cross_nn_B_to_A}) shows a complementary increase. This indicates a systematic directional asymmetry in local semantic proximity across expertise levels. Hausdorff values, which capture the largest average semantic gap between speakers, also shows a decrease as expertise gap decreases. 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=0.9\linewidth]{figures/centroid_mean_distance.png}
+  \includegraphics[width=0.9\linewidth]{../../outputs/figures/retained/centroid_mean_distance.png}
   \caption{Bar graph showing centroid mean distance across different levels of expertise-gap conversations.}
   \label{fig:centroid_mean_distance}
 \end{figure}
 \begin{figure}[t]
   \centering
-  \includegraphics[width=0.9\linewidth]{figures/line_centroid_mean.png}
+  \includegraphics[width=0.9\linewidth]{../../outputs/figures/retained/line_centroid_mean.png}
   \caption{Line graph showing global centroid distance means across different levels of expertise-gap conversations.}
   \label{fig:line_centroid_mean}
 \end{figure}
 \begin{figure}[t]
   \centering
-  \includegraphics[width=0.9\linewidth]{figures/line_cross_nn_A_to_B.png}
+  \includegraphics[width=0.9\linewidth]{../../outputs/figures/retained/line_cross_nn_A_to_B.png}
   \caption{Line graph showing cross-speaker nearest neighbor values for speaker A->B}
   \label{fig:line_cross_nn_A_to_B}
 \end{figure}
 \begin{figure}[t]
   \centering
-  \includegraphics[width=0.9\linewidth]{figures/line_cross_nn_B_to_A.png}
+  \includegraphics[width=0.9\linewidth]{../../outputs/figures/retained/line_cross_nn_B_to_A.png}
   \caption{Line graph showing cross-speaker nearest neighbor values for speaker B->A.}
   \label{fig:line_cross_nn_B_to_A}
 \end{figure}
@@ -488,19 +488,19 @@ One *** trend observed across metrics was semantic separation increasing as expe
 For measures of scope and variability, we can look at entropy and hull area-related metrics. Regarding entropy values,  entropies of the second speaker tended stay relatively stable, with the exception of the experts, who had significantly high entropy values. Overall entropy values (including both speakers) tended to fluctuate across speaker level gaps as seen in figure \ref{fig:line_entropy_total}. Yet we can see a clean pattern emerge when looking at $s_A$ versus $s_B$ entropy slopes, as with a decrease in \begin{math}\left\|\Delta \boldsymbol{\mu}_A\right\|\end{math}, the entropy slopes of the speakers near the same value. 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.9\linewidth]{figures/line_entropy_B.png}
+    \includegraphics[width=0.9\linewidth]{../../outputs/figures/retained/line_entropy_B.png}
     \caption{Line graph of second-speaker entropies.}
     \label{fig:line_entropy_B}
 \end{figure}
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.9\linewidth]{figures/line_entropy_total.png}
+    \includegraphics[width=0.9\linewidth]{../../outputs/figures/retained/line_entropy_total.png}
     \caption{Line graph of conversation entropies.}
     \label{fig:line_entropy_total}
 \end{figure}
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.9\linewidth]{figures/bar_entropy_slope_A_vs_B.png}
+    \includegraphics[width=0.9\linewidth]{../../outputs/figures/retained/bar_entropy_slope_A_vs_B.png}
     \caption{Bar graph of entropy slopes for both speakers.}
     \label{fig:bar_entropy_slope_A_vs_B}
 \end{figure}
@@ -510,25 +510,25 @@ For measures of scope and variability, we can look at entropy and hull area-rela
 We can look to containment metrics and influence asymmetry as measures of asymmetric semantic structure. Regarding containment, A in B containment showed a steady increase as \begin{math}\left\|\Delta \boldsymbol{\mu}_A\right\|\end{math} decreased as seen in figure \ref{fig:line_containment_A_in_B}, whereas B in A containment varied greatly as seen in figure \ref{fig:line_containment_B_in_A}. For influence metrics, $s_A$'s influence towards $s_b$ tended increase as \begin{math}\left\|\Delta \boldsymbol{\mu}_A\right\|\end{math} decreased, and $s_B$'s influence tended to slightly decrease as \begin{math}\left\|\Delta \boldsymbol{\mu}_A\right\|\end{math} decreased. 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/line_containment_A_in_B.png}
+    \includegraphics[width=0.5\linewidth]{../../outputs/figures/retained/line_containment_A_in_B.png}
     \caption{Line graph showing containment of speaker A in speaker B's embeddings in relation to expertise gap}
     \label{fig:line_containment_A_in_B}
 \end{figure}
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/line_containment_B_in_A.png}
+    \includegraphics[width=0.5\linewidth]{../../outputs/figures/retained/line_containment_B_in_A.png}
     \caption{Line graph showing containment of speaker B in speaker A's embeddings in relation to expertise gap}
     \label{fig:line_containment_B_in_A}
 \end{figure}
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/line_influence_A_toward_B.png}
+    \includegraphics[width=0.5\linewidth]{../../outputs/figures/retained/line_influence_A_toward_B.png}
     \caption{Line graph showing speaker A's influence towards speaker B. }
     \label{fig:line_influence_A_toward_B}
 \end{figure}
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/line_influence_B_toward_A.png}
+    \includegraphics[width=0.5\linewidth]{../../outputs/figures/retained/line_influence_B_toward_A.png}
     \caption{Line graph showing speaker B's influence towards speaker A.}
     \label{fig:line_influence_B_toward_A}
 \end{figure}
@@ -538,19 +538,19 @@ While ******** (further discussed in the limitations section), *****. In figures
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/line_align_lag_A_to_B.png}
+    \includegraphics[width=0.5\linewidth]{../../outputs/figures/retained/line_align_lag_A_to_B.png}
     \caption{Line graph showing alignment lag from speaker A to B.}
     \label{fig:line_align_lag_A_to_B}
 \end{figure}
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/line_align_lag_B_to_A.png}
+    \includegraphics[width=0.5\linewidth]{../../outputs/figures/retained/line_align_lag_B_to_A.png}
     \caption{Line graph showing alignment lag from speaker B to A.}
     \label{fig:line_align_lag_B_to_A}
 \end{figure}
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/line_align_lag_asymmetry_AminusB.png}
+    \includegraphics[width=0.5\linewidth]{../../outputs/figures/retained/line_align_lag_asymmetry_AminusB.png}
     \caption{Line graph showing difference of A->B minus B->A alignment lags.}
     \label{fig:line_align_lag_asymmetry_AminusB}
 \end{figure}
@@ -559,7 +559,7 @@ While ******** (further discussed in the limitations section), *****. In figures
 The partial correlations and FDR-corrected q-values between semantic interaction metrics and expertise gap-related variables are shown in the heatmaps of figure \ref{fig:correlations}.
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.9\linewidth]{figures/myplot.png}
+    \includegraphics[width=0.9\linewidth]{../../outputs/figures/retained/myplot.png}
     \caption{Heatmap of partial correlations and FDR-corrected q-values between semantic interaction metrics and expertise gap-related variables }
     \label{fig:correlations}
 \end{figure}
@@ -642,7 +642,7 @@ At the graduate student level, experts tend to become relentless in their word c
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.9\linewidth]{figures/wired_Talia_12__metric_panels.png}
+    \includegraphics[width=0.9\linewidth]{../../outputs/figures/retained/wired_Talia_12__metric_panels.png}
     \caption{Visualization of metric calculations for expert-child interaction for conversation on quantum computers. }
     \label{fig:wired_talia_12_metric}
 \end{figure}
@@ -722,7 +722,7 @@ Future work will extend this analysis to network analysis and perhaps some *****
 All code availible at \url{https://github.com/yume-24/expertise_conversation}
 
 \bibliographystyle{plainnat} 
-\bibliography{horizons}
+\bibliography{../horizons}
 
 
 \end{document}

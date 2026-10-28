@@ -1,6 +1,4 @@
 """Fast behavioral tests; full notebook parity is checked by analysis.verify."""
-from dataclasses import replace
-import importlib.util
 import json
 from pathlib import Path
 import tempfile
@@ -59,7 +57,6 @@ class PipelineTests(unittest.TestCase):
 
     def test_changed_text_rejects_embedding_cache(self):
         # Matching shape is insufficient: text/ID fingerprint and matrix hash are required.
-        import inspect
         from analysis.embeddings import embed_utterances
         # Run a valid cache hit using the actual fingerprint construction, without a model.
         from analysis.provenance import packages

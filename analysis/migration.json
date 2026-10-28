@@ -1,0 +1,278 @@
+[
+  {
+    "from": "first_approach",
+    "to": "analysis/legacy/first_approach"
+  },
+  {
+    "from": "main.py",
+    "to": "analysis/legacy/main.py"
+  },
+  {
+    "from": "graph_utils.py",
+    "to": "analysis/legacy/graph_utils.py"
+  },
+  {
+    "from": "normalize_speaker1_as_A.py",
+    "to": "analysis/legacy/normalize_speaker1_as_A.py"
+  },
+  {
+    "from": "big_analysis_fep_implementation.ipynb",
+    "to": "notebooks/exploratory/big_analysis_fep_implementation.ipynb"
+  },
+  {
+    "from": "scripts/run_paper_notebooks.py",
+    "to": "analysis/legacy/run_paper_notebooks.py"
+  },
+  {
+    "from": "requirements-paper.txt",
+    "to": "notebooks/reference/requirements-paper.txt"
+  },
+  {
+    "from": "analysis_exports",
+    "to": "outputs/legacy/analysis_exports"
+  },
+  {
+    "from": "horizons2_embeddings",
+    "to": "outputs/legacy/horizons2_embeddings"
+  },
+  {
+    "from": "out",
+    "to": "outputs/legacy/out"
+  },
+  {
+    "from": "outputs/visualization",
+    "to": "outputs/legacy/visualization"
+  },
+  {
+    "from": "outputs/.DS_Store",
+    "to": "outputs/legacy/.DS_Store"
+  },
+  {
+    "from": "outputs/features_for_classification.csv",
+    "to": "outputs/legacy/features_for_classification.csv"
+  },
+  {
+    "from": "outputs/per_file_metrics",
+    "to": "outputs/legacy/per_file_metrics"
+  },
+  {
+    "from": "outputs/interactive_graph.html",
+    "to": "outputs/legacy/interactive_graph.html"
+  },
+  {
+    "from": "outputs/metric_walkthrough",
+    "to": "outputs/legacy/metric_walkthrough"
+  },
+  {
+    "from": "outputs/out_1_3.html",
+    "to": "outputs/legacy/out_1_3.html"
+  },
+  {
+    "from": "outputs/lda_visualization.html",
+    "to": "outputs/legacy/lda_visualization.html"
+  },
+  {
+    "from": "outputs/novices_graph_stats.csv",
+    "to": "outputs/legacy/novices_graph_stats.csv"
+  },
+  {
+    "from": "outputs/experts_graph_stats.csv",
+    "to": "outputs/legacy/experts_graph_stats.csv"
+  },
+  {
+    "from": "outputs/supplementary_graphs",
+    "to": "outputs/legacy/supplementary_graphs"
+  },
+  {
+    "from": "outputs/microdynamics",
+    "to": "outputs/legacy/microdynamics"
+  },
+  {
+    "from": "outputs/plots",
+    "to": "outputs/legacy/plots"
+  },
+  {
+    "from": "outputs/statistical_significance",
+    "to": "outputs/legacy/statistical_significance"
+  },
+  {
+    "from": "outputs/convo_metrics.csv",
+    "to": "outputs/legacy/convo_metrics.csv"
+  },
+  {
+    "from": "semantic_dimensionality_trajectories.png",
+    "to": "outputs/legacy/root/semantic_dimensionality_trajectories.png"
+  },
+  {
+    "from": "img.png",
+    "to": "outputs/legacy/root/img.png"
+  },
+  {
+    "from": "semantic-pr-animation-wired_time_16.gif",
+    "to": "outputs/legacy/root/semantic-pr-animation-wired_time_16.gif"
+  },
+  {
+    "from": "matched_joint_semantic_trajectories.gif",
+    "to": "outputs/legacy/root/matched_joint_semantic_trajectories.gif"
+  },
+  {
+    "from": "semantic-pr-animation-wired_gravity_12.gif",
+    "to": "outputs/legacy/root/semantic-pr-animation-wired_gravity_12.gif"
+  },
+  {
+    "from": "semantic-pr-animation-wired_gravity_16.gif",
+    "to": "outputs/legacy/root/semantic-pr-animation-wired_gravity_16.gif"
+  },
+  {
+    "from": "semantic-pr-animation-wired_gravity_14.gif",
+    "to": "outputs/legacy/root/semantic-pr-animation-wired_gravity_14.gif"
+  },
+  {
+    "from": "topics.html",
+    "to": "outputs/legacy/root/topics.html"
+  },
+  {
+    "from": "out_1_5.html",
+    "to": "outputs/legacy/root/out_1_5.html"
+  },
+  {
+    "from": "out_1_5.html\u00e7\u00e7\u2248",
+    "to": "outputs/legacy/root/out_1_5.html\u00e7\u00e7\u2248"
+  },
+  {
+    "from": "trigram_metrics.csv",
+    "to": "outputs/legacy/root/trigram_metrics.csv"
+  },
+  {
+    "from": "convo_metrics_speaker1A.csv",
+    "to": "outputs/legacy/root/convo_metrics_speaker1A.csv"
+  },
+  {
+    "from": "texput.log",
+    "to": "outputs/legacy/root/texput.log"
+  },
+  {
+    "from": "lib",
+    "to": "outputs/legacy/root/lib"
+  },
+  {
+    "from": "paper/mainPaper.tex",
+    "to": "paper/previous/mainPaper.tex"
+  },
+  {
+    "from": "paper/Archive.zip",
+    "to": "outputs/legacy/manuscript/Archive.zip"
+  },
+  {
+    "from": "paper/mainPaper2.aux",
+    "to": "outputs/legacy/manuscript/build/mainPaper2.aux"
+  },
+  {
+    "from": "paper/mainPaper2.bbl",
+    "to": "outputs/legacy/manuscript/build/mainPaper2.bbl"
+  },
+  {
+    "from": "paper/mainPaper2.blg",
+    "to": "outputs/legacy/manuscript/build/mainPaper2.blg"
+  },
+  {
+    "from": "paper/mainPaper2.log",
+    "to": "outputs/legacy/manuscript/build/mainPaper2.log"
+  },
+  {
+    "from": "paper/mainPaper.pdf",
+    "to": "outputs/legacy/manuscript/build/mainPaper.pdf"
+  },
+  {
+    "from": "paper/mainPaper2.pdf",
+    "to": "outputs/legacy/manuscript/build/mainPaper2.pdf"
+  },
+  {
+    "from": "paper/figures",
+    "to": "outputs/figures/retained"
+  },
+  {
+    "from": "outputs/paper/main_metric_trajectories_participation_ratio.pdf",
+    "to": "outputs/legacy/paper_pre_reorganization/main_metric_trajectories_participation_ratio.pdf"
+  },
+  {
+    "from": "outputs/paper/utterances_with_embedding_index.csv",
+    "to": "outputs/legacy/paper_pre_reorganization/utterances_with_embedding_index.csv"
+  },
+  {
+    "from": "outputs/paper/axis_tightness_by_pc_rank.pdf",
+    "to": "outputs/legacy/paper_pre_reorganization/axis_tightness_by_pc_rank.pdf"
+  },
+  {
+    "from": "outputs/paper/main_metric_trajectories_participation_ratio.png",
+    "to": "outputs/legacy/paper_pre_reorganization/main_metric_trajectories_participation_ratio.png"
+  },
+  {
+    "from": "outputs/paper/pr_by_excess_axis_tightness.pdf",
+    "to": "outputs/legacy/paper_pre_reorganization/pr_by_excess_axis_tightness.pdf"
+  },
+  {
+    "from": "outputs/paper/axis_fingerprint_time.pdf",
+    "to": "outputs/legacy/paper_pre_reorganization/axis_fingerprint_time.pdf"
+  },
+  {
+    "from": "outputs/paper/conversation_metrics.csv",
+    "to": "outputs/legacy/paper_pre_reorganization/conversation_metrics.csv"
+  },
+  {
+    "from": "outputs/paper/pr_and_axis_tightness_trajectories.pdf",
+    "to": "outputs/legacy/paper_pre_reorganization/pr_and_axis_tightness_trajectories.pdf"
+  },
+  {
+    "from": "outputs/paper/main_metric_trajectories_radial_distance_q90.pdf",
+    "to": "outputs/legacy/paper_pre_reorganization/main_metric_trajectories_radial_distance_q90.pdf"
+  },
+  {
+    "from": "outputs/paper/pr_axis_tightness.pdf",
+    "to": "outputs/legacy/paper_pre_reorganization/pr_axis_tightness.pdf"
+  },
+  {
+    "from": "outputs/paper/main_metric_trajectories_radial_distance_q90.png",
+    "to": "outputs/legacy/paper_pre_reorganization/main_metric_trajectories_radial_distance_q90.png"
+  },
+  {
+    "from": "outputs/paper/utterance_embeddings.npy",
+    "to": "outputs/legacy/paper_pre_reorganization/utterance_embeddings.npy"
+  },
+  {
+    "from": "outputs/paper/main_metric_trajectories.png",
+    "to": "outputs/legacy/paper_pre_reorganization/main_metric_trajectories.png"
+  },
+  {
+    "from": "outputs/paper/reorganization_comparison.csv",
+    "to": "outputs/legacy/paper_pre_reorganization/reorganization_comparison.csv"
+  },
+  {
+    "from": "outputs/paper/main_metric_trajectories_speaker_centroid_cosine_distance.pdf",
+    "to": "outputs/legacy/paper_pre_reorganization/main_metric_trajectories_speaker_centroid_cosine_distance.pdf"
+  },
+  {
+    "from": "outputs/paper/main_metric_trajectories.pdf",
+    "to": "outputs/legacy/paper_pre_reorganization/main_metric_trajectories.pdf"
+  },
+  {
+    "from": "outputs/paper/main_metric_trajectories_speaker_centroid_cosine_distance.png",
+    "to": "outputs/legacy/paper_pre_reorganization/main_metric_trajectories_speaker_centroid_cosine_distance.png"
+  },
+  {
+    "from": "outputs/paper/main_metric_trajectories_radial_distance_median.pdf",
+    "to": "outputs/legacy/paper_pre_reorganization/main_metric_trajectories_radial_distance_median.pdf"
+  },
+  {
+    "from": "outputs/paper/metrics_manifest.json",
+    "to": "outputs/legacy/paper_pre_reorganization/metrics_manifest.json"
+  },
+  {
+    "from": "outputs/paper/main_metric_trajectories_radial_distance_median.png",
+    "to": "outputs/legacy/paper_pre_reorganization/main_metric_trajectories_radial_distance_median.png"
+  },
+  {
+    "from": "outputs/paper/statistical_significance",
+    "to": "outputs/legacy/paper_pre_reorganization/statistical_significance"
+  }
+]

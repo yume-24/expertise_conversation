@@ -73,7 +73,7 @@ def statistics_stage(config):
     return results
 
 
-def figures_stage(config):
+def figures_stage(config, include_statistics=True):
     import matplotlib.pyplot as plt
     from .plots import apply_style, plot_metric_trajectories, save_figure, plot_expertise_effects, plot_diagnostics
     check_metric_inputs(config)
@@ -82,6 +82,8 @@ def figures_stage(config):
     for name, (fig, _) in plot_metric_trajectories(metrics, config.centroid_min_words).items():
         save_figure(fig, config.output / 'figures' / f'main_metric_trajectories_{name}')
         plt.close(fig)
+    if not include_statistics:
+        return
     directory = config.output / 'tables/statistics'
     manifest_path = directory / 'analysis_manifest.json'
     if not manifest_path.exists():

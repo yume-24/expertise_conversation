@@ -59,6 +59,9 @@ def notebook_reference(config, destination):
 
 
 def compare(reference, candidate, report_path, config):
+    resolved = json.loads((candidate / 'run_config.json').read_text())
+    if any(resolved[k] != value for k, value in config.to_dict().items() if k != 'output_dir'):
+        raise ValueError('Saved Python run used a different configuration; rerun verification.')
     comparisons = []
     left = np.load(reference / 'utterance_embeddings.npy', allow_pickle=False)
     right = np.load(candidate / 'embeddings/utterance_embeddings.npy', allow_pickle=False)
@@ -92,14 +95,15 @@ def main():
         parser.error('config.name must be a simple directory name')
     directory = ROOT / 'outputs/validation' / config.name
     reference, candidate = directory / 'notebook', directory / 'python'
-    if not args.compare_only:
-        notebook_reference(config, reference)
-        from .run import run
-        import matplotlib
-        matplotlib.use('Agg')
-        print('Python: executing configured pipeline', flush=True)
-        run(replace(config, output_dir=str(candidate)), rebuild_embeddings=True)
+    write_json(directory / 'comparison.json', {'status': 'running', 'config': config.to_dict()})
     try:
+        if not args.compare_only:
+            notebook_reference(config, reference)
+            from .run import run
+            import matplotlib
+            matplotlib.use('Agg')
+            print('Python: executing configured pipeline', flush=True)
+            run(replace(config, output_dir=str(candidate)), rebuild_embeddings=True)
         compare(reference, candidate, directory / 'comparison.json', config)
     except Exception as exc:
         write_json(directory / 'comparison.json', {'status': 'failed', 'error': str(exc), 'config': config.to_dict()})

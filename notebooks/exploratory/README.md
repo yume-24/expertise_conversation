@@ -13,6 +13,8 @@ These notebooks preserve the wider analyses and prior results. Run their root-se
 
 The static exploratory notebook retains its original cells, including a stray `zsx` scratch cell that must be skipped for sequential execution. Duplicate models and historical interpretations are retained as context, not endorsements. The clean paper preparation notebook excludes them.
 
-Dynamic organization and its benchmark require `analysis_exports/turns_dynamic.csv`, `turn_embeddings.npy` and the matching manifest. The full historical/free-energy notebook at the root contains their export stages. They are not outputs of the new paper pipeline. Other exploratory notebooks calculate their own embeddings and can require additional model downloads/packages.
+Dynamic organization and its benchmark require `outputs/legacy/analysis_exports/turns_dynamic.csv`, `turn_embeddings.npy` and the matching manifest. The full historical/free-energy notebook in this directory contains their export stages. They are not outputs of the new paper pipeline. Other exploratory notebooks calculate their own embeddings and can require additional model downloads/packages.
 
 Most existing relative paths are preserved by setting the working directory to the repository root. Two erroneous `/first_approach/` absolute paths in the legacy metrics notebook were corrected. Exploratory notebooks may replace legacy exports, but do not write the new paper output directory.
+
+These notebooks are retained research, outside the verified config pipeline. Reorganization updated common path/import references but did not rerun their analyses. Use `python -m analysis.run` for the supported paper results.

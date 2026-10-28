@@ -1,5 +1,5 @@
-from first_approach.clean_corpus_make_graph import clean_corpus, read_corpus, text_to_graph, draw_top_interactive
-from graph_utils import *
+from analysis.legacy.first_approach.clean_corpus_make_graph import clean_corpus, read_corpus, text_to_graph, draw_top_interactive
+from analysis.legacy.graph_utils import *
 from pathlib import Path
 import pandas as pd
 

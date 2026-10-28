@@ -23,3 +23,12 @@ __pycache__/
 # Data (if large / private)
 data/raw/
 
+
+# Local environments and editor state
+.venv/
+.idea/
+
+# Reproducible run products (retained assets and legacy snapshots remain explicit)
+outputs/paper/
+outputs/all_utterances/
+outputs/validation/

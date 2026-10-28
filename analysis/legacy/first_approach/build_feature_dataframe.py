@@ -4,7 +4,7 @@ import pandas as pd
 import networkx as nx
 
 from clean_corpus_make_graph import clean_corpus, read_corpus, text_to_graph
-from graph_utils import *
+from analysis.legacy.graph_utils import *
 
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
