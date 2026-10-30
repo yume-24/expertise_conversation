@@ -56,7 +56,11 @@ Each video was screened for suitability for utterance-level analysis, especially
 The transcripts for each video were obtained using YouTube’s (embedded/in website) transcript, which were later manually reviewed, corrected, and assigned speaker labels. The transcripts were converted to CSV format with columns for sequence, speaker, text, and notes, with each row dedicated to a single utterance. The two speakers in a given conversation is denoted as $s_t \in \{A,B\}$and conversational turn as $t$. For every utterance position in $t \in \{1,\ldots,T\}$,  $u_t^{(s_t)}$ the utterance produced by the speaker at time $t$. Utterances were defined as relatively short, semantically coherent segments that expressed a single idea or communicative function, derived from each speaker turn, rather than as full speaker turns or complete grammatical sentences. Turns were segmented manually at natural breakpoints such as pauses, interruptions, or dramatic shifts in semantic content, such that a single speaker turn $t$ could contain multiple utterances.
 %should i move the utterance explanation before mentioning the csv
 
-This segmentation approach was adopted to better align the unit of analysis with the embedding-based metrics used in this study. Because sentence embeddings operate over semantically meaningful units, segmenting transcripts into smaller, coherent utterances allows for more fine-grained representation of local conversational dynamics than would be possible using full speaker turns alone. The utterances were embedded using the pretrained\texttt{sentence-transformers/all-MiniLM-L6-v2} model\citep{reimers-gurevych-2019-sentence,all-minilm-l6-v2}, which returns 384-dimensional vectors per input (per utterance in our case). The utterance embeddings were used to calculate the majority of the metrics used for analysis.
+This segmentation approach was adopted to better align the unit of analysis with the embedding-based metrics used in this study. Because sentence embeddings operate over semantically meaningful units, segmenting transcripts into smaller, coherent utterances allows for more fine-grained representation of local conversational dynamics than would be possible using full speaker turns alone. The utterances were embedded using the pretrained\texttt{sentence-transformers/all-MiniLM-L6-v2} model\citep{reimers-gurevych-2019-sentence,all-minilm-l6-v2}, which returns unit-normalized embeddings \begin{equation}
+    \mathbf{x}_i =
+    \frac{\mathbf{e}_i}{\|\mathbf{e}_i\|_2}.
+\end{equation} where $\mathbf{e}_i \in \mathbb{R}^{d}$ denotes the embedding of
+utterance $i$, with $d=384$. These utterance embeddings were used to calculate the majority of the metrics used for analysis.
 % majority of because things like utterance count are also a metric?
 
 \subsection{Metrics}
@@ -65,29 +69,110 @@ This segmentation approach was adopted to better align the unit of analysis with
 % go over plotting each embedding/how each embedding is added in embedding space
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{../outputs/figures/retained/01_time_series_t0_t2.png}
+    \includegraphics[width=0.85\linewidth]{../outputs/metric_walkthrough/paper/01_time_series_t0_t2.png}
     \caption{Shows embeddings added at each time step (reduced to two dimensions) for expert-undergraduate conversation on gravity from time t = 0 to t = 2.}
     \label{fig:01_time_series_t0_t2}
 \end{figure}
-To capture the general distribution of embeddings across conversations, we looked at centroid distances and a number of dispersion metrics. To calculate centroid distances, we first calculate the centroids for each speaker at the final state of the conversation sequence, using all utterances (formulas for centroids) and calculated cosine distances between the centroid pairs (formula for distance). The metric captures the distance between the average embedding points of the two interlocutors, reflective of the difference of their  “average” semantic use. Smaller distances would be indicative of generally similar semantic use versus larger distances which would indicate dissimilar semantic use.
+To capture the general distribution of embeddings across conversations, we looked at centroid distances and a number of dispersion metrics.
+To calculate centroid distances, we first calculate the centroids for each speaker at the final state of the conversation sequence. For speaker $s \in \{A,B\}$, let $I_s$ denote the set of included
+utterance indices and $n_s = |I_s|$. The speaker centroid is
+\begin{equation}
+    \boldsymbol{\mu}_s =
+    \frac{1}{n_s}\sum_{i \in I_s}\mathbf{x}_i.
+    \label{eq:speaker-centroid}
+\end{equation}
+The cosine distance between speaker centroids is
+\begin{equation}
+    D_{\mathrm{centroid}} =
+    1 -
+    \frac{
+        \boldsymbol{\mu}_A^\top\boldsymbol{\mu}_B
+    }{
+        \|\boldsymbol{\mu}_A\|_2
+        \|\boldsymbol{\mu}_B\|_2
+    }.
+    \label{eq:centroid-distance}
+\end{equation}. The metric captures the distance between the average embedding points of the two interlocutors, reflective of the difference of their  “average” semantic use. Smaller distances would be indicative of generally similar semantic use versus larger distances which would indicate dissimilar semantic use.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{../outputs/figures/retained/speaker_centroid_visualization.png}
+    \includegraphics[width=0.85\linewidth]{../outputs/metric_walkthrough/paper/speaker_centroid_visualization.png}
     \caption{PCA projection of utterance embeddings from one conversation, colored by speaker. Crosses mark the speaker centroids. The dashed line connects their projected positions for illustration; cosine distance is calculated in the original embedding space.}
     \label{fig:speaker-centroid-visualization}
 \end{figure}
 
-Radial distances (q10, median, q90) from the conversation centroids were also calculated to examine the dispersion of embeddings relative to the conversation’s centroid. The centroid of each conversation was calculated as (formula), and distances from the centroid were calculated as (formula). The quartiles were **** as ****.
+Radial distances (q10, median, q90) from the conversation centroids were calculated to examine the dispersion of embeddings relative to the conversation’s pooled centroid. For a conversation containing $N$ nonempty utterances, the
+pooled centroid is
+\begin{equation}
+    \boldsymbol{\mu} =
+    \frac{1}{N}\sum_{i=1}^{N}\mathbf{x}_i.
+    \label{eq:conversation-centroid}
+\end{equation}
+The radial cosine distance of utterance $i$ to $\mu$ is
+\begin{equation}
+    r_i =
+    1 -
+    \frac{
+        \mathbf{x}_i^\top\boldsymbol{\mu}
+    }{
+        \|\mathbf{x}_i\|_2
+        \|\boldsymbol{\mu}\|_2
+    }.
+    \label{eq:radial-distance}
+\end{equation}  The quantiles were estimated using linear interpolation for the median and 90th percentile:
+\begin{equation}
+    \begin{aligned}
+        Q_{50} &=
+        \operatorname{Quantile}_{0.50}(r_1,\ldots,r_N), \\
+        Q_{90} &=
+        \operatorname{Quantile}_{0.90}(r_1,\ldots,r_N).
+    \end{aligned}
+    \label{eq:radial-quantiles}
+\end{equation}
 
-Dimensional analysis was performed to capture the organization of variance across different principle directions. Participation ratio (formula) is essentially a “count” of how many eigenvalues(principal components) share the embeddings’ variance. The embeddings are centered around the conversation centroid and are put into a covariance matrix. In essence, we are simply examining the dimensional structure of the embeddings, disregarding location. (The covariance matrix is decomposed using SVD, with each eigenvector representing a principal component, and its corresponding eigenvalue represents the amount of variation is ****. The eigenvalues are then normalized, so that each normalized eigenvalue represents the percentage of the total semantic variation that is accounted for by that direction. Participation ratio is the ratio of square of total variance over the sum of squared variances along the individual directions).  A participation ratio of 1 would indicate the variance lies in one direction. Higher participation ratios would indicate the variance being shared by more dominating directions. In interpretation, this could be indicative of organized movement across a greater number of semantic directions.
+Dimensional analysis was performed to capture the organization of variance across different principle directions. Participation ratio is essentially a “count” of how many dominant eigenvalues (principal components) share the embeddings’ variance. The embeddings are first centered around the conversation centroid and are put into a covariance matrix. We center the embeddings around the conversation centroid:
+\begin{equation}
+    \mathbf{z}_i = \mathbf{x}_i - \boldsymbol{\mu}.
+\end{equation}
+The sample covariance matrix is
+\begin{equation}
+    \mathbf{C} =
+    \frac{1}{N-1}
+    \sum_{i=1}^{N}\mathbf{z}_i\mathbf{z}_i^\top.
+    \label{eq:embedding-covariance}
+\end{equation}
+The covariance matrix is decomposed using SVD,
+\begin{equation}
+    \mathbf{Z} = \mathbf{U}\mathbf{S}\mathbf{V}^\top,
+    \qquad
+    \lambda_j = \frac{\sigma_j^2}{N-1},
+\end{equation}
+where $\sigma_j$ denotes the $j$th singular value. In essence, we are simply examining the dimensional structure of the embeddings, disregarding location. The eigenvalues are then normalized, so that each normalized eigenvalue represents the variance share of the total semantic variation that is accounted for by that direction.
+Let $\lambda_1,\ldots,\lambda_K$ denote its numerically
+nonzero eigenvalues. The variance share of direction $j$ is
+\begin{equation}
+    p_j =
+    \frac{\lambda_j}{\sum_{k=1}^{K}\lambda_k}.
+\end{equation}
+Participation ratio is
+\begin{equation}
+    \mathrm{PR} =
+    \frac{
+        \left(\sum_{j=1}^{K}\lambda_j\right)^2
+    }{
+        \sum_{j=1}^{K}\lambda_j^2
+    }
+    =
+    \frac{1}{\sum_{j=1}^{K}p_j^2}.
+    \label{eq:participation-ratio}
+\end{equation}  A participation ratio of 1 would indicate the variance lies in one direction. Higher participation ratios would indicate the variance being shared by more dominating directions. In interpretation, this could be indicative of organized movement across a greater number of semantic directions.
 
 \section{Results}
 
 The analyses provide preliminary confirmation of the contraction-and-ramification hypothesis.
 
 \subsection{Centroid Distances}
-Centroid distances tended to decrease as partner $|\Delta E|$ decreased (Figure~\ref{fig:centroid-distances}\ref{fig:centroid-distance_trajectory}). Centroid distances decreased by $\beta = -0.313$ per increase in $E_B$, 95\% CI $[-0.414, -0.211]$(adjusted, from the fitted REML model) with expert-expert conversations having the smallest centroid distances. Running a parametric bootstrap likelihood-ratio test, we found that the differences by expertise were statistically significant and unlikely under the null LR = 11.4, \textit{p} = .001. Even after applying Benjamini-Hochberg correction, the relationship survived with $p_{\mathrm{FDR}} = .002$. This result indicates that as partner expertise increases, the overall semantic usage of the two interlocutors becomes significantly more similar. This would make sense, as expert-expert pairs(for example) are operating very much “in the same space,”  with access to similar concepts and by extension, vocabulary, as opposed to expert-novice pairs where unlike their expert partners, novice speakers have comparatively limited vocabulary and access to concepts. Expert-novice (especially expert-child) conversations also tend to require extensive scaffolding, due to the novices having limited/insufficient(?) knowledge of the concepts being discussed. The concepts of discussion in these expert-novice conversations have to be explained with simpler, more digestible language to avoid overloading the conversation with technical jargon. (The expert scaffolds, with the aim of getting the novice “on the same page/in the same kind of space(information organization).”) The novice utterances tend to simply answer expert questions, and will use words outside of the topic's technical vocabulary, whereas experts may use some technical words when introducing ideas making the average embedding(centroid) of the speakers further. Experts do not have to undergo this scaffolding (and aligning representations\citep{garrod_joint_2009}) process. They have greater semantic precision around the ****s from the beginning.
+Centroid distances tended to decrease as partner $|\Delta E|$ decreased (Figure~\ref{fig:centroid-distances}\ref{fig:centroid-distance_trajectory}). Centroid distances decreased by $\beta = -0.313$ per increase in $E_B$, 95\% CI $[-0.414, -0.211]$(adjusted, from the fitted REML model) with expert-expert conversations having the smallest speaker centroid distances. Running a parametric bootstrap likelihood-ratio test, we found that the differences by expertise were statistically significant and were unlikely under the null LR = 11.4, \textit{p} = .001. Even after applying Benjamini-Hochberg correction, the relationship survived with $p_{\mathrm{FDR}} = .002$. This result indicates that as partner expertise increases, the overall semantic usage of the two interlocutors becomes significantly more similar. This may be a result of the interlocutors in conversation with higher $E_B$ are operating “in the same space,”(?)  with access to similar concepts and by extension, vocabulary, as opposed to expert-novice pairs where unlike their expert partners, novice speakers have comparatively limited vocabulary and access to concepts. Expert-novice (especially expert-child) conversations also tend to require extensive scaffolding, due to the novices having limited/insufficient(?) knowledge of the concepts being discussed. The concepts being discussed in these expert-novice conversations have to be explained with simpler, more digestible language to avoid overloading the conversation with technical jargon. (The expert scaffolds, with the aim of getting the novice “on the same page/in the same kind of space(information organization).”) The novice utterances tend to simply answer expert questions, and will use words outside of the topic's technical vocabulary, whereas experts may use some technical words when introducing ideas making the average embedding(centroid) of the speakers further. Experts do not have to undergo this scaffolding (and aligning representations\citep{garrod_joint_2009}) process. They have *** from the beginning.
 %maybe move some of this to discussion? also a bit repetitive rn.
 \begin{figure}[H]
     \centering

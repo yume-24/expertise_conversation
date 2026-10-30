@@ -5,6 +5,9 @@ still references some old result panels and illustrative diagrams from here.
 Their generating commands have not been verified, so they are preserved assets,
 not outputs claimed to be reproducible by the new Python pipeline.
 
+The time-series and speaker-centroid walkthrough illustrations have moved to
+`../../metric_walkthrough/paper/`; the manuscript references them there.
+
 The four current trajectory figures are regenerated under
 `outputs/paper/figures/` (or the selected config's figures directory). The working
 manuscript points directly there for those four figures. Old copies in this folder

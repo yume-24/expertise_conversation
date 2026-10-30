@@ -61,7 +61,7 @@
   },
   {
     "from": "outputs/metric_walkthrough",
-    "to": "outputs/legacy/metric_walkthrough"
+    "to": "outputs/metric_walkthrough"
   },
   {
     "from": "outputs/out_1_3.html",
@@ -274,5 +274,17 @@
   {
     "from": "outputs/paper/statistical_significance",
     "to": "outputs/legacy/paper_pre_reorganization/statistical_significance"
+  },
+  {
+    "from": "outputs/figures/retained/01_time_series_t0_t2.png",
+    "to": "outputs/metric_walkthrough/paper/01_time_series_t0_t2.png"
+  },
+  {
+    "from": "outputs/figures/retained/01_time_series_t0_t2.pdf",
+    "to": "outputs/metric_walkthrough/paper/01_time_series_t0_t2.pdf"
+  },
+  {
+    "from": "outputs/figures/retained/speaker_centroid_visualization.png",
+    "to": "outputs/metric_walkthrough/paper/speaker_centroid_visualization.png"
   }
 ]

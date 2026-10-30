@@ -1,0 +1,12 @@
+{
+  "source_commit": "6752eb34117ee70e7752a79b36996bda59048089",
+  "source_path": "scripts/visualize_metric_walkthrough.py",
+  "source_blob": "4eb76640791e6a178d593bba990e0c3c2999a126",
+  "source_sha256": "b7c6d08bc7051a8fcb770280a5bf82eeee434597b7dd6e479966ac6dc179bc49",
+  "restored_path": "analysis/visualize_metric_walkthrough.py",
+  "changes": [
+    "Updated usage command for analysis package",
+    "Updated default input directory to outputs/paper/embeddings"
+  ],
+  "history": "Commit appears in the reflog immediately before the October 16 rebase and is not an ancestor of the current branch."
+}
