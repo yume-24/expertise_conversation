@@ -73,6 +73,7 @@ utterance $i$, with $d=384$. These utterance embeddings were used to calculate t
     \caption{Shows embeddings added at each time step (reduced to two dimensions) for expert-undergraduate conversation on gravity from time t = 0 to t = 2.}
     \label{fig:01_time_series_t0_t2}
 \end{figure}
+\subsubsection{Speaker Centroid Distances}
 To capture the general distribution of embeddings across conversations, we looked at centroid distances and a number of dispersion metrics.
 To calculate centroid distances, we first calculate the centroids for each speaker at the final state of the conversation sequence. For speaker $s \in \{A,B\}$, let $I_s$ denote the set of included
 utterance indices and $n_s = |I_s|$. The speaker centroid is
@@ -101,6 +102,7 @@ The cosine distance between speaker centroids is
     \label{fig:speaker-centroid-visualization}
 \end{figure}
 
+\subsubsection{Radial Distance}
 Radial distances (q10, median, q90) from the conversation centroids were calculated to examine the dispersion of embeddings relative to the conversation’s pooled centroid. For a conversation containing $N$ nonempty utterances, the
 pooled centroid is
 \begin{equation}
@@ -130,6 +132,7 @@ The radial cosine distance of utterance $i$ to $\mu$ is
     \label{eq:radial-quantiles}
 \end{equation}
 
+\subsubsection{Participation Ratio}
 Dimensional analysis was performed to capture the organization of variance across different principle directions. Participation ratio is essentially a “count” of how many dominant eigenvalues (principal components) share the embeddings’ variance. The embeddings are first centered around the conversation centroid and are put into a covariance matrix. We center the embeddings around the conversation centroid:
 \begin{equation}
     \mathbf{z}_i = \mathbf{x}_i - \boldsymbol{\mu}.
@@ -147,7 +150,7 @@ The covariance matrix is decomposed using SVD,
     \qquad
     \lambda_j = \frac{\sigma_j^2}{N-1},
 \end{equation}
-where $\sigma_j$ denotes the $j$th singular value. In essence, we are simply examining the dimensional structure of the embeddings, disregarding location. The eigenvalues are then normalized, so that each normalized eigenvalue represents the variance share of the total semantic variation that is accounted for by that direction.
+where $\sigma_j$ denotes the $j$th singular value. (In essence, we are simply examining the dimensional structure of the embeddings, disregarding location.) The eigenvalues are then normalized, so that each normalized eigenvalue represents the variance share of the total semantic variation that is accounted for by that direction.
 Let $\lambda_1,\ldots,\lambda_K$ denote its numerically
 nonzero eigenvalues. The variance share of direction $j$ is
 \begin{equation}
@@ -171,9 +174,14 @@ Participation ratio is
 
 The analyses provide preliminary confirmation of the contraction-and-ramification hypothesis.
 
+We tested whether each metric varied with partner expertise. Each metric was modeled with a REML fit linear mixed-effects model with $E_B$ as an ordered predictor and a random intercept for each video/topic (conversations within the same video share the same random intercept). This approach allowed baseline metric values to vary across videos, accounting for their shared conversational context. Model estimates were obtained using restricted maximum likelihood to reduce finite-sample bias in variance-component estimation. Maximum likelihood was used for likelihood-ratio comparisons as the full and null models differed in their fixed-effect specifications. Before the models were fit, each outcome was standardized by subtracting its mean and dividing by its sample standard deviation, expertise (coded 0 to 4) was centered at 2, and utterance count was log-transformed and centered at its mean.
+Significance was assessed using parametric bootstrap likelihood-ratio tests, where we fit the null model, the full model containing expertise as a predictor, re-estimated the model parameters in both fits, calculated a similated likelihood-ratio statistic, and then calculated the bootstrap p-value. The p-values were corrected across metric using the Benjamini-Hochberg procedure ($p_{\mathrm{FDR}}$). Bootstrapping was chosen for the significance test due to the modest number of video groups. The tests for significance essentially ask whether adding partner expertise as a predictor improves the model. Each model was fit with and without adjustement for utterance count, since utterance count did tend to vary across expertise levels and ****. Effects are reported as change per level increase of $E_B$, with 95\% confidence intervals. Table~\ref{tab:expertise-effects} additionally gives standardized coefficients ($b_{\mathrm{SD}}$). Overall, higher partner expertise was associated with closer speaker centroids and higher participation ratio, with weaker effects on radial distance.
+
 \subsection{Centroid Distances}
-Centroid distances tended to decrease as partner $|\Delta E|$ decreased (Figure~\ref{fig:centroid-distances}\ref{fig:centroid-distance_trajectory}). Centroid distances decreased by $\beta = -0.313$ per increase in $E_B$, 95\% CI $[-0.414, -0.211]$(adjusted, from the fitted REML model) with expert-expert conversations having the smallest speaker centroid distances. Running a parametric bootstrap likelihood-ratio test, we found that the differences by expertise were statistically significant and were unlikely under the null LR = 11.4, \textit{p} = .001. Even after applying Benjamini-Hochberg correction, the relationship survived with $p_{\mathrm{FDR}} = .002$. This result indicates that as partner expertise increases, the overall semantic usage of the two interlocutors becomes significantly more similar. This may be a result of the interlocutors in conversation with higher $E_B$ are operating “in the same space,”(?)  with access to similar concepts and by extension, vocabulary, as opposed to expert-novice pairs where unlike their expert partners, novice speakers have comparatively limited vocabulary and access to concepts. Expert-novice (especially expert-child) conversations also tend to require extensive scaffolding, due to the novices having limited/insufficient(?) knowledge of the concepts being discussed. The concepts being discussed in these expert-novice conversations have to be explained with simpler, more digestible language to avoid overloading the conversation with technical jargon. (The expert scaffolds, with the aim of getting the novice “on the same page/in the same kind of space(information organization).”) The novice utterances tend to simply answer expert questions, and will use words outside of the topic's technical vocabulary, whereas experts may use some technical words when introducing ideas making the average embedding(centroid) of the speakers further. Experts do not have to undergo this scaffolding (and aligning representations\citep{garrod_joint_2009}) process. They have *** from the beginning.
-%maybe move some of this to discussion? also a bit repetitive rn.
+Centroid distances deacreased with  partner level (Figure~\ref{fig:centroid-distances}\ref{fig:centroid-distance_trajectory}) by $\beta = -0.313$ per increase in $E_B$, 95\% CI $[-0.414, -0.211]$(adjusted, from the fitted REML model) bootstrap LR = 11.4, \textit{p} = .001, $p_{\mathrm{FDR}} = .002$. This result indicates that as partner expertise increases, the overall semantic usage of the two interlocutors becomes significantly more similar.
+%move stuff below to discussion
+This may be a result of the interlocutors in conversation with higher $E_B$ are operating “in the same space,”(?)  with access to similar concepts and by extension, vocabulary, as opposed to expert-novice pairs where unlike their expert partners, novice speakers have comparatively limited vocabulary and access to concepts. Expert-novice (especially expert-child) conversations also tend to require extensive scaffolding, due to the novices having limited/insufficient(?) knowledge of the concepts being discussed. The concepts being discussed in these expert-novice conversations have to be explained with simpler, more digestible language to avoid overloading the conversation with technical jargon. (The expert scaffolds, with the aim of getting the novice “on the same page/in the same kind of space(information organization).”) The novice utterances tend to simply answer expert questions, and will use words outside of the topic's technical vocabulary, whereas experts may use some technical words when introducing ideas making the average embedding(centroid) of the speakers further. Experts do not have to undergo this scaffolding (and aligning representations\citep{garrod_joint_2009}) process. They have *** from the beginning.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.85\linewidth]{../outputs/paper/figures/main_metric_trajectories_speaker_centroid_cosine_distance.png}
@@ -190,7 +198,7 @@ Centroid distances tended to decrease as partner $|\Delta E|$ decreased (Figure~
 
 \subsection{Radial Distances}
 
-Figures~\ref{fig:radial-distance-median} and~\ref{fig:radial-distance-q90} show the median and 90th-percentile radial distances, respectively. Embedding distributions tended to shift with expertise, with median radial distances decreasing by $\beta= -0.133$ per level increase, 95\%CI$[-0.239,-0.027]$, and q90 distances increasing by $\beta= 0.106$ per level increase, 95\%CI$[-0.003,0.214]$, though not statistically significant,$p_{\mathrm{FDR}}= .025$ and $p_{\mathrm{FDR}} = .083$, respectively . In general expert-expert distributions tended to have slightly more concentration near the centroid, but also had further points in the periphery. Expert-novices distributions, on the other hand, had slightly less concentration near the centroid and closer peripheral embeddings, though none of the differences in distributions were statistically significant.
+Figures~\ref{fig:radial-distance-median} and~\ref{fig:radial-distance-q90} show the median and 90th-percentile radial distances, respectively. Embedding distributions tended to shift with expertise, with median radial distances decreasing by $\beta= -0.133$ per level increase, 95\%CI$[-0.239,-0.027]$, and q90 distances increasing by $\beta= 0.106$ per level increase, 95\%CI$[-0.003,0.214]$; $p_{\mathrm{FDR}}= .025$ and $p_{\mathrm{FDR}} = .083$, respectively. In general expert-expert distributions tended to have slightly more concentration near the centroid, but also had further points in the periphery, while the Q90 result was not statistically significant.
 % probably put this somewhere later: We can see through these changes in distribution how conversations tend to "pull together" (with closer centroids and smaller median radial distances) and expand or "reach out" (with larger PR and greater q90 radial distances) as partner expertise increased
 \begin{figure}[H]
     \centering
