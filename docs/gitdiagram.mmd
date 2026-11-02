@@ -1,0 +1,107 @@
+flowchart TB
+  subgraph control["Entry points and configuration"]
+    user((Researcher))
+    nb["notebooks/paper/*.ipynb"]
+    runner["analysis/run.py<br/>stage orchestration and file I/O"]
+    toml["analysis/configs/*.toml"]
+    config["config.py<br/>resolved Config"]
+    user --> runner
+    user --> nb
+    nb -->|calls stage functions| runner
+    toml --> config
+    config --> runner
+  end
+  subgraph pipeline["Analysis data flow — arrows point from producer to consumer"]
+    corpus["data/wired/wired_*/*.csv"]
+    transcripts["transcripts.py<br/>parse, clean, label, count words"]
+    rows["Utterance table<br/>ordered text, IDs, speakers, word counts"]
+    embeddings["embeddings.py<br/>validate cache or encode"]
+    model["Pinned all-MiniLM-L6-v2<br/>Sentence Transformers + Torch"]
+    cache["embeddings/<br/>utterance_embeddings.npy<br/>embedding_manifest.json"]
+    indexed["embeddings/<br/>utterances_with_embedding_index.csv"]
+    metrics["metrics.py<br/>conversation geometry + speaker centroids"]
+    metriccsv["tables/conversation_metrics.csv"]
+    statistics["statistics.py<br/>REML models, ML bootstrap, BH/Holm"]
+    stattables["tables/statistics/<br/>analysis_data, excluded_conversations, video_level_coverage<br/>mixed_model_results, paper_results_table<br/>bootstrap_null_statistics, diagnostics, model_summaries"]
+    plots["plots.py<br/>trajectories, expertise effects, diagnostics"]
+    figures["figures/*.png + *.pdf"]
+    corpus --> transcripts --> rows --> embeddings
+    model -->|cache miss or forced rebuild| embeddings
+    cache -->|validated reuse| embeddings
+    embeddings -->|writes matrix and manifest| cache
+    embeddings -->|runner writes indexed rows| indexed
+    embeddings -->|rows and matrix via runner| metrics
+    metrics -->|runner exports| metriccsv
+    metriccsv -->|runner reads| statistics
+    statistics -->|runner exports| stattables
+    metriccsv -->|trajectory input via runner| plots
+    stattables -->|coefficients and diagnostics via runner| plots
+    plots -->|save_figure called by runner| figures
+    plots -.->|METRIC_LABELS imported by statistics| statistics
+    plots -.->|METRIC_LABELS imported by metrics| metrics
+  end
+  subgraph provenance["Validation and reproducibility"]
+    prov["provenance.py<br/>hashes, package versions, JSON, input checks"]
+    metricmanifest["tables/metrics_manifest.json"]
+    statmanifest["tables/statistics/analysis_manifest.json"]
+    runconfig["run_config.json"]
+    code["analysis/*.py"]
+    packages["Installed package versions<br/>environment specified by pyproject.toml + uv.lock"]
+    corpus -->|hash input files| prov
+    code -->|record code hashes| prov
+    packages -->|record versions| prov
+    config -->|settings and paths| prov
+    prov -.->|hash and JSON helpers| embeddings
+    prov -.->|validate metrics before statistics and figures| runner
+    runner -->|via provenance helpers| runconfig
+    runner -->|metric metadata and hashes| metricmanifest
+    runner -->|statistical metadata and hashes| statmanifest
+    metricmanifest -->|check_metric_inputs| prov
+    metriccsv -->|check content hash| prov
+    statmanifest -->|figure-stage checks| runner
+    stattables -->|figure-stage hash checks| runner
+  end
+  runner -.->|embeddings and metrics stages| transcripts
+  runner -.->|embeddings and metrics stages| embeddings
+  runner -.->|metrics stage| metrics
+  runner -.->|statistics stage| statistics
+  runner -.->|figures stage| plots
+  config -.->|cleaning and centroid selection| transcripts
+  config -.->|model, seed, cache, batch size| embeddings
+  config -.->|centroid threshold via runner| metrics
+  config -.->|seed, replicates, alpha via runner| statistics
+  config -.->|centroid label via runner| plots
+  subgraph auxiliary["Separate workflows — not automatically run by analysis.run"]
+    walk["visualize_metric_walkthrough.py"]
+    walkout["outputs/metric_walkthrough/<br/>PNG, PDF, SVG, HTML, CSV, JSON"]
+    curated["outputs/metric_walkthrough/paper/<br/>curated manuscript illustrations"]
+    retained["outputs/figures/retained/<br/>historical illustrations"]
+    tex["paper/mainPaper2.tex + horizons.bib"]
+    build["build_paper.py"]
+    tools["pdflatex + bibtex"]
+    pdf["outputs/paper/manuscript/<br/>PDF, build files and logs"]
+    verify["verify.py"]
+    reference["notebooks/reference/<br/>frozen notebooks + snapshot.json + plot_style.py"]
+    validation["outputs/validation/<br/>reference and Python runs + comparison.json"]
+    cache -->|matrix| walk
+    indexed -->|utterance metadata| walk
+    walk --> walkout
+    figures -->|referenced paths| tex
+    curated -->|referenced paths; preserved separately| tex
+    retained -->|referenced paths| tex
+    tex --> build
+    tools --> build
+    config -.->|repository ROOT| build
+    build --> pdf
+    config --> verify
+    reference --> verify
+    prov -.->|hash and JSON helpers| verify
+    verify -.->|runs isolated candidate| runner
+    verify -->|execute reference and compare candidate| validation
+  end
+  classDef module fill:#fff2c6,stroke:#d18100,color:#713b0a
+  classDef data fill:#e2edff,stroke:#356fe3,color:#173964
+  classDef result fill:#ffe3e8,stroke:#db365d,color:#7c1b35
+  class runner,config,transcripts,embeddings,metrics,statistics,plots,prov,walk,build,verify module
+  class corpus,rows,model,cache,indexed,toml,code,packages,reference,tools data
+  class metriccsv,stattables,figures,metricmanifest,statmanifest,runconfig,walkout,curated,retained,tex,pdf,validation result

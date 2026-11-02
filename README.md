@@ -79,6 +79,12 @@ Key results are `tables/conversation_metrics.csv` and
 `tables/statistics/paper_results_table.csv`; full standardized coefficients and
 confidence intervals are in `tables/statistics/mixed_model_results.csv`.
 
+## Dependency diagrams
+
+See the [dependency diagrams](docs/dependencies.md) for pipeline data flow, cache
+validation, manuscript inputs, and direct module/package imports. Editable Mermaid
+sources are included for updating the GitDiagram view.
+
 ## Validation
 
 ```bash
