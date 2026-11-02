@@ -62,6 +62,7 @@ This segmentation approach was adopted to better align the unit of analysis with
 \end{equation} where $\mathbf{e}_i \in \mathbb{R}^{d}$ denotes the embedding of
 utterance $i$, with $d=384$. These utterance embeddings were used to calculate the majority of the metrics used for analysis.
 % majority of because things like utterance count are also a metric?
+%do i add walkthrough explanation of the visualization?
 
 \subsection{Metrics}
 
@@ -93,7 +94,7 @@ The cosine distance between speaker centroids is
         \|\boldsymbol{\mu}_B\|_2
     }.
     \label{eq:centroid-distance}
-\end{equation}. The metric captures the distance between the average embedding points of the two interlocutors, reflective of the difference of their  “average” semantic use. Smaller distances would be indicative of generally similar semantic use versus larger distances which would indicate dissimilar semantic use.
+\end{equation}. The metric captures the distance between the average embedding points of the two interlocutors, reflective of the difference of their  “average” semantic use. Smaller distances would be indicative of generally similar semantic use between the interlocutors versus larger distances which would indicate dissimilar semantic use.
 
 \begin{figure}[H]
     \centering
