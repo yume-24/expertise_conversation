@@ -1,11 +1,6 @@
 # Repository dependency diagrams
 
-Replacement Mermaid sources for the supplied GitDiagram image, checked against the current checkout.
-
-- [Data flow and orchestration](gitdiagram.mmd): pipeline stages, cached artifacts, validation, configuration, manuscript and verification workflows.
-- [Direct code dependencies](gitdiagram-imports.mmd): every static internal and third-party import in the active `analysis/*.py` modules, regression test, and two paper notebooks, including imports inside functions. Standard-library imports are omitted. Arrows point from importer to dependency.
-
-These views cover the active paper workflow. Historical `analysis/legacy`, exploratory/frozen notebook internals, and transitive package dependencies are not expanded; `uv.lock` remains the full environment dependency record. This is a local replacement, not an edit to the hosted GitDiagram page.
+These views cover the active paper workflow. Historical `analysis/legacy`, exploratory/frozen notebook internals, and transitive package dependencies are not expanded; `uv.lock` remains the full environment dependency record.
 
 ## Data flow and orchestration
 
