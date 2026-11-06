@@ -75,12 +75,16 @@ def statistics_stage(config):
 
 def figures_stage(config, include_statistics=True):
     import matplotlib.pyplot as plt
-    from .plots import apply_style, plot_metric_trajectories, save_figure, plot_expertise_effects, plot_diagnostics
+    from .plots import (apply_style, plot_metric_trajectories, plot_metric_distributions, save_figure,
+                        plot_expertise_effects, plot_diagnostics)
     check_metric_inputs(config)
     apply_style()
     metrics = pd.read_csv(config.output / 'tables/conversation_metrics.csv')
     for name, (fig, _) in plot_metric_trajectories(metrics, config.centroid_min_words).items():
         save_figure(fig, config.output / 'figures' / f'main_metric_trajectories_{name}')
+        plt.close(fig)
+    for name, (fig, _) in plot_metric_distributions(metrics).items():
+        save_figure(fig, config.output / 'figures' / f'main_metric_distribution_{name}')
         plt.close(fig)
     if not include_statistics:
         return

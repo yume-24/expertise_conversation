@@ -30,10 +30,12 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 COLORS = {"A": "#167d9a", "B": "#d56b35"}
 QUARTILES = ["#4c9eaa", "#79ae62", "#e0a63e", "#b45b83"]
+CENTROID_COLOR = "#c0392b"  # Figure 2: the only colored marks
+CENTROID_MARKER, CENTROID_SIZE = "*", 220
 TOL = 100 * np.finfo(float).eps
 
 
-def load_conversation(input_dir, conversation, dataset):
+def load_conversation(input_dir, conversation, dataset, centroid_min_words=5):
     """Select in transcript order, indexing embeddings by explicit row IDs."""
     rows = pd.read_csv(input_dir / "utterances_with_embedding_index.csv")
     required = {"dataset", "conversation_id", "utterance_number", "embedding_idx", "speaker", "text"}
@@ -62,7 +64,8 @@ def load_conversation(input_dir, conversation, dataset):
     if not np.allclose(np.linalg.norm(x, axis=1), 1, atol=1e-5):
         raise ValueError("Expected unit-normalized embeddings from paper notebook 01.")
     rows["n_words"] = rows.text.map(lambda t: len(re.findall(r"\b[\w'-]+\b", t)))
-    rows["centroid_eligible"] = rows.text.str.strip().ne("")
+    # Matches the paper pipeline (analysis.config.centroid_min_words).
+    rows["centroid_eligible"] = rows.n_words.ge(centroid_min_words)
     return rows, x
 
 
@@ -87,7 +90,7 @@ def calculate_metrics(rows, x):
     for speaker in COLORS:
         keep = rows.speaker.eq(speaker) & rows.centroid_eligible
         if keep.any():
-            # Notebook speaker means use the cached (already normalized) vectors.
+            # Speaker means use the cached (already normalized) vectors.
             centroids[speaker] = x[keep].mean(axis=0)
     distance = np.nan
     if len(centroids) == 2:
@@ -129,30 +132,65 @@ def speaker_points(ax, rows, xy, n=None):
 
 
 def make_first_steps(rows, m, conversation, output):
-    """A cumulative t=0/1/2 storyboard, with each complete source utterance."""
+    """A cumulative t=1/2/3 storyboard labeled x_t with its text.
+
+    Filled dots are speaker A (expert), open dots speaker B (partner)."""
     count = min(3, len(rows))
-    wrapped = [textwrap.fill(str(row.text), width=26) for row in rows.iloc[:count].itertuples()]
-    fig, axes = plt.subplots(1, count, figsize=(6 * count, 6.3), layout="constrained", squeeze=False)
-    offsets = [(-16, 32), (-12, 34), (12, -38)]
+    xy = m["xy"][:count]
+    labels = [f"$\\mathbf{{x}}_{t}$: "
+              + textwrap.fill(f"“{row.text}”", width=24)
+              for t, row in enumerate(rows.iloc[:count].itertuples(), start=1)]
+    filled = rows.speaker.iloc[:count].eq("A").to_numpy()
+    # Same zoomed window in every panel, with room for the text.
+    low, high = xy.min(axis=0), xy.max(axis=0)
+    span = np.maximum(high - low, .1)
+    xlim = (low[0] - 1.3 * span[0], high[0] + 2.1 * span[0])
+    ylim = (low[1] - 1.0 * span[1], high[1] + .8 * span[1])
+    # Hand-placed offsets (points) for wired_gravity_14; adjust for other conversations.
+    offsets = [(6, 8, "left", "bottom"), (-6, 8, "right", "bottom"), (6, -8, "left", "top")]
+    fig, axes = plt.subplots(1, count, figsize=(3.6 * count, 2.4), layout="constrained", squeeze=False)
     for t in range(count):
         ax = axes[0, t]
-        setup_plane(ax, m["xy"], f"t={t} · {t + 1} embedding{'s' if t else ''}")
-        speaker_points(ax, rows, m["xy"], t + 1)
-        ax.plot(*m["xy"][:t + 1].T, color="#c7cdd1", linewidth=1, zorder=0)
-        ax.scatter(*m["xy"][t], s=180, facecolors="none", edgecolors="#202c35", linewidth=1.8)
+        ax.set_title(f"$t = {t + 1}$", loc="left")
+        ax.set(xlim=xlim, ylim=ylim, xticks=[], yticks=[], xlabel="PC1", ylabel="PC2")
+        shown = np.arange(count) <= t
+        ax.scatter(*xy[shown & filled].T, s=20, color="black")
+        ax.scatter(*xy[shown & ~filled].T, s=20, facecolors="white", edgecolors="black", linewidths=1)
+        for j in range(t):
+            ax.annotate("", xy[j + 1], xy[j], arrowprops={
+                "arrowstyle": "-|>", "color": "black", "lw": .8, "shrinkA": 4, "shrinkB": 4})
         for j in range(t + 1):
-            row = rows.iloc[j]
-            dx, dy = offsets[j]
-            ax.annotate(f"t={j} · Speaker {row.speaker}\n{wrapped[j]}", m["xy"][j],
-                        xytext=(dx, dy), textcoords="offset points", fontsize=10,
-                        ha="right" if dx < 0 else "left", va="bottom" if dy > 0 else "top",
-                        bbox={"boxstyle": "round,pad=0.4", "facecolor": "white",
-                              "edgecolor": COLORS[row.speaker], "alpha": .96},
-                        arrowprops={"arrowstyle": "-", "color": COLORS[row.speaker], "shrinkB": 8},
-                        zorder=6)
-        ax.legend(loc="upper left", fontsize=8)
-    fig.suptitle("First utterances · fixed PCA projection", fontsize=13)
+            dx, dy, ha, va = offsets[j]
+            ax.annotate(labels[j], xy[j], xytext=(dx, dy), textcoords="offset points",
+                        fontsize=9, ha=ha, va=va)
     save_figure(fig, output, "01_time_series_t0_t2")
+    plt.close(fig)
+
+
+def make_centroid_figure(rows, m, output):
+    """Speaker centroids in Figure 1's style: black, filled = A, open = B.
+
+    Only utterances that enter the centroids (centroid_eligible) are drawn."""
+    xy = m["xy"]
+    keep = rows.centroid_eligible.to_numpy()
+    is_a = rows.speaker.eq("A").to_numpy()
+    fig, ax = plt.subplots(figsize=(4.2, 3.6), layout="constrained")
+    low, high = xy[keep].min(axis=0), xy[keep].max(axis=0)
+    pad = (high - low) * .08
+    ax.set(xlim=(low[0] - pad[0], high[0] + pad[0]), ylim=(low[1] - pad[1], high[1] + pad[1]),
+           xticks=[], yticks=[], xlabel="PC1", ylabel="PC2")
+    ax.scatter(*xy[keep & is_a].T, s=14, color="black")
+    ax.scatter(*xy[keep & ~is_a].T, s=14, facecolors="white", edgecolors="black", linewidths=.8)
+    centers = m["centroid_xy"]
+    if len(centers) == 2:
+        ax.plot(*np.array([centers["A"], centers["B"]]).T, "--", color=CENTROID_COLOR, lw=1.5, zorder=4)
+    for speaker, center in centers.items():
+        ax.scatter(*center, marker=CENTROID_MARKER, s=CENTROID_SIZE, color=CENTROID_COLOR, edgecolors="white", linewidths=1, zorder=5)
+        ax.annotate(f"$\\boldsymbol{{\\mu}}_{speaker}$", center, xytext=(7, 7) if speaker == "A" else (-7, -7),
+                    textcoords="offset points", ha="left" if speaker == "A" else "right",
+                    va="bottom" if speaker == "A" else "top", fontsize=12, color=CENTROID_COLOR,
+                    bbox={"facecolor": "white", "edgecolor": "none", "pad": 1}, zorder=6)
+    save_figure(fig, output, "speaker_centroid_visualization")
     plt.close(fig)
 
 
@@ -307,6 +345,8 @@ def main(argv=None):
     parser.add_argument("--output-dir", type=Path, help="Default: outputs/metric_walkthrough/<conversation>")
     parser.add_argument("--interval", type=int, default=600, help="Milliseconds per utterance (default: 600)")
     parser.add_argument("--static-only", action="store_true", help="Skip animation; still export HTML, figures and data")
+    parser.add_argument("--centroid-min-words", type=int, default=5,
+                        help="Minimum words for an utterance to enter speaker centroids (paper: 5)")
     parser.add_argument("--list", action="store_true", help="List available conversation IDs and exit")
     args = parser.parse_args(argv)
     if args.interval <= 0:
@@ -316,7 +356,7 @@ def main(argv=None):
             table = pd.read_csv(args.input_dir / "utterances_with_embedding_index.csv")
             print("\n".join(sorted(table.loc[table.dataset.eq(args.dataset), "conversation_id"].unique())))
             return
-        rows, x = load_conversation(args.input_dir, args.conversation, args.dataset)
+        rows, x = load_conversation(args.input_dir, args.conversation, args.dataset, args.centroid_min_words)
         m = calculate_metrics(rows, x)
     except (ValueError, FileNotFoundError) as exc:
         parser.error(str(exc))
@@ -326,6 +366,7 @@ def main(argv=None):
     plt.rcParams.update({"font.family": "DejaVu Sans", "axes.spines.top": False,
                          "axes.spines.right": False, "axes.titlesize": 11, "font.size": 10})
     make_first_steps(rows, m, args.conversation, output)
+    make_centroid_figure(rows, m, output)
     make_final_figure(rows, m, args.conversation, output)
     values = dict(speaker_centroid_cosine_distance=m["distance"], radial_distance_q25=m["quantiles"][0],
                   radial_distance_median=m["quantiles"][1], radial_distance_q75=m["quantiles"][2],
@@ -333,7 +374,7 @@ def main(argv=None):
     provenance = dict(conversation=args.conversation, dataset=args.dataset, n_utterances=len(rows),
                       embedding_dimension=x.shape[1], pca_variance_share=float(m["shares"][:2].sum()),
                       metrics={k: float(v) if np.isfinite(v) else None for k, v in values.items()},
-                      definitions={"centroids": "Means of cached normalized embeddings; all nonempty utterances per speaker",
+                      definitions={"centroids": f"Means of cached normalized embeddings; utterances with >= {args.centroid_min_words} words per speaker",
                                    "radial": "1 - dot(unit utterance, normalized pooled mean); all utterances",
                                    "quantiles": "NumPy linear interpolation, full pooled centroid (not leave-one-out)",
                                    "pr": "Ordinary centered covariance, all utterances, active singular values",

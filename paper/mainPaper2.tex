@@ -53,14 +53,14 @@ The absolute gap ranges from 0 to 4 where 0 corresponds to matched expertise (ex
 
 Each video was screened for suitability for utterance-level analysis, especially as it pertained to total utterance count in each conversation, and how much of the interaction/communication was verbal. Videos that did not have enough utterances or were too reliant on non-verbal cues (ex. chess [relied on chess demonstrations], music [relied on piano demonstration]) were omitted from the set of videos analyzed to preserve the matched design.
 
-The transcripts for each video were obtained using YouTube’s (embedded/in website) transcript, which were later manually reviewed, corrected, and assigned speaker labels. The transcripts were converted to CSV format with columns for sequence, speaker, text, and notes, with each row dedicated to a single utterance. The two speakers in a given conversation is denoted as $s_t \in \{A,B\}$and conversational turn as $t$. For every utterance position in $t \in \{1,\ldots,T\}$,  $u_t^{(s_t)}$ the utterance produced by the speaker at time $t$. Utterances were defined as relatively short, semantically coherent segments that expressed a single idea or communicative function, derived from each speaker turn, rather than as full speaker turns or complete grammatical sentences. Turns were segmented manually at natural breakpoints such as pauses, interruptions, or dramatic shifts in semantic content, such that a single speaker turn $t$ could contain multiple utterances.
+The transcripts for each video were obtained using YouTube’s (embedded/in website) transcript, which were later manually reviewed, corrected, and assigned speaker labels. The transcripts were converted to CSV format with columns for sequence, speaker, text, and notes, with each row dedicated to a single utterance. Each conversation is a sequence of utterances indexed by position $t \in \{1,\ldots,T\}$. The speaker of utterance $t$ is $s_t \in \{A,B\}$. Utterances were defined as relatively short, semantically coherent segments that expressed a single idea or communicative function, derived from each speaker turn, rather than as full speaker turns or complete grammatical sentences. Turns were segmented manually at natural breakpoints such as pauses, interruptions, or dramatic shifts in semantic content, such that a single speaker turn could contain multiple utterances.
 %should i move the utterance explanation before mentioning the csv
 
 This segmentation approach was adopted to better align the unit of analysis with the embedding-based metrics used in this study. Because sentence embeddings operate over semantically meaningful units, segmenting transcripts into smaller, coherent utterances allows for more fine-grained representation of local conversational dynamics than would be possible using full speaker turns alone. The utterances were embedded using the pretrained\texttt{sentence-transformers/all-MiniLM-L6-v2} model\citep{reimers-gurevych-2019-sentence,all-minilm-l6-v2}, which returns unit-normalized embeddings \begin{equation}
-    \mathbf{x}_i =
-    \frac{\mathbf{e}_i}{\|\mathbf{e}_i\|_2}.
-\end{equation} where $\mathbf{e}_i \in \mathbb{R}^{d}$ denotes the embedding of
-utterance $i$, with $d=384$. These utterance embeddings were used to calculate the majority of the metrics used for analysis.
+    \mathbf{x}_t =
+    \frac{\mathbf{e}_t}{\|\mathbf{e}_t\|_2}.
+\end{equation} where $\mathbf{e}_t \in \mathbb{R}^{d}$ denotes the embedding of
+utterance $t$, with $d=384$. Each utterance was embedded once, from its own text alone, so that its embedding does not depend on the rest of the conversation. These utterance embeddings were used to calculate the majority of the metrics used for analysis.
 % majority of because things like utterance count are also a metric?
 %do i add walkthrough explanation of the visualization?
 
@@ -71,16 +71,15 @@ utterance $i$, with $d=384$. These utterance embeddings were used to calculate t
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.85\linewidth]{../outputs/metric_walkthrough/paper/01_time_series_t0_t2.png}
-    \caption{Shows embeddings added at each time step (reduced to two dimensions) for expert-undergraduate conversation on gravity from time t = 0 to t = 2.}
+    \caption{The first three utterances of the expert--undergraduate conversation from the WIRED ``5 Levels'' video on gravity, one added per panel. Each dot is the embedding $\mathbf{x}_t$ of utterance $t$, labeled with its text; filled dots are the expert ($A$) and open dots the partner ($B$). Arrows follow utterance order. Each utterance is embedded independently of the others. None of the earlier conversation is given to the model as context. The 384-dimensional embeddings are projected onto two principal components (PC1, PC2), computed once from the whole conversation so that the same projection applies in every panel.}
     \label{fig:01_time_series_t0_t2}
 \end{figure}
 \subsubsection{Speaker Centroid Distances}
 To capture the general distribution of embeddings across conversations, we looked at centroid distances and a number of dispersion metrics.
-To calculate centroid distances, we first calculate the centroids for each speaker at the final state of the conversation sequence. For speaker $s \in \{A,B\}$, let $I_s$ denote the set of included
-utterance indices and $n_s = |I_s|$. The speaker centroid is
+To calculate centroid distances, we first calculate the centroids for each speaker at the final state of the conversation sequence. For speaker $s \in \{A,B\}$, let $I_s$ denote the positions $t$ with $s_t = s$ whose utterances have at least five words, and $n_s = |I_s|$. Shorter utterances (e.g., ``Yes.'') were excluded from the centroids. The speaker centroid is
 \begin{equation}
     \boldsymbol{\mu}_s =
-    \frac{1}{n_s}\sum_{i \in I_s}\mathbf{x}_i.
+    \frac{1}{n_s}\sum_{t \in I_s}\mathbf{x}_t.
     \label{eq:speaker-centroid}
 \end{equation}
 The cosine distance between speaker centroids is
@@ -98,27 +97,27 @@ The cosine distance between speaker centroids is
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{../outputs/metric_walkthrough/paper/speaker_centroid_visualization.png}
-    \caption{PCA projection of utterance embeddings from one conversation, colored by speaker. Crosses mark the speaker centroids. The dashed line connects their projected positions for illustration; cosine distance is calculated in the original embedding space.}
+    \includegraphics[width=0.5\linewidth]{../outputs/metric_walkthrough/paper/speaker_centroid_visualization.png}
+    \caption{Speaker centroids for the expert--teenager conversation from the WIRED ``5 Levels'' video on quantum computing, projected as in Figure~\ref{fig:01_time_series_t0_t2}. Dots are the utterances of at least five words that enter the centroids; filled dots are the expert ($A$) and open dots the partner ($B$). Crosses mark the centroids $\boldsymbol{\mu}_A$ and $\boldsymbol{\mu}_B$, joined by a dashed line. Their cosine distance, computed in the full embedding space, is $D_{\mathrm{centroid}} = 0.46$.}
     \label{fig:speaker-centroid-visualization}
 \end{figure}
 
 \subsubsection{Radial Distance}
-Radial distances (median, q90) from the conversation centroids were calculated to examine the dispersion of embeddings relative to the conversation’s pooled centroid. For a conversation containing $N$ nonempty utterances, the
+Radial distances (median, q90) from the conversation centroids were calculated to examine the dispersion of embeddings relative to the conversation’s pooled centroid. For a conversation containing $T$ utterances, the
 pooled centroid is
 \begin{equation}
     \boldsymbol{\mu} =
-    \frac{1}{N}\sum_{i=1}^{N}\mathbf{x}_i.
+    \frac{1}{T}\sum_{t=1}^{T}\mathbf{x}_t.
     \label{eq:conversation-centroid}
 \end{equation}
-The radial cosine distance of utterance $i$ to $\mu$ is
+The radial cosine distance of utterance $t$ to $\boldsymbol{\mu}$ is
 \begin{equation}
-    r_i =
+    r_t =
     1 -
     \frac{
-        \mathbf{x}_i^\top\boldsymbol{\mu}
+        \mathbf{x}_t^\top\boldsymbol{\mu}
     }{
-        \|\mathbf{x}_i\|_2
+        \|\mathbf{x}_t\|_2
         \|\boldsymbol{\mu}\|_2
     }.
     \label{eq:radial-distance}
@@ -126,22 +125,22 @@ The radial cosine distance of utterance $i$ to $\mu$ is
 \begin{equation}
     \begin{aligned}
         Q_{50} &=
-        \operatorname{Quantile}_{0.50}(r_1,\ldots,r_N), \\
+        \operatorname{Quantile}_{0.50}(r_1,\ldots,r_T), \\
         Q_{90} &=
-        \operatorname{Quantile}_{0.90}(r_1,\ldots,r_N).
+        \operatorname{Quantile}_{0.90}(r_1,\ldots,r_T).
     \end{aligned}
     \label{eq:radial-quantiles}
 \end{equation}
 
 \subsubsection{Participation Ratio}
 Dimensional analysis was performed to capture the organization of variance across different principle directions. Participation ratio is essentially a “count” of how many dominant eigenvalues (principal components) share the embeddings’ variance. We first center the
-embeddings on the pooled conversation centroid, $\mathbf{z}_i = \mathbf{x}_i -
+embeddings on the pooled conversation centroid, $\mathbf{z}_t = \mathbf{x}_t -
 \boldsymbol{\mu}$, which removes location and leaves only the shape of the
-point cloud. Let $\mathbf{Z} \in \mathbb{R}^{N \times d}$ be the matrix with rows $\mathbf{z}_i^\top$, so that the sample covariance matrix is
-$\mathbf{C} = \mathbf{Z}^\top\mathbf{Z}/(N-1)$. The singular value
+point cloud. Let $\mathbf{Z} \in \mathbb{R}^{T \times d}$ be the matrix with rows $\mathbf{z}_t^\top$, so that the sample covariance matrix is
+$\mathbf{C} = \mathbf{Z}^\top\mathbf{Z}/(T-1)$. The singular value
 decomposition(SVD) $\mathbf{Z} = \mathbf{U}\mathbf{S}\mathbf{V}^\top$ gives the
-eigenvalues of $\mathbf{C}$ as $\lambda_j = \sigma_j^2/(N-1)$, where
-$\sigma_j$ is the $j$th singular value. Let $\lambda_1,\ldots,\lambda_K$ be the numerically nonzero eigenvalues ($K \le N-1$, because the data are
+eigenvalues of $\mathbf{C}$ as $\lambda_j = \sigma_j^2/(T-1)$, where
+$\sigma_j$ is the $j$th singular value. Let $\lambda_1,\ldots,\lambda_K$ be the numerically nonzero eigenvalues ($K \le T-1$, because the data are
 centered). The variance share of direction $j$ is
 \begin{equation}
     p_j = \frac{\lambda_j}{\sum_{k=1}^{K}\lambda_k},
@@ -169,15 +168,15 @@ This may be a result of the interlocutors in conversation with higher $E_B$ are 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{../outputs/paper/figures/main_metric_trajectories_speaker_centroid_cosine_distance.png}
-    \caption{Cosine distance between expert and partner semantic centroids by partner expertise.}
+    \includegraphics[width=0.5\linewidth]{../outputs/paper/figures/main_metric_trajectories_speaker_centroid_cosine_distance.png}
+    \caption{Centroid distance by partner expertise. Centroid distance is the cosine distance between the expert's and the partner's centroids, using utterances of at least five words. Gray lines are the 21 videos; the black line is the mean across videos.}
     \label{fig:centroid-distance_trajectory}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{../outputs/figures/retained/centroid_distances_plot.png}
-    \caption{Cosine distance between expert and partner semantic centroids by conversation partner expertise.}
+    \includegraphics[width=0.5\linewidth]{../outputs/paper/figures/main_metric_distribution_speaker_centroid_cosine_distance.png}
+    \caption{Distribution of centroid distance by partner expertise. Each dot is one of the 105 conversations. Boxes show the median and quartiles; whiskers extend to the most extreme values within 1.5 times the interquartile range.}
     \label{fig:centroid-distances}
 \end{figure}
 
@@ -187,30 +186,30 @@ Figures~\ref{fig:radial-distance-median} and~\ref{fig:radial-distance-q90} show 
 % probably put this somewhere later: We can see through these changes in distribution how conversations tend to "pull together" (with closer centroids and smaller median radial distances) and expand or "reach out" (with larger PR and greater q90 radial distances) as partner expertise increased
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{../outputs/paper/figures/main_metric_trajectories_radial_distance_median.png}
-    \caption{Median radial distance from the pooled conversation centroid by partner expertise.}
+    \includegraphics[width=0.5\linewidth]{../outputs/paper/figures/main_metric_trajectories_radial_distance_median.png}
+    \caption{Median radial distance by partner expertise. Median radial distance is the median cosine distance of a conversation's utterances from its centroid. Gray lines are the 21 videos; the black line is the mean across videos.}
     \label{fig:main_metric_trajectories_radial_distance_median}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{../outputs/figures/retained/radial_distance_median.png}
-    \caption{Median radial distance from the conversation centroid by conversation partner expertise.}
+    \includegraphics[width=0.5\linewidth]{../outputs/paper/figures/main_metric_distribution_radial_distance_median.png}
+    \caption{Distribution of median radial distance by partner expertise. Each dot is one of the 105 conversations. Boxes show the median and quartiles; whiskers extend to the most extreme values within 1.5 times the interquartile range.}
     \label{fig:radial-distance-median}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{../outputs/paper/figures/main_metric_trajectories_radial_distance_q90.png}
-    \caption{90th-percentile radial distance from the pooled conversation centroid by partner expertise.}
+    \includegraphics[width=0.5\linewidth]{../outputs/paper/figures/main_metric_trajectories_radial_distance_q90.png}
+    \caption{90th-percentile radial distance by partner expertise. 90th-percentile radial distance is the 90th percentile of the cosine distances of a conversation's utterances from its centroid. Gray lines are the 21 videos; the black line is the mean across videos.}
     \label{fig:main_metric_trajectories_radial_distance_q90}
 \end{figure}
 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{../outputs/figures/retained/radial_distance_q90.png}
-    \caption{90th-percentile radial distance from the conversation centroid by conversation partner expertise.}
+    \includegraphics[width=0.5\linewidth]{../outputs/paper/figures/main_metric_distribution_radial_distance_q90.png}
+    \caption{Distribution of 90th-percentile radial distance by partner expertise. Each dot is one of the 105 conversations. Boxes show the median and quartiles; whiskers extend to the most extreme values within 1.5 times the interquartile range.}
     \label{fig:radial-distance-q90}
 \end{figure}
 
@@ -222,15 +221,15 @@ Expert-expert pairs were able to more precisely expand the conversation in contr
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{../outputs/paper/figures/main_metric_trajectories_participation_ratio.png}
-    \caption{Participation ratio of conversation embeddings by partner expertise.}
+    \includegraphics[width=0.5\linewidth]{../outputs/paper/figures/main_metric_trajectories_participation_ratio.png}
+    \caption{Participation ratio by partner expertise. Participation ratio is the effective number of dimensions occupied by a conversation's embeddings. Gray lines are the 21 videos; the black line is the mean across videos.}
     \label{fig:main_metric_trajectories_participation_ratio}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{../outputs/figures/retained/participation_ratio_plot.png}
-    \caption{Participation ratio of conversation embeddings by partner expertise..}
+    \includegraphics[width=0.5\linewidth]{../outputs/paper/figures/main_metric_distribution_participation_ratio.png}
+    \caption{Distribution of participation ratio by partner expertise. Each dot is one of the 105 conversations. Boxes show the median and quartiles; whiskers extend to the most extreme values within 1.5 times the interquartile range.}
     \label{fig:participation_ratio_plot}
 \end{figure}
 

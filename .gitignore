@@ -29,6 +29,8 @@ data/raw/
 .idea/
 
 # Reproducible run products (retained assets and legacy snapshots remain explicit)
-outputs/paper/
+outputs/paper/*
+# Exception: the default run's figures are tracked because the manuscript includes them.
+!outputs/paper/figures/
 outputs/all_utterances/
 outputs/validation/
