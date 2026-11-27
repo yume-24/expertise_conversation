@@ -17,66 +17,70 @@
 \date{\today}
 \maketitle
 
+% Initial target journal: D&D, https://www.dialogue-and-discourse.org/
+
+% Check data cleaning and check against standards in the field of discourse analysis
+% Radial distance was removed so the pipeline should be run again. AI: BH correction is now across two metrics (centroid distance, PR), so p_FDR values in the text and Table 1 will change. Also drop the radial figures from the outputs.
+% Jeff needs to re-read the actual transcripts before the next iteration. Also some snippets of actual discussion should be included somewhere as examples, and maybe sprinkled through. And also we just need a qualitative sense of what was going on in the different conversations to inform our discussion.
+
 \begin{abstract}
 TODO
+% Mention that the study is exploratory.
 
 \textbf{Keywords:} expertise; conversation; semantic space; skilled behavior
 \end{abstract}
 
 \section{Introduction}
 
-Skilled behavior involves a process of contraction and ramification in a behavioral space. On the one hand, particular actions become increasingly refined as a person gains expertise. This is often described as a reduction in behavioral variability or degrees of freedom (what is described by standard learning curves), and can be visualized in terms of measured bodily states occupying less of a behavioral space over time \citep{vereijken1992freezing,adolph2015intraindividual}. For example, after learning to perform a basic kick, trajectories in the space of joint positions for a kick will occupy much less of that space. On the other hand, as a person develops expertise, they develop an ability to respond flexibly to situations. They can kick a ball in more ways and in response to unusual situations. Thus, variability is reduced action by action, but it is also ramified and in some cases increased \citep{wilson2008coordination,adolph2015intraindividual}. Some studies have found U-shaped curves when comparing performance at different levels \citep{wilson2008coordination,busquets2016differing}, which suggest an initial reduction in variability followed by fine-tuning which increases variability: `In the final stages of developing a skilled performance, a functional variability is accessed that brings flexibility to the system allowing it to cope with perturbations'' \cite{wilson2008coordination}. As a recent review puts the point like this: ``Skilled performance is characterized by a dual capacity: reducing variability in performance-critical parameters to ensure consistency, while simultaneously leveraging functional variability to adapt to dynamic demands.'' \citep{tsunoda2026relationship}
+Skilled behavior involves a process of contraction and ramification in a behavioral space. On the one hand, particular actions become increasingly refined as a person gains expertise. This is often described as a reduction in behavioral variability or degrees of freedom (what is described by standard learning curves), and can be visualized in terms of measured bodily states occupying less of a behavioral space over time \citep{vereijken1992freezing,adolph2015intraindividual}. For example, after learning to perform a basic kick, trajectories in the space of joint positions for a kick will occupy much less of that space. On the other hand, as a person develops expertise, they develop an ability to respond flexibly to situations. They can kick a ball in more ways and in response to unusual situations. Thus, variability is reduced action by action, but it is also ramified and in some cases increased \citep{wilson2008coordination,adolph2015intraindividual}. Some studies have found U-shaped curves when comparing performance at different levels \citep{wilson2008coordination,busquets2016differing}, which suggest an initial reduction in variability followed by fine-tuning which increases variability: ``In the final stages of developing a skilled performance, a functional variability is accessed that brings flexibility to the system allowing it to cope with perturbations'' \citep{wilson2008coordination}. As a recent review puts it: ``Skilled performance is characterized by a dual capacity: reducing variability in performance-critical parameters to ensure consistency, while simultaneously leveraging functional variability to adapt to dynamic demands.'' \citep{tsunoda2026relationship}
 
-It is natural to suppose that the changes in behavioral space associated with skill acquisition should be mirrored in semantic spaces as people learn to speak about specific topics. They learn the correct ways to say specific things---technical terms and common phrases---but also learn how to talk about more things in more ways. Compare someone talking about Russian history who has just learned the basics with someone who has studied and taught the topic for 30 years: the latter will speak more naturally and fluently and will be able to field a wide variety of questions with ease. This suggests a parallel to behavioral skill spaces: expert conversation should occupy less of a semantic space but also be more ramified.
+Changes in motor space associated with skill acquisition may be mirrored in semantic spaces as people learn to speak about specific topics. Experts learn standard ways of talking about their subject area in conversation, using an array of specific technical terms and common phrases in the same way expert soccer players learn standard ways to perform kicks and passes. The overall impact of this learning process is that we expect experts in conversation will occupy a similar part of a semantic space, given that they will use similar terms and phrases. On the other hand, as they become more expert at talking, they should also learn to speak about more things in more ways, chaining together and improvising from their stock of ways of speaking in response to the variable contingencies of specific conversations, in the same way expert players put their kicks and passes together in fluid and varied ways in response to the contingencies of a game.
+
+We refer to this idea as contraction followed by ramification. People learn how to speak in similar ways, but as they acquire this skill they also learn to use these ways of speaking in complex ways appropriately in response to many kinds of situations.
 
 % Much of this was not framed as "cognitive skills", but simply learning, problem solving, etc. Much of it also came _before_ physical skill
 There is a literature on cognitive skills that has established many parallels between domains of cognition and physical skill: fluency and speed increase, while error rates decrease, in mathematics, problem solving, reading, and related activities as people learn to perform them \citep{groot_thought_1965,robinson_mathematical_1978,egan_chunking_1979,chi1981expertise}. There has, however, been relatively little analysis of conversation from this perspective. This is regrettable, especially given the widespread availability of tools and techniques for studying semantic spaces.
 
-In this exploratory study, we examine this question using a publicly available WIRED dataset in which experts explain scientific topics to listeners at five levels of expertise. The conversations concern a variety of scientific topics, and each expert-listener exchange lasts only a few minutes. Using a large sentence-embedding model and standard latent-semantic-analysis (LSA)-style techniques, we explore the comparative structure of conversational spaces across these dyads. We find support for the idea that variability is both reduced and ramified in experts' semantic spaces.
+% Discussion says phenomenology (horizons) was the original motivation; consider a sentence here to set that up.
+In this exploratory study, we examine the contraction and ramification idea using a publicly available WIRED dataset in which experts explain scientific topics to listeners at five levels of expertise. The conversations concern a variety of scientific topics, and each expert-listener exchange lasts only a few minutes. Using a large sentence-embedding model and standard latent-semantic-analysis (LSA)-style techniques, we explore the comparative structure of conversational spaces across these dyads. We find that as partner expertise increases, the two speakers occupy a more similar part of semantic space, a form of contraction, and their conversation is more ramified. 
 
 % Once this framing is settled, material on semantic alignment can be worked back into the paper, especially where it helps distinguish contraction from successful expert--listener coordination.
-% We should have a look at the literature on fluency and billingualism as well.
+% We should have a look at the literature on fluency and bilingualism as well.
+% If any of this is added it can prob. be returned to in discussion
 
 \section{Methods}
 
-This is an exploratory analysis. We considered a number of candidate measures and feature-selection strategies before focusing on the measures reported below. 
-% Describe in particular our earlier null results with network/graph techniques
+We transcribed and segmented 105 conversations from 21 videos into utterances, embedded each utterance with a sentence-embedding model, computed two summary measures for each conversation, and modeled each measure as a function of partner expertise.
 
 \subsection{Data and Procedure}
 
-% Probably no need to report the abandoned method
-A subset of 21 videos were selected from the “5 levels” playlist published by WIRED,  in which experts explain and explore a specific concept in their field of expertise at 5 ascending levels: to a child, a teenager, an undergraduate college student, a graduate student, and lastly, a fellow expert. Speaker expertise was encoded using ordinal variables $E_A$ (always the guest expert[4]), and $E_B \in \{0,1,2,3,4\}$, corresponding to child, teen, college student, graduate student, and expert, respectively. We define the absolute expertise gap between $A$ and $B$ as
-\begin{equation}
-|\Delta E| = |E_B - E_A| .
-\end{equation}
-The absolute gap ranges from 0 to 4 where 0 corresponds to matched expertise (expert-expert) and 4 is the maximum possible expertise gap (expert-child).
+A subset of 21 videos were selected from the “5 levels” playlist published by WIRED,  in which experts explain and explore a specific concept in their field of expertise at 5 ascending levels: to a child, a teenager, an undergraduate college student, a graduate student, and lastly, a fellow expert. Speaker $A$ is always the guest expert. The partner's expertise is encoded as $E_B \in \{0,1,2,3,4\}$, corresponding to child, teen, college student, graduate student, and expert, respectively.
 
+% Yume: suggest either filling in the bracketed material or move comments to code comments or both. Similarly for other bracketed material below.
 Each video was screened for suitability for utterance-level analysis, especially as it pertained to total utterance count in each conversation, and how much of the interaction/communication was verbal. Videos that did not have enough utterances or were too reliant on non-verbal cues (ex. chess [relied on chess demonstrations], music [relied on piano demonstration]) were omitted from the set of videos analyzed to preserve the matched design.
 
 The transcripts for each video were obtained using YouTube’s (embedded/in website) transcript, which were later manually reviewed, corrected, and assigned speaker labels. The transcripts were converted to CSV format with columns for sequence, speaker, text, and notes, with each row dedicated to a single utterance. Each conversation is a sequence of utterances indexed by position $t \in \{1,\ldots,T\}$. The speaker of utterance $t$ is $s_t \in \{A,B\}$. Utterances were defined as relatively short, semantically coherent segments that expressed a single idea or communicative function, derived from each speaker turn, rather than as full speaker turns or complete grammatical sentences. Turns were segmented manually at natural breakpoints such as pauses, interruptions, or dramatic shifts in semantic content, such that a single speaker turn could contain multiple utterances.
-%should i move the utterance explanation before mentioning the csv
+% Since turns were manually segmented it may be useful to compare against full turn dynamics to see how much of our results rely on this
 
-This segmentation approach was adopted to better align the unit of analysis with the embedding-based metrics used in this study. Because sentence embeddings operate over semantically meaningful units, segmenting transcripts into smaller, coherent utterances allows for more fine-grained representation of local conversational dynamics than would be possible using full speaker turns alone. The utterances were embedded using the pretrained\texttt{sentence-transformers/all-MiniLM-L6-v2} model\citep{reimers-gurevych-2019-sentence,all-minilm-l6-v2}, which returns unit-normalized embeddings \begin{equation}
+% Part of me (Jeff) think we should talk a bit about what sentence embeddings capture, and that specific one, and then also talk about how standard it is these days to look at cosine similarity in mech interp, perhaps below. This is far better than Euclidean distance because length does not matter. Direction in a normed space much better. Research a bit on this and explain.
+This segmentation approach was adopted to better align the unit of analysis with the embedding-based metrics used in this study. Because sentence embeddings operate over semantically meaningful units, segmenting transcripts into smaller, coherent utterances allows for more fine-grained representation of local conversational dynamics than would be possible using full speaker turns alone. The utterances were embedded using the pretrained \texttt{sentence-transformers/all-MiniLM-L6-v2} model\citep{reimers-gurevych-2019-sentence,all-minilm-l6-v2}, which returns unit-normalized embeddings \begin{equation}
     \mathbf{x}_t =
-    \frac{\mathbf{e}_t}{\|\mathbf{e}_t\|_2}.
-\end{equation} where $\mathbf{e}_t \in \mathbb{R}^{d}$ denotes the embedding of
-utterance $t$, with $d=384$. Each utterance was embedded once, from its own text alone, so that its embedding does not depend on the rest of the conversation. These utterance embeddings were used to calculate the majority of the metrics used for analysis.
-% majority of because things like utterance count are also a metric?
-%do i add walkthrough explanation of the visualization?
+    \frac{\mathbf{e}_t}{\|\mathbf{e}_t\|}.
+\end{equation} where $\|\cdot\|$ is the Euclidean norm and $\mathbf{e}_t \in \mathbb{R}^{d}$ denotes the embedding of
+utterance $t$, with $d=384$. Each utterance was embedded once, from its own text alone, so that its embedding does not depend on the rest of the conversation. 
 
 \subsection{Metrics}
+We report two metrics: the distance between the two speakers' centroids, and the participation ratio, which measures the effective dimensionality of a conversation.
 
-% For each of these, Jeff can add simple plain-english up front. Some pictures would also be nice. Once we have settled on the technique for generating them we can decide which ones to add.
-% go over plotting each embedding/how each embedding is added in embedding space
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.85\linewidth]{../outputs/metric_walkthrough/paper/01_time_series_t0_t2.png}
-    \caption{The first three utterances of the expert--undergraduate conversation from the WIRED ``5 Levels'' video on gravity, one added per panel. Each dot is the embedding $\mathbf{x}_t$ of utterance $t$, labeled with its text; filled dots are the expert ($A$) and open dots the partner ($B$). Arrows follow utterance order. Each utterance is embedded independently of the others. None of the earlier conversation is given to the model as context. The 384-dimensional embeddings are projected onto two principal components (PC1, PC2), computed once from the whole conversation so that the same projection applies in every panel.}
+    \caption{The first three utterances of the expert--undergraduate conversation from the WIRED ``5 Levels'' video on gravity. Each dot is the embedding $\mathbf{x}_t$ of utterance $t$, labeled with its text; filled dots are the expert ($A$) and open dots the partner ($B$). Arrows follow utterance order. The 384-dimensional embeddings are projected onto two principal components (PC1, PC2), computed once from the whole conversation so that the same projection applies in every panel.}
     \label{fig:01_time_series_t0_t2}
 \end{figure}
 \subsubsection{Speaker Centroid Distances}
-To capture the general distribution of embeddings across conversations, we looked at centroid distances and a number of dispersion metrics.
-To calculate centroid distances, we first calculate the centroids for each speaker at the final state of the conversation sequence. For speaker $s \in \{A,B\}$, let $I_s$ denote the positions $t$ with $s_t = s$ whose utterances have at least five words, and $n_s = |I_s|$. Shorter utterances (e.g., ``Yes.'') were excluded from the centroids. The speaker centroid is
+
+To calculate centroid distances, we first calculated the centroids for each speaker at the final state of the conversation sequence. Utterances were filtered so that utterances with fewer than five words (e.g., ``Yes.'') were excluded from the centroids. For speaker $s \in \{A,B\}$, let $I_s$ denote the positions $t$ of the remaining utterances with $s_t = s$, and $n_s = |I_s|$. The speaker centroid is
 \begin{equation}
     \boldsymbol{\mu}_s =
     \frac{1}{n_s}\sum_{t \in I_s}\mathbf{x}_t.
@@ -89,56 +93,33 @@ The cosine distance between speaker centroids is
     \frac{
         \boldsymbol{\mu}_A^\top\boldsymbol{\mu}_B
     }{
-        \|\boldsymbol{\mu}_A\|_2
-        \|\boldsymbol{\mu}_B\|_2
+        \|\boldsymbol{\mu}_A\|
+        \|\boldsymbol{\mu}_B\|
     }.
     \label{eq:centroid-distance}
-\end{equation}. The metric captures the distance between the average embedding points of the two interlocutors, reflective of the difference of their  “average” semantic use. Smaller distances would be indicative of generally similar semantic use between the interlocutors versus larger distances which would indicate dissimilar semantic use.
+\end{equation}
+This metric captures the distance between the average embeddings of the two interlocutors, which reflects each speaker's typical semantic contribution. The centroids should be near each other when the two speakers are talking about similar things in similar ways, or more abstractly are ``operating in the same semantic space'', and farther apart when they are operating in different semantic spaces, for example if one is using more technical terms and the other is using everyday language.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\linewidth]{../outputs/metric_walkthrough/paper/speaker_centroid_visualization.png}
-    \caption{Speaker centroids for the expert--teenager conversation from the WIRED ``5 Levels'' video on quantum computing, projected as in Figure~\ref{fig:01_time_series_t0_t2}. Dots are the utterances of at least five words that enter the centroids; filled dots are the expert ($A$) and open dots the partner ($B$). Crosses mark the centroids $\boldsymbol{\mu}_A$ and $\boldsymbol{\mu}_B$, joined by a dashed line. Their cosine distance, computed in the full embedding space, is $D_{\mathrm{centroid}} = 0.46$.}
+    \caption{Speaker centroids for the expert--teenager conversation from the video on quantum computing, projected as in Figure~\ref{fig:01_time_series_t0_t2}. Crosses mark the centroids $\boldsymbol{\mu}_A$ and $\boldsymbol{\mu}_B$, joined by a dashed line.}
     \label{fig:speaker-centroid-visualization}
 \end{figure}
 
-\subsubsection{Radial Distance}
-Radial distances (median, q90) from the conversation centroids were calculated to examine the dispersion of embeddings relative to the conversation’s pooled centroid. For a conversation containing $T$ utterances, the
-pooled centroid is
+\subsubsection{Participation Ratio}
+Dimensional analysis was performed to capture the organization of variance across different principal directions. Participation ratio is essentially a ``count'' of how many dominant eigenvalues (principal components) share the embeddings’ variance. For a conversation containing $T$ utterances, the pooled centroid is
 \begin{equation}
     \boldsymbol{\mu} =
     \frac{1}{T}\sum_{t=1}^{T}\mathbf{x}_t.
     \label{eq:conversation-centroid}
 \end{equation}
-The radial cosine distance of utterance $t$ to $\boldsymbol{\mu}$ is
-\begin{equation}
-    r_t =
-    1 -
-    \frac{
-        \mathbf{x}_t^\top\boldsymbol{\mu}
-    }{
-        \|\mathbf{x}_t\|_2
-        \|\boldsymbol{\mu}\|_2
-    }.
-    \label{eq:radial-distance}
-\end{equation}  The quantiles were estimated using linear interpolation for the median and 90th percentile:
-\begin{equation}
-    \begin{aligned}
-        Q_{50} &=
-        \operatorname{Quantile}_{0.50}(r_1,\ldots,r_T), \\
-        Q_{90} &=
-        \operatorname{Quantile}_{0.90}(r_1,\ldots,r_T).
-    \end{aligned}
-    \label{eq:radial-quantiles}
-\end{equation}
-
-\subsubsection{Participation Ratio}
-Dimensional analysis was performed to capture the organization of variance across different principle directions. Participation ratio is essentially a “count” of how many dominant eigenvalues (principal components) share the embeddings’ variance. We first center the
-embeddings on the pooled conversation centroid, $\mathbf{z}_t = \mathbf{x}_t -
+We first center the
+embeddings on the pooled centroid, $\mathbf{z}_t = \mathbf{x}_t -
 \boldsymbol{\mu}$, which removes location and leaves only the shape of the
 point cloud. Let $\mathbf{Z} \in \mathbb{R}^{T \times d}$ be the matrix with rows $\mathbf{z}_t^\top$, so that the sample covariance matrix is
 $\mathbf{C} = \mathbf{Z}^\top\mathbf{Z}/(T-1)$. The singular value
-decomposition(SVD) $\mathbf{Z} = \mathbf{U}\mathbf{S}\mathbf{V}^\top$ gives the
+decomposition (SVD) $\mathbf{Z} = \mathbf{U}\mathbf{S}\mathbf{V}^\top$ gives the
 eigenvalues of $\mathbf{C}$ as $\lambda_j = \sigma_j^2/(T-1)$, where
 $\sigma_j$ is the $j$th singular value. Let $\lambda_1,\ldots,\lambda_K$ be the numerically nonzero eigenvalues ($K \le T-1$, because the data are
 centered). The variance share of direction $j$ is
@@ -152,18 +133,55 @@ and the participation ratio is
     = \frac{1}{\sum_{j=1}^{K}p_j^2}.
     \label{eq:participation-ratio}
 \end{equation}
-PR equals 1 when all variance lies along a single direction and $K$ when it is spread equally over $K$ directions, so higher values indicate higher effective dimensionality. PR is computed on the static point cloud and does not depend on utterance order. We are essentially just looking at the relative directions, ignoring actual location. We used the ordinary (not bias-corrected) covariance estimate and used all nonempty utterances. %should i add more plain-english descriptions and also describe decision to use PR over other measures (like pc1)
+PR equals 1 when all variance lies along a single direction and $K$ when it is spread equally over $K$ directions, so higher values indicate higher effective dimensionality. PR is computed on the static point cloud and does not depend on utterance order. We are essentially just looking at the relative directions, ignoring actual location. We used the ordinary (not bias-corrected) covariance estimate and used all nonempty utterances. 
+
+% Should i add more plain-english descriptions and also describe decision to use PR over other measures (like pc1)
+% JY response: I think adding plain english would be nice. Current plan is a brief appendix and we can point to it from methods as needed.
+
+\subsection{Statistical Analysis}
+
+We tested whether each metric varied with partner expertise using linear mixed-effects models. Each model had $E_B$ as a linear predictor (coded 0 to 4 and centered at 2) and a random intercept for each video, so that the five conversations from the same video share a baseline. This allowed baseline metric values to vary across videos and topics. Before fitting, each metric was standardized to mean 0 and standard deviation 1, so effects are in standard deviations per level of $E_B$. Models were fit with restricted maximum likelihood (REML), which reduces the bias of ordinary maximum likelihood in estimating variance components when there are few groups. Because REML likelihoods cannot be compared across models with different fixed effects, the likelihood-ratio tests described below used ordinary maximum likelihood.
+
+Significance was assessed using parametric bootstrap likelihood-ratio tests, where we fit the null model, the full model containing expertise as a predictor, re-estimated the model parameters in both fits, calculated a simulated likelihood-ratio statistic, and then calculated the bootstrap p-value. The p-values were corrected across metrics using the Benjamini-Hochberg procedure ($p_{\mathrm{FDR}}$). Bootstrapping was chosen for the significance test due to the modest number of video groups. The tests for significance essentially ask whether adding partner expertise as a predictor improves the model. Each model was fit with and without adjustment for utterance count (log-transformed and centered at its mean), since utterance count did tend to vary across expertise levels and ****. Effects are reported as change per level increase of $E_B$, with 95\% confidence intervals for the count-adjusted models.
+% Yume I think there is some material to fill in here, e.g. ****. I think a bit more plain-languaging of this section would be nice. It can stay technical but have more easy-reading interspersed.
 
 \section{Results}
 
-The analyses provide preliminary confirmation of the contraction-and-ramification hypothesis.
+The analyses provide preliminary support for the contraction-and-ramification idea, with contraction understood as the two speakers occupying a similar part of semantic space.
 
-We tested whether each metric varied with partner expertise. Each metric was modeled with a REML fit linear mixed-effects model with $E_B$ as an ordered predictor and a random intercept for each video/topic (conversations within the same video share the same random intercept). This approach allowed baseline metric values to vary across videos, accounting for their shared conversational context. Model estimates were obtained using restricted maximum likelihood to reduce finite-sample bias in variance-component estimation. Maximum likelihood was used for likelihood-ratio comparisons as the full and null models differed in their fixed-effect specifications. Before the models were fit, each outcome was standardized by subtracting its mean and dividing by its sample standard deviation, expertise (coded 0 to 4) was centered at 2, and utterance count was log-transformed and centered at its mean.
-Significance was assessed using parametric bootstrap likelihood-ratio tests, where we fit the null model, the full model containing expertise as a predictor, re-estimated the model parameters in both fits, calculated a similated likelihood-ratio statistic, and then calculated the bootstrap p-value. The p-values were corrected across metric using the Benjamini-Hochberg procedure ($p_{\mathrm{FDR}}$). Bootstrapping was chosen for the significance test due to the modest number of video groups. The tests for significance essentially ask whether adding partner expertise as a predictor improves the model. Each model was fit with and without adjustement for utterance count, since utterance count did tend to vary across expertise levels and ****. Effects are reported as change per level increase of $E_B$, with 95\% confidence intervals for the count-adjusted models. Table~\ref{tab:expertise-effects} additionally gives standardized coefficients ($b_{\mathrm{SD}}$). Overall, higher partner expertise was associated with closer speaker centroids and higher participation ratio, with weaker effects on radial distance.
+Higher partner expertise was associated with closer speaker centroids and higher participation ratio, with and without adjustment for utterance count (Table~\ref{tab:expertise-effects}).
 
-\subsection{Centroid Distances}
-Centroid distances decreased with  partner level (Figure~\ref{fig:centroid-distances}\ref{fig:centroid-distance_trajectory}) by $b_{\mathrm{SD}} = -0.354$ per increase in $E_B$, 95\% CI $[-0.453, -0.255]$; bootstrap LR = 11.4, \textit{p} = .001, $p_{\mathrm{FDR}} = .002$ (from the count-adjusted model). This result indicates that as partner expertise increases, the overall semantic usage of the two interlocutors becomes significantly more similar.
-%move stuff below to discussion
+\begin{table}[htbp]
+\centering
+\small
+\caption{Associations between partner expertise and conversational geometry.}
+\label{tab:expertise-effects}
+\begin{tabular}{llrrrr}
+\toprule
+Metric & Model & $b_{\mathrm{SD}}$ & 95\% CI
+& $p_{\mathrm{boot}}$ & $p_{\mathrm{BH}}$ \\
+\midrule
+Centroid distance
+& Unadjusted     & $-0.391$& [$-0.489$, $-0.294$]& .001 & .002 \\
+& Count-adjusted & $-0.354$& [$-0.453$, $-0.255$]& .001 & .002 \\
+\addlinespace
+Participation ratio
+& Unadjusted     & $0.275$  & [$0.179$, $0.370$]   & .001 & .002 \\
+& Count-adjusted & $0.176$  & [$0.119$, $0.233$]   & .001 & .002 \\
+\bottomrule
+\end{tabular}
+
+\medskip
+\begin{minipage}{\linewidth}
+\footnotesize
+\textit{Note.}
+For each measure, $b_{\mathrm{SD}}$ represents the change in metric value per one increase in $E_B$.
+\end{minipage}
+\end{table}
+
+Centroid distances decreased with partner level (Figures~\ref{fig:centroid-distance_trajectory} and~\ref{fig:centroid-distances}) by $b_{\mathrm{SD}} = -0.354$ per increase in $E_B$, 95\% CI $[-0.453, -0.255]$; bootstrap LR = 11.4, \textit{p} = .001, $p_{\mathrm{FDR}} = .002$ (from the count-adjusted model). This result indicates that as partner expertise increases, the overall semantic usage of the two interlocutors becomes significantly more similar.
+
+% Move some of the stuff below to discussion
 This may be a result of the interlocutors in conversation with higher $E_B$ are operating “in the same space,”(?)  with access to similar concepts and by extension, vocabulary, as opposed to expert-novice pairs where unlike their expert partners, novice speakers have comparatively limited vocabulary and access to concepts. Expert-novice (especially expert-child) conversations also tend to require extensive scaffolding, due to the novices having limited/insufficient(?) knowledge of the concepts being discussed. The concepts being discussed in these expert-novice conversations have to be explained with simpler, more digestible language to avoid overloading the conversation with technical jargon. (The expert scaffolds, with the aim of getting the novice “on the same page/in the same kind of space(information organization).”) The novice utterances tend to simply answer expert questions, and will use words outside of the topic's technical vocabulary, whereas experts may use some technical words when introducing ideas making the average embedding(centroid) of the speakers further. Experts do not have to undergo this scaffolding (and aligning representations\citep{garrod_joint_2009}) process. They have *** from the beginning.
 
 \begin{figure}[H]
@@ -180,44 +198,10 @@ This may be a result of the interlocutors in conversation with higher $E_B$ are 
     \label{fig:centroid-distances}
 \end{figure}
 
-\subsection{Radial Distances}
+Participation ratio increased with partner expertise (Figures~\ref{fig:main_metric_trajectories_participation_ratio} and~\ref{fig:participation_ratio_plot}), indicating higher conversation dimensionality as $E_B$ increases, by $b_{\mathrm{SD}} = 0.176$ per increase in $E_B$, 95\% CI $[0.119, 0.233]$; bootstrap LR = 31.5, \textit{p} = .001, $p_{\mathrm{FDR}} = .002$ (from the count-adjusted model). Because PR depends on how variance is distributed across directions rather than on its total amount, this indicates that the variation in higher $E_B$ conversations was structured differently, spread across more directions.
 
-Figures~\ref{fig:radial-distance-median} and~\ref{fig:radial-distance-q90} show the median and 90th-percentile radial distances, respectively. Embedding distributions tended to shift with expertise, with median radial distances decreasing by $\beta= -0.133$ per level increase, 95\%CI$[-0.239,-0.027]$, and q90 distances increasing by $\beta= 0.106$ per level increase, 95\%CI$[-0.003,0.214]$; $p_{\mathrm{FDR}}= .025$ and $p_{\mathrm{FDR}} = .083$, respectively. In general expert-expert distributions tended to have slightly more concentration near the centroid, but also had further points in the periphery, while the Q90 result was not statistically significant.
-% probably put this somewhere later: We can see through these changes in distribution how conversations tend to "pull together" (with closer centroids and smaller median radial distances) and expand or "reach out" (with larger PR and greater q90 radial distances) as partner expertise increased
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\linewidth]{../outputs/paper/figures/main_metric_trajectories_radial_distance_median.png}
-    \caption{Median radial distance by partner expertise. Median radial distance is the median cosine distance of a conversation's utterances from its centroid. Gray lines are the 21 videos; the black line is the mean across videos.}
-    \label{fig:main_metric_trajectories_radial_distance_median}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\linewidth]{../outputs/paper/figures/main_metric_distribution_radial_distance_median.png}
-    \caption{Distribution of median radial distance by partner expertise. Each dot is one of the 105 conversations. Boxes show the median and quartiles; whiskers extend to the most extreme values within 1.5 times the interquartile range.}
-    \label{fig:radial-distance-median}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\linewidth]{../outputs/paper/figures/main_metric_trajectories_radial_distance_q90.png}
-    \caption{90th-percentile radial distance by partner expertise. 90th-percentile radial distance is the 90th percentile of the cosine distances of a conversation's utterances from its centroid. Gray lines are the 21 videos; the black line is the mean across videos.}
-    \label{fig:main_metric_trajectories_radial_distance_q90}
-\end{figure}
-
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\linewidth]{../outputs/paper/figures/main_metric_distribution_radial_distance_q90.png}
-    \caption{Distribution of 90th-percentile radial distance by partner expertise. Each dot is one of the 105 conversations. Boxes show the median and quartiles; whiskers extend to the most extreme values within 1.5 times the interquartile range.}
-    \label{fig:radial-distance-q90}
-\end{figure}
-
-\subsection{Participation Ratio}
-
-  Participation ratio tended to increase as expertise gap decreased as can be seen in figure~\ref{fig:participation-ratio}, indicating higher conversation dimensionality as $E_B$ increases. Participation ratio increased by $\beta= 0.176$ per level increase, with 95\%CI$[0.119, 0.233]$ and a $p_{\mathrm{FDR}} $ of $0.002$. Even with little difference in overall dispersion/variation as seen with the radial distances, the expert-expert conversations had significantly higher PR values, indicating that even with similar overall dispersions, the variation was structured significantly differently than in lower $E_B$ conversations.
 %move to discussion
-Expert-expert pairs were able to more precisely expand the conversation in controlled ways(they can say more things in more controlled ways). In expert-novice conversations, even though the expert could take the conversation in more directions(higher degrees of freedom(?)), their potential semantic trajectories are constrained in that they have to scaffold for the novice speaker. This is a plausable explanation as to why the PR values for expert-novice tend to be significantly lower, even with experts leading the conversations.
+Expert-expert pairs were able to more precisely expand the conversation in controlled ways(they can say more things in more controlled ways). In expert-novice conversations, even though the expert could take the conversation in more directions(higher degrees of freedom(?)), their potential semantic trajectories are constrained in that they have to scaffold for the novice speaker. This is a plausible explanation as to why the PR values for expert-novice tend to be significantly lower, even with experts leading the conversations.
 
 \begin{figure}[H]
     \centering
@@ -233,57 +217,29 @@ Expert-expert pairs were able to more precisely expand the conversation in contr
     \label{fig:participation_ratio_plot}
 \end{figure}
 
-\subsection{Statistical Significance}
-% Probably rename this later, but it's fine for now
-
-\begin{table}[htbp]
-\centering
-\small
-\caption{Associations between partner expertise and conversational geometry.}
-\label{tab:expertise-effects}
-\begin{tabular}{llrrrr}
-\toprule
-Metric & Model & $b_{\mathrm{SD}}$ & 95\% CI
-& $p_{\mathrm{boot}}$ & $p_{\mathrm{BH}}$ \\
-\midrule
-Centroid distance
-& Unadjusted     & $-0.391$& [$-0.489$, $-0.294$]& .001 & .002 \\
-& Count-adjusted & $-0.354$& [$-0.453$, $-0.255$]& .001 & .002 \\
-\addlinespace
-Median radial distance
-& Unadjusted     & $-0.061$ & [$-0.182$, $0.060$]  & .335 & .335 \\
-& Count-adjusted & $-0.133$ & [$-0.239$, $-0.027$] & .019 & .025 \\
-\addlinespace
-Q90 radial distance
-& Unadjusted     & $0.141$  & [$0.034$, $0.248$]   & .009 & .014 \\
-& Count-adjusted & $0.106$  & [$-0.003$, $0.214$]  & .073 & .083 \\
-\addlinespace
-Participation ratio
-& Unadjusted     & $0.275$  & [$0.179$, $0.370$]   & .001 & .002 \\
-& Count-adjusted & $0.176$  & [$0.119$, $0.233$]   & .001 & .002 \\
-\bottomrule
-\end{tabular}
-
-\medskip
-\begin{minipage}{\linewidth}
-\footnotesize
-\textit{Note.}
-For each measure, $b_{\mathrm{SD}}$ represents the change in metric value per one increase in $E_B$.
-\end{minipage}
-\end{table}
-
 \section{Discussion}
 
-% Summary of main findings
+As partner expertise increased, the two speakers' centroids moved closer together as expected (the ``contraction'' part of contraction and ramification). Experts talk more like each other than experts and novices do. Thus they occupy a similar region of semantic space and their averaged semantic contributions point in similar directions as compared with experts and beginners. We read this as a form of contraction: speakers who have learned to talk about a topic in similar ways have learned to speak within a common part of semantic space. With novice partners, the expert introduces technical content while the partner answers in everyday language, which keeps their average positions apart.
+% This should be unpacked with closer attention to the discussions and perhaps we can add snippets here. But like, what was going on in the conversations. We could just enumerate qualitatively the kinds of things happening in each case.
 
-% Interpretation / high level discussion of contraction and ramification.
-% Talk about distinction from previous skill literature mentioned in Introduction.
+These differences are not simply a matter of how much semantic ground a conversation covers. We also tested a more literal form of contraction, a reduction in the size of the space a conversation spans, and found at most weak support for it: in additional analyses (Appendix A), the overall spread of utterances around the conversation's centroid changed little with expertise. Expert--novice and expert--expert conversations thus move through comparably large regions of semantic space. This makes sense insofar as novices as much as experts use a wide variety of terms and ways of speaking, just in different parts of the space. What differs is how that region is organized: novice conversations stretch along a few dominant directions, while expert conversations distribute across many. That is, participation ratio \emph{increased} with partner expertise. This is the ramification part of the contraction and ramification idea.  Conversations with more expert partners spread their variation across more independent directions. They talked about more things in more ways, or about the same topic in more distinct ways. 
 
-% Implications. Go through each of the (many!) literatures relevant to this and discuss what this shows. We can drop in a bit of Husserl too :)
+% Citations etc. And check. I wrote this from top of head.
+An obvious direction to develop these ideas is in terms of the common ground literature. This is an empirical literature which shows how dyads will learn to efficiently use language in a way that reflects their common understanding of a situation, so that they say only as much as is needed to move a discussion forward.  This gives us common scaffolding on which to talk. That research normally involves shared words that allow concision and information-rich packing. This suggests experts say the same kinds of things in the same kinds of ways, using the same common-ground scaffolding. Our results support this. But one thing not discussed often in common ground is that common ground does not mean people say less. On the contrary, they say more, and in more ways, using the efficient packing of their shared stock of words and phrases (compare Jevons paradox, ``an economic phenomenon said to occur when technological improvements that increase the efficiency of a resource's use lead to a rise, rather than a fall, in total consumption of that resource''). % Jevons quote is Wikipedia wording; cite a proper source or paraphrase.
+There are no doubt interesting avenues for exploration drawing on this literature using these ideas.
 
-% Limitations
+One application of these ideas is to phenomenology. In fact, this was an original motivation of the study. A common and suggestive concept in phenomenology is that of a horizon, which has a variety of technical meanings but generally means something like one's sense of the broader context of a domain. It corresponds to our sense of a thing beyond what we immediately see or experience of it. When seeing a familiar house the horizon includes our sense of where it is in relation to various other structures and streets and landmarks. There is in some sense more horizon content when seeing something familiar than when seeing something unfamiliar. In a similar way, when doing something we know well, or when talking about something we have expertise on, we \emph{feel} more flexibility and freedom and confidence. We can do or say more things in more ways and in response to more situations. This has also been extended to dialogue and discourse, especially by Gadamer, who refers to ``fusions'' of horizons when two people develop common ground and can in a sense inhabit the same space in a conversation, and push in new and interesting directions, in a similar way to how two expert dancers or jiu-jitsu players or chess players or mathematicians can leverage their shared expertise to dance or fight or create (inclusive or here!) in productive and creative ways.  
 
-% Future directions
+% Check whether this kind of personalization and reference to our initial motivations is ok. 
+Indeed this was our original motivation, and to test it we looked at graph theoretical measures, on the idea that experts would follow more directions from the same source word than novices would. However the graph theoretic approach ran into all kinds of trouble (see Appendix A).
+% I forgot what the problems were. They were legion. If you remember start add them here
+
+% Limitations. Highly exploratory. Using existing data for a tv show, not scientificially gathered data. Not pre-registered. Measures were chosen after examining several candidates, so its results should be confirmed with measures specified in advance. The data come from a produced video series rather than conversations gathered for research.
+
+% Future directions. Gather data in a more intentional way. Pre-registered studies of specific hypotheses. 
+
+% Appendix A listing the other metrics and methods we tried (e.g., the network/graph approaches noted in Methods), a short paragraph each: what it measured, why we tried it, what happened. Radial distance gets its table rows and figures there. Point to Appendix A from Methods (e.g., the Metrics lead-in) and from the graph-theory sentence in Discussion.
+
 
 \bibliographystyle{plainnat}
 \bibliography{horizons}
